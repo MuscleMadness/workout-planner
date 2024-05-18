@@ -1,7 +1,0 @@
-{
-  "name": "workout-tracker",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
