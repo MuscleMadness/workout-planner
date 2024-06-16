@@ -11,20 +11,18 @@
     </ion-toolbar>
   </ion-header>
   <ion-item>
-    <ion-select
-      aria-label="Muscle"
-      label="Target Muscle"
-      justify="start"
-      placeholder="Choose muscle group"
-      multiple="true"
-      (ionChange)="handleChange($event)"
-    >
-      @for (muscle of muscleGroups; track muscle) {
-      <ion-select-option justify="start" [value]="muscle"
-        >{{ muscle.name }}</ion-select-option
+    <mat-form-field>
+      <mat-label>Target Muscle</mat-label>
+      <mat-select
+        [formControl]="workoutsControl"
+        multiple
+        (selectionChange)="onSelectionChange($event)"
       >
-      }
-    </ion-select>
+        @for (muscle of muscleGroups; track muscle) {
+        <mat-option [value]="muscle">{{ muscle.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </ion-item>
 
   <workout-list class="full-size" [workouts]="filteredWorkouts"></workout-list>

@@ -1,7 +1,18 @@
-<ion-list>
-  @for (workout of workouts; track workout.name) {
-  <ion-item>
-    <ion-label>{{ workout.name }}</ion-label>
-  </ion-item>
-  }
-</ion-list>
+<mat-list>
+  <ng-container *ngFor="let workout of workouts; let last = last">
+    <mat-list-item>
+      <img matListItemAvatar src="{{ workout.thumbnail }}" alt="..." />
+      <h3 matListItemTitle>
+        <strong>{{ workout.name }}</strong>
+      </h3>
+      <p matListItemLine>
+        <mat-chip-set aria-label="Fish selection">
+          @for (muscle of workout.primaryMuscles; track muscle) {
+          <mat-chip>{{ muscle }}</mat-chip>
+          }
+        </mat-chip-set>
+      </p>
+    </mat-list-item>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </ng-container>
+</mat-list>

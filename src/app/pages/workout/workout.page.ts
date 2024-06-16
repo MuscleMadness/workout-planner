@@ -19,6 +19,15 @@ import { IonSelectCustomEvent } from '@ionic/core';
 import Exercise from 'src/models/Excercise';
 import { MuscleGroup } from 'src/models/MuscleGroup';
 import { MuscleGroupService } from 'src/services/musclegroup.sevice';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MaterialModule } from 'src/app/material.module';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-workout',
@@ -36,12 +45,15 @@ import { MuscleGroupService } from 'src/services/musclegroup.sevice';
     IonContent,
     ExploreContainerComponent,
     WorkoutListComponent,
+    MaterialModule,
   ],
 })
 export class Tab1Page {
   workouts: Excercise[] = [];
   muscleGroups: MuscleGroup[] = [];
   filteredWorkouts: Exercise[] = [];
+  workoutsControl = new FormControl('');
+
   constructor(
     private excerciseService: ExcercisesService,
     private muscleGroupService: MuscleGroupService,
@@ -56,15 +68,13 @@ export class Tab1Page {
     this.cdr.detectChanges();
   }
 
-  handleChange(
-    $event: IonSelectCustomEvent<SelectChangeEventDetail<MuscleGroup[]>>
-  ) {
-    const selectedMuscleGroups = $event.detail.value;
+  onSelectionChange(event: MatSelectChange) {
+    const selectedMuscleGroups = event.value;
     console.log(selectedMuscleGroups);
 
     const uniqueMuscleGroups = new Set<string>();
 
-    selectedMuscleGroups.forEach((muscleGroup) => {
+    selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
       console.log(muscleGroup.values);
       muscleGroup.values.forEach((value) => {
         uniqueMuscleGroups.add(value);
@@ -73,7 +83,7 @@ export class Tab1Page {
     console.log(uniqueMuscleGroups);
 
     this.filteredWorkouts = this.workouts.filter((workout) => {
-      return uniqueMuscleGroups.has(workout.primaryMuscles[0]);
+      return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
     });
 
     this.cdr.detectChanges();
