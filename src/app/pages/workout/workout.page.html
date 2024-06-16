@@ -7,9 +7,23 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Excercises</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item>
+    <ion-select
+      aria-label="Muscle"
+      placeholder="Target Muscle"
+      multiple="true"
+      (ionChange)="handleChange($event)"
+    >
+      @for (muscle of majorGroupsNames; track muscle) {
+      <ion-select-option justify="start" [value]="muscle"
+        >{{ muscle }}</ion-select-option
+      >
+      }
+    </ion-select>
+  </ion-item>
 
-  <app-explore-container name="All Excercises page"> </app-explore-container>
+  <workout-list class="full-size" [workouts]="filteredWorkouts"></workout-list>
 </ion-content>
