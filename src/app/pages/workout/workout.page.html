@@ -13,13 +13,15 @@
   <ion-item>
     <ion-select
       aria-label="Muscle"
-      placeholder="Target Muscle"
+      label="Target Muscle"
+      justify="start"
+      placeholder="Choose muscle group"
       multiple="true"
       (ionChange)="handleChange($event)"
     >
-      @for (muscle of majorGroupsNames; track muscle) {
+      @for (muscle of muscleGroups; track muscle) {
       <ion-select-option justify="start" [value]="muscle"
-        >{{ muscle }}</ion-select-option
+        >{{ muscle.name }}</ion-select-option
       >
       }
     </ion-select>
