@@ -1,17 +1,27 @@
 <mat-list>
   <ng-container *ngFor="let workout of workouts; let last = last">
-    <mat-list-item>
-      <img matListItemAvatar src="{{ workout.thumbnail }}" alt="..." />
-      <h3 matListItemTitle>
-        <strong>{{ workout.name }}</strong>
-      </h3>
-      <p matListItemLine>
-        <mat-chip-set aria-label="Fish selection">
-          @for (muscle of workout.primaryMuscles; track muscle) {
-          <mat-chip>{{ muscle }}</mat-chip>
-          }
-        </mat-chip-set>
-      </p>
+    <mat-list-item class="workout-item">
+      <div class="container">
+        <div class="image">
+          <img
+            src="{{ workout.thumbnail }}"
+            alt="{{ workout.thumbnail }}"
+            loading="lazy"
+          />
+        </div>
+        <div class="text">
+          <h3 matListItemTitle>
+            <strong>{{ workout.name }}</strong>
+          </h3>
+          <p matListItemLine>
+            <mat-chip-set aria-label="Fish selection">
+              @for (muscle of workout.primaryMuscles; track muscle) {
+              <mat-chip>{{ muscle }}</mat-chip>
+              }
+            </mat-chip-set>
+          </p>
+        </div>
+      </div>
     </mat-list-item>
     <mat-divider *ngIf="!last"></mat-divider>
   </ng-container>

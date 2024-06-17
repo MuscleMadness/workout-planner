@@ -4,7 +4,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatListModule } from '@angular/material/list';
+import { MatListItem, MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSelectModule,
     ReactiveFormsModule,
     MatListModule,
+    MatListItem,
     MatChipsModule,
   ],
   exports: [
@@ -25,6 +26,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSelectModule,
     ReactiveFormsModule,
     MatListModule,
+    MatListItem,
     MatChipsModule,
   ],
 })
