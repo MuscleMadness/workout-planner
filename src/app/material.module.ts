@@ -6,6 +6,8 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatListItem, MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -18,6 +20,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatListItem,
     MatChipsModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   exports: [
     CommonModule,
@@ -28,6 +32,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatListItem,
     MatChipsModule,
+    MatDialogModule,
+    MatIconModule,
   ],
 })
 export class MaterialModule {}

@@ -5,11 +5,13 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
+  IonThumbnail,
 } from '@ionic/angular/standalone';
 import { NgModule } from '@angular/core';
 import Excercise from 'src/models/Excercise';
 import { ExcercisesService } from 'src/services/excercises.service';
 import { MaterialModule } from '../../material.module';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'workout-list',
@@ -23,6 +25,8 @@ import { MaterialModule } from '../../material.module';
     IonSelect,
     IonSelectOption,
     MaterialModule,
+    IonThumbnail,
+    IonicModule,
   ],
 })
 export class WorkoutListComponent implements OnInit {

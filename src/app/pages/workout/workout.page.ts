@@ -6,28 +6,20 @@ import {
   IonContent,
   IonItem,
   IonLabel,
-  IonSelectOption,
-  IonSelect,
-  SelectChangeEventDetail,
+  ModalController,
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../../components/explore-container/explore-container.component';
 import { ExcercisesService } from 'src/services/excercises.service';
 import Excercise from 'src/models/Excercise';
 import { WorkoutListComponent } from '../../components/workout-list/workout-list.component';
 import { ChangeDetectorRef } from '@angular/core';
-import { IonSelectCustomEvent } from '@ionic/core';
 import Exercise from 'src/models/Excercise';
 import { MuscleGroup } from 'src/models/MuscleGroup';
 import { MuscleGroupService } from 'src/services/musclegroup.sevice';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
-import { MatSelectChange } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
+import { MusclePickerComponent } from 'src/app/components/muscle-picker/muscle-picker.component';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-workout',
@@ -36,15 +28,15 @@ import { MatSelectChange } from '@angular/material/select';
   standalone: true,
   imports: [
     IonLabel,
-    IonSelect,
-    IonSelectOption,
     IonItem,
+    IonicModule,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     ExploreContainerComponent,
     WorkoutListComponent,
+    MusclePickerComponent,
     MaterialModule,
   ],
 })
@@ -52,12 +44,14 @@ export class Tab1Page {
   workouts: Excercise[] = [];
   muscleGroups: MuscleGroup[] = [];
   filteredWorkouts: Exercise[] = [];
-  workoutsControl = new FormControl('');
+  selectedMuscleGroups?: MuscleGroup[];
 
   constructor(
     private excerciseService: ExcercisesService,
     private muscleGroupService: MuscleGroupService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -68,24 +62,55 @@ export class Tab1Page {
     this.cdr.detectChanges();
   }
 
-  onSelectionChange(event: MatSelectChange) {
-    const selectedMuscleGroups = event.value;
-    console.log(selectedMuscleGroups);
+  // onSelectionChange(event: MatSelectChange) {
+  //   const selectedMuscleGroups = event.value;
+  //   console.log(selectedMuscleGroups);
 
-    const uniqueMuscleGroups = new Set<string>();
+  //   const uniqueMuscleGroups = new Set<string>();
 
-    selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
-      console.log(muscleGroup.values);
-      muscleGroup.values.forEach((value) => {
-        uniqueMuscleGroups.add(value);
+  //   selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
+  //     console.log(muscleGroup.values);
+  //     muscleGroup.values.forEach((value) => {
+  //       uniqueMuscleGroups.add(value);
+  //     });
+  //   });
+  //   console.log(uniqueMuscleGroups);
+
+  //   this.filteredWorkouts = this.workouts.filter((workout) => {
+  //     return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
+  //   });
+
+  //   this.cdr.detectChanges();
+  // }
+
+  async openFilterDialog() {
+    const modal = await this.modalCtrl.create({
+      component: MusclePickerComponent,
+      componentProps: {
+        selectedMuscleGroups: this.selectedMuscleGroups,
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.selectedMuscleGroups = data as MuscleGroup[];
+
+      const uniqueMuscleGroups = new Set<string>();
+
+      this.selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
+        console.log(muscleGroup.values);
+        muscleGroup.values.forEach((value) => {
+          uniqueMuscleGroups.add(value);
+        });
       });
-    });
-    console.log(uniqueMuscleGroups);
 
-    this.filteredWorkouts = this.workouts.filter((workout) => {
-      return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
-    });
+      this.filteredWorkouts = this.workouts.filter((workout) => {
+        return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
+      });
 
-    this.cdr.detectChanges();
+      this.cdr.detectChanges();
+    }
   }
 }

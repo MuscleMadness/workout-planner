@@ -5,25 +5,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Excercises</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-item>
+    <mat-icon
+      aria-hidden="false"
+      class="filter-icon"
+      aria-label="Filter icon"
+      (click)="openFilterDialog()"
+      >filter_list</mat-icon
+    >
     <mat-form-field>
       <mat-label>Target Muscle</mat-label>
-      <mat-select
-        [formControl]="workoutsControl"
-        multiple
-        (selectionChange)="onSelectionChange($event)"
-      >
-        @for (muscle of muscleGroups; track muscle) {
-        <mat-option [value]="muscle">{{ muscle.name }}</mat-option>
-        }
-      </mat-select>
+      <mat-select multiple> </mat-select>
     </mat-form-field>
   </ion-item>
-
   <workout-list class="full-size" [workouts]="filteredWorkouts"></workout-list>
 </ion-content>
