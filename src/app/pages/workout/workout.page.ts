@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import {
-  IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
   IonItem,
   IonLabel,
   ModalController,
+  IonHeader,
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../../components/explore-container/explore-container.component';
 import { ExcercisesService } from 'src/services/excercises.service';
@@ -19,7 +19,6 @@ import { MuscleGroupService } from 'src/services/musclegroup.sevice';
 import { MaterialModule } from 'src/app/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { MusclePickerComponent } from 'src/app/components/muscle-picker/muscle-picker.component';
-import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-workout',
@@ -27,10 +26,9 @@ import { IonicModule } from '@ionic/angular';
   styleUrls: ['workout.page.scss'],
   standalone: true,
   imports: [
+    IonHeader,
     IonLabel,
     IonItem,
-    IonicModule,
-    IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
@@ -62,27 +60,6 @@ export class Tab1Page {
     this.cdr.detectChanges();
   }
 
-  // onSelectionChange(event: MatSelectChange) {
-  //   const selectedMuscleGroups = event.value;
-  //   console.log(selectedMuscleGroups);
-
-  //   const uniqueMuscleGroups = new Set<string>();
-
-  //   selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
-  //     console.log(muscleGroup.values);
-  //     muscleGroup.values.forEach((value) => {
-  //       uniqueMuscleGroups.add(value);
-  //     });
-  //   });
-  //   console.log(uniqueMuscleGroups);
-
-  //   this.filteredWorkouts = this.workouts.filter((workout) => {
-  //     return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
-  //   });
-
-  //   this.cdr.detectChanges();
-  // }
-
   async openFilterDialog() {
     const modal = await this.modalCtrl.create({
       component: MusclePickerComponent,
@@ -96,6 +73,7 @@ export class Tab1Page {
 
     if (role === 'confirm') {
       this.selectedMuscleGroups = data as MuscleGroup[];
+      console.log(this.selectedMuscleGroups?.length);
 
       const uniqueMuscleGroups = new Set<string>();
 

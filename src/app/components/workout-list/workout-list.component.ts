@@ -5,7 +5,6 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonThumbnail,
 } from '@ionic/angular/standalone';
 import { NgModule } from '@angular/core';
 import Excercise from 'src/models/Excercise';
@@ -25,7 +24,6 @@ import { IonicModule } from '@ionic/angular';
     IonSelect,
     IonSelectOption,
     MaterialModule,
-    IonThumbnail,
     IonicModule,
   ],
 })

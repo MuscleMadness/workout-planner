@@ -10,7 +10,6 @@ import { MaterialModule } from 'src/app/material.module';
 import { MuscleGroup } from 'src/models/MuscleGroup';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalController } from '@ionic/angular';
-import { IonHeader } from '@ionic/angular/standalone';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { MuscleGroupService } from 'src/services/musclegroup.sevice';
@@ -22,7 +21,7 @@ import { MatChipListbox } from '@angular/material/chips';
   standalone: true,
   templateUrl: './muscle-picker.component.html',
   styleUrls: ['./muscle-picker.component.scss'],
-  imports: [IonHeader, MaterialModule, IonicModule, FormsModule],
+  imports: [MaterialModule, IonicModule, FormsModule],
 })
 export class MusclePickerComponent implements OnInit {
   @ViewChild('chipList') chipList?: MatChipListbox;
@@ -36,6 +35,18 @@ export class MusclePickerComponent implements OnInit {
 
   ngOnInit() {
     this.muscleGroups = this.muscleGroupService.getMuscleGroups();
+  }
+
+  ngAfterViewInit() {
+    if (this.selectedMuscleGroups) {
+      this.selectedMuscleGroups.forEach((selectedGroup) => {
+        this.chipList?._chips.forEach((chip) => {
+          if (chip.value.toLowerCase() === selectedGroup.key) {
+            chip._setSelectedState(true, false, false);
+          }
+        });
+      });
+    }
   }
 
   ngOnChanges() {}
