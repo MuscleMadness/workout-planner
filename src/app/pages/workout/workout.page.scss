@@ -6,6 +6,14 @@
   height: 40px;
   width: 40px;
   padding: 10px;
-  background-color: #3f51b5; /* Adjust as needed */
-  color: white;
+  background-color: white;
+  color: #3f51b5;
+  }
+
+  .horizontal-container {
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: right;
+    background-color: white;
   }

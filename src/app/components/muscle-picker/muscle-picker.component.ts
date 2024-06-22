@@ -47,7 +47,9 @@ export class MusclePickerComponent implements OnInit {
   confirm() {
     var selectedChips = this.chipList?._chips.filter((chip) => chip.selected);
     var selectedMuscleGroups = selectedChips?.map((chip) => {
-      return this.muscleGroups?.find((group) => group.key === chip.value);
+      return this.muscleGroups?.find(
+        (group) => group.key === chip.value.toLowerCase()
+      );
     });
     return this.modalCtrl.dismiss(selectedMuscleGroups, 'confirm');
   }
@@ -55,21 +57,21 @@ export class MusclePickerComponent implements OnInit {
   selectMuscle(muscleGroup: MuscleGroup) {}
 
   onSelectionChange(selection: MatChipSelectionChange) {
-    if (selection.source.value === 'all') {
+    if (selection.source.value.toLowerCase() === 'all') {
       if (selection.source.selected) {
         this.chipList?._chips.forEach((chip) => {
-          chip.select();
+          chip._setSelectedState(true, false, false);
         });
       } else {
         this.chipList?._chips.forEach((chip) => {
-          chip.deselect();
+          chip._setSelectedState(false, false, false);
         });
       }
     } else {
       if (!selection.source.selected) {
         this.chipList?._chips.forEach((chip) => {
           if (chip.value === 'all') {
-            chip.deselect();
+            chip._setSelectedState(false, false, false);
           }
         });
       } else {
@@ -80,12 +82,13 @@ export class MusclePickerComponent implements OnInit {
             allSelected = false;
           }
         });
+        const allChip = this.chipList?._chips.find(
+          (c) => c.value.toLowerCase() === 'all'
+        );
         if (allSelected) {
-          this.chipList?._chips.forEach((chip) => {
-            if (chip.value === 'all') {
-              chip.select();
-            }
-          });
+          allChip?._setSelectedState(true, false, false);
+        } else {
+          allChip?._setSelectedState(false, false, false);
         }
       }
     }

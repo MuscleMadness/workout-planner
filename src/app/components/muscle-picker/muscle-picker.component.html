@@ -13,7 +13,7 @@
   <mat-chip-listbox #chipList aria-label="choose target muscle" multiple>
     @for (muscle of muscleGroups; track muscle) {
     <mat-chip-option (selectionChange)="onSelectionChange($event)">
-      {{ muscle.key }}
+      {{ muscle.key | titlecase }}
     </mat-chip-option>
     }
   </mat-chip-listbox>
