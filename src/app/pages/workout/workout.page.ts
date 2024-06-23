@@ -19,6 +19,8 @@ import { MuscleGroupService } from 'src/services/musclegroup.sevice';
 import { MaterialModule } from 'src/app/material.module';
 import { MatDialog } from '@angular/material/dialog';
 import { MusclePickerComponent } from 'src/app/components/muscle-picker/muscle-picker.component';
+import { EquipmentPickerComponent } from 'src/app/components/equipment-picker/equipment-picker.component';
+import Equipment from 'src/models/Equipment';
 
 @Component({
   selector: 'app-workout',
@@ -43,6 +45,7 @@ export class Tab1Page {
   muscleGroups: MuscleGroup[] = [];
   filteredWorkouts: Exercise[] = [];
   selectedMuscleGroups?: MuscleGroup[];
+  equipments: Equipment[] = [];
 
   constructor(
     private excerciseService: ExcercisesService,
@@ -54,13 +57,14 @@ export class Tab1Page {
 
   ngOnInit() {
     this.workouts = this.excerciseService.getAllExcercises();
+    this.equipments = this.excerciseService.getAllEquipments();
     this.filteredWorkouts = this.workouts;
     this.muscleGroups = this.muscleGroupService.getMuscleGroups();
     console.log(this.filteredWorkouts[0]);
     this.cdr.detectChanges();
   }
 
-  async openFilterDialog() {
+  async openMusclePickerDialog() {
     const modal = await this.modalCtrl.create({
       component: MusclePickerComponent,
       componentProps: {
@@ -73,22 +77,54 @@ export class Tab1Page {
 
     if (role === 'confirm') {
       this.selectedMuscleGroups = data as MuscleGroup[];
-      console.log(this.selectedMuscleGroups?.length);
-
-      const uniqueMuscleGroups = new Set<string>();
-
-      this.selectedMuscleGroups.forEach((muscleGroup: MuscleGroup) => {
-        console.log(muscleGroup.values);
-        muscleGroup.values.forEach((value) => {
-          uniqueMuscleGroups.add(value);
-        });
-      });
-
-      this.filteredWorkouts = this.workouts.filter((workout) => {
-        return uniqueMuscleGroups.has(workout.primaryMuscles![0]);
-      });
-
-      this.cdr.detectChanges();
+      this.filterWorkouts();
     }
+  }
+
+  async openEquipmentPickerDialog() {
+    const modal = await this.modalCtrl.create({
+      component: EquipmentPickerComponent,
+      componentProps: {
+        equipments: this.equipments,
+      },
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.filterWorkouts();
+    }
+  }
+
+  filterWorkouts() {
+    const selectedMuscleGroups = new Set<string>();
+
+    this.selectedMuscleGroups?.forEach((muscleGroup: MuscleGroup) => {
+      console.log(muscleGroup.values);
+      muscleGroup.values.forEach((value) => {
+        selectedMuscleGroups.add(value);
+      });
+    });
+
+    // filter workouts by selected muscle groups
+    this.filteredWorkouts = this.workouts.filter((workout) => {
+      return selectedMuscleGroups.has(workout.primaryMuscles![0]);
+    });
+
+    var selectedEquipments = (this.equipments as Equipment[])
+      .filter((equipment) => equipment.selected)
+      .map((equipment) => equipment.name);
+
+    // filter workouts by selected equipments
+    if (selectedEquipments.length > 0) {
+      this.filteredWorkouts = this.filteredWorkouts.filter((workout) => {
+        return selectedEquipments.includes(
+          workout.equipment?.toLowerCase() || ''
+        );
+      });
+    }
+
+    this.cdr.detectChanges();
   }
 }
