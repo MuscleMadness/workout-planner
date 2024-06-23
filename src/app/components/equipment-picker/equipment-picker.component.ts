@@ -33,9 +33,17 @@ export class EquipmentPickerComponent implements OnInit {
   }
 
   onSelectionChange($event: MatChipSelectionChange) {
-    var equipment = this.equipments?.find(
-      (equipment) => equipment.name === $event.source.value
-    );
-    equipment!.selected = $event.source.selected;
+    if ($event.source.value.toLowerCase() === 'all') {
+      if ($event.source.selected) {
+        this.equipments?.forEach((equipment) => (equipment.selected = true));
+      } else {
+        this.equipments?.forEach((equipment) => (equipment.selected = false));
+      }
+    } else {
+      var equipment = this.equipments?.find(
+        (equipment) => equipment.name === $event.source.value.toLowerCase()
+      );
+      equipment!.selected = $event.source.selected;
+    }
   }
 }

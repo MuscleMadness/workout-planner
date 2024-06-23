@@ -27,6 +27,7 @@ export class ExcercisesService {
           .map((equipment) => (equipment === null ? 'Cardio' : equipment))
       ),
     ];
+    uniqueEquipmentNames.unshift('all');
     console.log(uniqueEquipmentNames);
     const uniqueEquipments = uniqueEquipmentNames.map(
       (equipment) => new Equipment(equipment)

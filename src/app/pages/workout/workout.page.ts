@@ -109,7 +109,9 @@ export class Tab1Page {
 
     // filter workouts by selected muscle groups
     this.filteredWorkouts = this.workouts.filter((workout) => {
-      return selectedMuscleGroups.has(workout.primaryMuscles![0]);
+      return selectedMuscleGroups.size === 0
+        ? true
+        : selectedMuscleGroups.has(workout.primaryMuscles![0]);
     });
 
     var selectedEquipments = (this.equipments as Equipment[])

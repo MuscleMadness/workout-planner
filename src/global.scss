@@ -9,10 +9,43 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+$muscle-red-palette: (
+  50: #c93636,
+  100: #c93636,
+  200: #c93636,
+  300: #c93636,
+  400: #c93636,
+  500: #c93636, // main shade
+  600: #c93636,
+  700: #c93636,
+  800: #c93636,
+  900: #c93636,
+  A100: #c93636,
+  A200: #c93636,
+  A400: #c93636,
+  A700: #c93636,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #000,
+    400: #000,
+    500: #fff, // assuming white contrast for the main shade
+    600: #000,
+    700: #000,
+    800: #000,
+    900: #000,
+    A100: #000,
+    A200: #000,
+    A400: #000,
+    A700: #000,
+  )
+);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat.define-palette(mat.$indigo-palette);
+$app-primary: mat.define-palette($muscle-red-palette);
 $app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
