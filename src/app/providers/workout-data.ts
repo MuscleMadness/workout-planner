@@ -87,12 +87,25 @@ export class WorkoutData {
     return this.load();
   }
 
-  getWorkouts(levels: string[]): any {
+  getWorkouts(
+    muscleGroups: string[],
+    equipments: string[],
+    levels: string[]
+  ): any {
     return this.load()
       .pipe(
         map((allExcercises: Exercise[]) => {
           var filteredExercises = allExcercises.filter((exercise) => {
-            return levels.length == 0 || levels.includes(exercise.level ?? '');
+            return (
+              (levels.length == 0 ||
+              (levels.includes(exercise.level ?? '')) &&
+
+              (muscleGroups.length == 0) ||
+              muscleGroups.includes(exercise.primaryMuscles?.[0] ?? '')) &&
+
+              (equipments.length == 0 ||
+              equipments.includes(exercise.equipment ?? ''))
+            );
           });
           return filteredExercises;
         })
@@ -104,11 +117,18 @@ export class WorkoutData {
     var levels = this.exercises?.map((exercise) => exercise.level);
     const uniqueLevels = Array.from(new Set(levels));
     return uniqueLevels as string[];
-    // return ['beginner', 'intermediate', 'expert'];
   }
 
   getEquipments() {
     return this.equipments;
+  }
+
+  getMuscles() {
+    const primaryMuscles = this.exercises
+      ?.map((exercise) => exercise.primaryMuscles)
+      .reduce((acc, val) => acc!.concat(val!), []);
+    const uniquePrimaryMuscles = Array.from(new Set(primaryMuscles));
+    return uniquePrimaryMuscles;
   }
 
   fetchEquipments() {
@@ -120,7 +140,7 @@ export class WorkoutData {
           .map((equipment) => (equipment === null ? 'Cardio' : equipment))
       ),
     ];
-    uniqueEquipmentNames.unshift('all');
+    // uniqueEquipmentNames.unshift('all');
     const uniqueEquipments = uniqueEquipmentNames.map(
       (equipment) => new Equipment(equipment)
     );

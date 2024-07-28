@@ -44,7 +44,7 @@ export class WorkoutsPage implements OnInit {
   ngOnInit() {
     this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
       this.loadFilters();
-      this.updateWorkouts();  
+      this.updateWorkouts();
     });
     this.ios = this.config.get('mode') === 'ios';
   }
@@ -60,6 +60,18 @@ export class WorkoutsPage implements OnInit {
         isChecked: true,
       }));
 
+      const equipments = this.workoutData.getEquipments();
+      this.workoutFilter.equipments = equipments!.map((equipment) => ({
+        name: equipment.name,
+        isChecked: true,
+      }));
+
+      const muscleGroups = this.workoutData.getMuscles();
+      this.workoutFilter.muscleGroups = muscleGroups!.map((muscle) => ({
+        name: muscle!,
+        isChecked: true,
+      }));
+
       // localStorage.setItem('lastFilter', JSON.stringify(this.workoutFilter));
     } else {
       this.workoutFilter = JSON.parse(lastFilter);
@@ -68,11 +80,20 @@ export class WorkoutsPage implements OnInit {
   }
 
   updateWorkouts() {
+    var selectedMuscleGroups = this.workoutFilter?.muscleGroups
+      .filter((l) => l.isChecked)
+      .map((l) => l.name);
+
     var selectedLevels = this.workoutFilter?.levels
       .filter((l) => l.isChecked)
       .map((l) => l.name);
+
+    var selectedEquipments = this.workoutFilter?.equipments
+      .filter((l) => l.isChecked)
+      .map((l) => l.name);
+
     this.workoutData
-      .getWorkouts(selectedLevels ?? [])
+      .getWorkouts(selectedMuscleGroups ?? [], selectedEquipments ?? [], selectedLevels ?? [])
       .subscribe((data: WorkoutsByGroup[]) => {
         this.workoutGroups = data;
       });

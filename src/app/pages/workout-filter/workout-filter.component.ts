@@ -18,6 +18,7 @@ export class WorkoutFilterComponent implements OnInit {
 
   ios: boolean = false;
   workoutFilter?: WorkoutFilter;
+  allMusclesChecked: boolean = false;
 
   ngOnInit() {}
 
@@ -34,7 +35,24 @@ export class WorkoutFilterComponent implements OnInit {
     this.modalCtrl.dismiss(data);
   }
 
-  selectAll(check: boolean) {
+  toggleAllMuscleGroups(event: any) {
+    const isChecked = event.detail.checked;
+    this.workoutFilter?.muscleGroups.forEach((muscleGroup: any) => {
+      muscleGroup.isChecked = isChecked;
+    });
   }
-  
+
+  toggleAllEquipments(event: any) {
+    const isChecked = event.detail.checked;
+    this.workoutFilter?.equipments.forEach((equipment: any) => {
+      equipment.isChecked = isChecked;
+    });
+  }
+
+  toggleAllLevels(event: any) {
+    const isChecked = event.detail.checked;
+    this.workoutFilter?.levels.forEach((level: any) => {
+      level.isChecked = isChecked;
+    });
+  }
 }
