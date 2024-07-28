@@ -14,6 +14,9 @@ import {
 import Exercise from '../../models/Excercise';
 import { WorkoutData } from '../../providers/workout-data';
 import WorkoutsByGroup from 'src/app/models/WorkoutsByGroup';
+import { WorkoutFilterComponent } from '../workout-filter/workout-filter.component';
+import { filter } from 'rxjs';
+import WorkoutFilter from '../../models/WorkoutFilter';
 
 @Component({
   selector: 'app-workouts',
@@ -27,32 +30,72 @@ export class WorkoutsPage implements OnInit {
   queryText = '';
   segment = 'all';
   showSearchbar: boolean = false;
-  workoutGroups: any = [];
+  workoutGroups: WorkoutsByGroup[] = [];
+  workoutFilter?: WorkoutFilter;
 
   constructor(
     public workoutData: WorkoutData,
+    public routerOutlet: IonRouterOutlet,
+    public modalCtrl: ModalController,
     public user: UserData,
     public config: Config
   ) {}
 
   ngOnInit() {
-    this.updateWorkouts();
-
+    this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
+      this.loadFilters();
+      this.updateWorkouts();  
+    });
     this.ios = this.config.get('mode') === 'ios';
   }
 
-  updateWorkouts() {
-    this.workoutData.getWorkouts().subscribe((data: any) => {
-      this.workoutGroups = data;
-    });
+  loadFilters() {
+    this.workoutFilter = new WorkoutFilter();
+    const lastFilter = localStorage.getItem('lastFilter');
+
+    if (!lastFilter) {
+      const levels = this.workoutData.getLevels();
+      this.workoutFilter.levels = levels!.map((level) => ({
+        name: level,
+        isChecked: true,
+      }));
+
+      // localStorage.setItem('lastFilter', JSON.stringify(this.workoutFilter));
+    } else {
+      this.workoutFilter = JSON.parse(lastFilter);
+    }
+    console.log(this.workoutFilter);
   }
 
-  toggleList(workoutGroup : WorkoutsByGroup) {
+  updateWorkouts() {
+    var selectedLevels = this.workoutFilter?.levels
+      .filter((l) => l.isChecked)
+      .map((l) => l.name);
+    this.workoutData
+      .getWorkouts(selectedLevels ?? [])
+      .subscribe((data: WorkoutsByGroup[]) => {
+        this.workoutGroups = data;
+      });
+  }
+
+  toggleList(workoutGroup: WorkoutsByGroup) {
     workoutGroup.expanded = workoutGroup.expanded ? false : true;
   }
 
-  async presentFilter() {}
+  async presentFilter() {
+    const modal = await this.modalCtrl.create({
+      component: WorkoutFilterComponent,
+      presentingElement: this.routerOutlet.nativeEl,
+      componentProps: { filter: this.workoutFilter },
+    });
+    await modal.present();
 
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      this.workoutFilter = data;
+      this.updateWorkouts();
+    }
+  }
   async addFavorite(slidingItem: IonItemSliding, sessionData: any) {}
 
   async removeFavorite(

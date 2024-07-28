@@ -81,7 +81,7 @@
             </ion-thumbnail>
             <ion-label>
               <h2>{{workout.name}}</h2>
-              <ion-chip [outline]="true">{{workout.primaryMuscles[0]}}</ion-chip>
+              <ion-chip [outline]="true">{{workout.primaryMuscles && workout.primaryMuscles[0]}}</ion-chip>
 
               <!-- <ion-item-group
                 *ngFor="let muscle of workout.primaryMuscles"

@@ -15,6 +15,7 @@ import { MuscleGroupService } from '../services/muscle-group-service.service';
 export class WorkoutData {
   exercises?: Exercise[];
   equipments?: Equipment[];
+  exercisesByGroup?: WorkoutsByGroup[];
 
   constructor(
     public http: HttpClient,
@@ -29,8 +30,8 @@ export class WorkoutData {
       console.log('downloading data');
       return this.http
         .get('assets/data/workouts.json')
-        .pipe(map(this.processData, this))
-        .pipe(map(this.organizeByMajorMuscleGroup, this));
+        .pipe(map(this.processData, this));
+      // .pipe(map(this.organizeByMajorMuscleGroup, this));
     }
   }
 
@@ -38,11 +39,10 @@ export class WorkoutData {
     console.log('organizing data');
     var muscleGroups = this.muscleGroupService.getMuscleGroups();
 
-    const exercisesByGroup = muscleGroups.map((muscleGroup) => {
-
+    this.exercisesByGroup = muscleGroups.map((muscleGroup) => {
       var workoutForMuscle = data.filter((exercise: Exercise) => {
         return muscleGroup.values.includes(exercise.primaryMuscles?.[0] ?? '');
-      })
+      });
 
       var workoutByGroup = new WorkoutsByGroup(
         muscleGroup.name,
@@ -50,7 +50,7 @@ export class WorkoutData {
       );
       return workoutByGroup;
     });
-    return exercisesByGroup;
+    return this.exercisesByGroup;
   }
 
   organizeByMuscleGroup(data: any): WorkoutsByGroup[] {
@@ -79,15 +79,36 @@ export class WorkoutData {
     this.exercises = data.map((data: Exercise) =>
       Object.assign(new Exercise(), data)
     );
+    this.fetchEquipments();
     return this.exercises;
   }
 
-  getWorkouts() {
-    return this.load().pipe(
-      map((data: any) => {
-        return data;
-      })
-    );
+  loadWorkOuts() {
+    return this.load();
+  }
+
+  getWorkouts(levels: string[]): any {
+    return this.load()
+      .pipe(
+        map((allExcercises: Exercise[]) => {
+          var filteredExercises = allExcercises.filter((exercise) => {
+            return levels.length == 0 || levels.includes(exercise.level ?? '');
+          });
+          return filteredExercises;
+        })
+      )
+      .pipe(map(this.organizeByMajorMuscleGroup, this));
+  }
+
+  getLevels() {
+    var levels = this.exercises?.map((exercise) => exercise.level);
+    const uniqueLevels = Array.from(new Set(levels));
+    return uniqueLevels as string[];
+    // return ['beginner', 'intermediate', 'expert'];
+  }
+
+  getEquipments() {
+    return this.equipments;
   }
 
   fetchEquipments() {
