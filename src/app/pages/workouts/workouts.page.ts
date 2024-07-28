@@ -13,6 +13,7 @@ import {
 } from '@ionic/angular';
 import Exercise from '../../models/Excercise';
 import { WorkoutData } from '../../providers/workout-data';
+import WorkoutsByGroup from 'src/app/models/WorkoutsByGroup';
 
 @Component({
   selector: 'app-workouts',
@@ -42,9 +43,12 @@ export class WorkoutsPage implements OnInit {
 
   updateWorkouts() {
     this.workoutData.getWorkouts().subscribe((data: any) => {
-      console.log(data);
       this.workoutGroups = data;
     });
+  }
+
+  toggleList(workoutGroup : WorkoutsByGroup) {
+    workoutGroup.expanded = workoutGroup.expanded ? false : true;
   }
 
   async presentFilter() {}

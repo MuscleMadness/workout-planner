@@ -36,17 +36,12 @@ export class WorkoutData {
   organizeByMajorMuscleGroup(data: any): WorkoutsByGroup[] {
     var muscleGroups = this.muscleGroupService.getMuscleGroups();
 
-    console.log(data[0]);
-    console.log(muscleGroups[0]);
-
     const exercisesByGroup = muscleGroups.map((muscleGroup) => {
 
       var workoutForMuscle = data.filter((exercise: Exercise) => {
-        // console.log(exercise.primaryMuscles);
-        // console.log(muscleGroup.values);
         return muscleGroup.values.includes(exercise.primaryMuscles?.[0] ?? '');
       })
-      console.log(workoutForMuscle);
+
       var workoutByGroup = new WorkoutsByGroup(
         muscleGroup.name,
         workoutForMuscle
@@ -81,7 +76,6 @@ export class WorkoutData {
     this.exercises = data.map((data: Exercise) =>
       Object.assign(new Exercise(), data)
     );
-    console.log(this.exercises);
     return this.exercises;
   }
 
@@ -103,7 +97,6 @@ export class WorkoutData {
       ),
     ];
     uniqueEquipmentNames.unshift('all');
-    console.log(uniqueEquipmentNames);
     const uniqueEquipments = uniqueEquipmentNames.map(
       (equipment) => new Equipment(equipment)
     );

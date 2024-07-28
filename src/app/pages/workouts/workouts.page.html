@@ -56,18 +56,19 @@
     </ion-header>
 
     <ion-list #scheduleList>
-      <ion-item-group
-        *ngFor="let workoutGroup of workoutGroups"
-        [hidden]="workoutGroup.hide"
-      >
-        <ion-item-divider sticky>
+      <ion-item-group *ngFor="let workoutGroup of workoutGroups">
+        <ion-item-divider sticky (click)="toggleList(workoutGroup)">
           <ion-label> {{workoutGroup.name}} </ion-label>
+          <ion-icon
+            slot="end"
+            [name]="workoutGroup.expanded ? 'chevron-up-outline' : 'chevron-down-outline'"
+          ></ion-icon>
         </ion-item-divider>
 
         <ion-item-sliding
           *ngFor="let workout of workoutGroup.workouts"
           #slidingItem
-          [hidden]="workout.hide"
+          [hidden]="!workoutGroup.expanded"
         >
           <ion-item routerLink="/app/tabs/schedule/workout/{{workout.id}}">
             <ion-label>
