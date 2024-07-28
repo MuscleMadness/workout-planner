@@ -1,0 +1,99 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+
+    <ion-title> Filter Workouts </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()" strong>Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list [lines]="ios ? 'inset' : 'full'">
+    <ion-item-divider color="primary" sticky>
+      <ion-label> Target Muscle Group </ion-label>
+      <ion-checkbox
+        [(ngModel)]="allMusclesChecked"
+        (ionChange)="toggleAllMuscleGroups($event)"
+        slot="end"
+      ></ion-checkbox>
+    </ion-item-divider>
+
+    <ion-item
+      *ngFor="let muscleGroup of this.workoutFilter?.muscleGroups"
+      [attr.track]="muscleGroup.name | lowercase"
+    >
+      <ion-icon
+        *ngIf="ios"
+        slot="start"
+        [name]="muscleGroup.name"
+        color="medium"
+      ></ion-icon>
+
+      <ion-checkbox
+        [(ngModel)]="muscleGroup.isChecked"
+        [attr.aria-label]="muscleGroup.name"
+      >
+        {{ muscleGroup.name }}
+      </ion-checkbox>
+    </ion-item>
+
+    <ion-item-divider color="primary" sticky>
+      <ion-label> Equipments </ion-label>
+      <ion-checkbox
+        (ionChange)="toggleAllEquipments($event)"
+        slot="end"
+      ></ion-checkbox>
+    </ion-item-divider>
+
+    <ion-item
+      *ngFor="let equipment of this.workoutFilter?.equipments"
+      [attr.track]="equipment.name | lowercase"
+    >
+      <ion-icon
+        *ngIf="ios"
+        slot="start"
+        [name]="equipment.name"
+        color="medium"
+      ></ion-icon>
+      <ion-checkbox
+        [(ngModel)]="equipment.isChecked"
+        [attr.aria-label]="equipment.name"
+      >
+        {{ equipment.name }}
+      </ion-checkbox>
+    </ion-item>
+
+    <ion-item-divider color="primary" sticky>
+      <ion-label> Levels </ion-label>
+      <ion-checkbox
+        (ionChange)="toggleAllLevels($event)"
+        slot="end"
+      ></ion-checkbox>
+    </ion-item-divider>
+
+    <ion-item
+      *ngFor="let level of this.workoutFilter?.levels"
+      [attr.track]="level.name | lowercase"
+    >
+      <ion-icon
+        *ngIf="ios"
+        slot="start"
+        [name]="level.name"
+        color="medium"
+      ></ion-icon>
+
+      <ion-checkbox
+        [(ngModel)]="level.isChecked"
+        [attr.aria-label]="level.name"
+      >
+        {{ level.name }}
+      </ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
+

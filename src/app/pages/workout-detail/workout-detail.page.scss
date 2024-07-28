@@ -1,0 +1,24 @@
+.workout-detail {
+    position: relative;
+
+    margin-top: -10px;
+  
+    border-radius: 10px;
+  
+    background: var(--ion-background-color, #ffffff);
+  
+    z-index: 2;
+}
+
+swiper-container {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
