@@ -26,6 +26,7 @@ export class WorkoutData {
     if (this.exercises) {
       return of(this.exercises);
     } else {
+      console.log('downloading data');
       return this.http
         .get('assets/data/workouts.json')
         .pipe(map(this.processData, this))
@@ -34,6 +35,7 @@ export class WorkoutData {
   }
 
   organizeByMajorMuscleGroup(data: any): WorkoutsByGroup[] {
+    console.log('organizing data');
     var muscleGroups = this.muscleGroupService.getMuscleGroups();
 
     const exercisesByGroup = muscleGroups.map((muscleGroup) => {
@@ -73,6 +75,7 @@ export class WorkoutData {
   }
 
   processData(data: any) {
+    console.log('processing data');
     this.exercises = data.map((data: Exercise) =>
       Object.assign(new Exercise(), data)
     );

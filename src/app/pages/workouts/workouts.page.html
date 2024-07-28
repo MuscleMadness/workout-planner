@@ -68,17 +68,28 @@
         <ion-item-sliding
           *ngFor="let workout of workoutGroup.workouts"
           #slidingItem
+          [attr.track]="workout.level | lowercase"
           [hidden]="!workoutGroup.expanded"
         >
           <ion-item routerLink="/app/tabs/schedule/workout/{{workout.id}}">
+            <ion-thumbnail slot="start">
+              <img
+                src="{{ workout.thumbnail }}"
+                alt="{{ workout.thumbnail }}"
+                loading="lazy"
+              />
+            </ion-thumbnail>
             <ion-label>
-              <h3>{{workout.name}}</h3>
-              <ion-item-group
+              <h2>{{workout.name}}</h2>
+              <ion-chip [outline]="true">{{workout.primaryMuscles[0]}}</ion-chip>
+
+              <!-- <ion-item-group
                 *ngFor="let muscle of workout.primaryMuscles"
                 [hidden]="workoutGroup.hide"
               >
                 <ion-chip>{{muscle}}</ion-chip>
-              </ion-item-group>
+              </ion-item-group> -->
+              <p style="text-transform:capitalize">{{workout.equipment ?? 'Body Only'}}</p>
             </ion-label>
           </ion-item>
           <ion-item-options>

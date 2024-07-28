@@ -1,0 +1,18 @@
+ion-thumbnail {
+    --size: 100px;
+    --border-radius: 10px;
+}
+
+$levels: (
+    beginner: #69bb7b,
+    intermediate: #6600cc,
+    expert: #fe4c52,
+);
+
+@each $level, $value in map-remove($levels) {
+  ion-item-sliding[track='#{$level}'] ion-label {
+    padding-left: 10px;
+
+    border-left: 2px solid $value;
+  }
+}
