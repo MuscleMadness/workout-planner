@@ -20,6 +20,7 @@ export class UserData {
 
   addFavorite(sessionName: string): void {
     this.favorites.push(sessionName);
+    this.storage.set('favourites', this.favorites);
   }
 
   removeFavorite(sessionName: string): void {
@@ -27,6 +28,7 @@ export class UserData {
     if (index > -1) {
       this.favorites.splice(index, 1);
     }
+    this.storage.set('favourites', this.favorites);
   }
 
   login(username: string): Promise<any> {

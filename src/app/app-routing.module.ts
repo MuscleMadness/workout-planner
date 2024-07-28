@@ -38,8 +38,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/workouts/workouts.module').then( m => m.WorkoutsPageModule)
   },
   {
-    path: 'workouts',
-    loadChildren: () => import('./pages/workouts/workouts.module').then( m => m.WorkoutsPageModule)
+    path: 'app/tabs/workouts/:workoutId',
+    loadChildren: () => import('./pages/workout-detail/workout-detail.module').then( m => m.WorkoutDetailPageModule)
   }
 ];
 

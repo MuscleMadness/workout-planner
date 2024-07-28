@@ -71,7 +71,7 @@
           [attr.track]="workout.level | lowercase"
           [hidden]="!workoutGroup.expanded"
         >
-          <ion-item routerLink="/app/tabs/schedule/workout/{{workout.id}}">
+          <ion-item routerLink="/app/tabs/workouts/{{workout.id}}">
             <ion-thumbnail slot="start">
               <img
                 src="{{ workout.thumbnail }}"

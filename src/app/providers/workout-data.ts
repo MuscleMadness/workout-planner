@@ -87,6 +87,14 @@ export class WorkoutData {
     return this.load();
   }
 
+  getWorkout(id: string) {
+    return this.load().pipe(
+      map((data: Exercise[]) => {
+        return data.find((exercise) => exercise.id === id);
+      })
+    );
+  }
+
   getWorkouts(
     muscleGroups: string[],
     equipments: string[],
@@ -98,13 +106,11 @@ export class WorkoutData {
           var filteredExercises = allExcercises.filter((exercise) => {
             return (
               (levels.length == 0 ||
-              (levels.includes(exercise.level ?? '')) &&
-
-              (muscleGroups.length == 0) ||
-              muscleGroups.includes(exercise.primaryMuscles?.[0] ?? '')) &&
-
+                (levels.includes(exercise.level ?? '') &&
+                  muscleGroups.length == 0) ||
+                muscleGroups.includes(exercise.primaryMuscles?.[0] ?? '')) &&
               (equipments.length == 0 ||
-              equipments.includes(exercise.equipment ?? ''))
+                equipments.includes(exercise.equipment ?? ''))
             );
           });
           return filteredExercises;
