@@ -93,9 +93,28 @@ export class WorkoutsPage implements OnInit {
       .map((l) => l.name);
 
     this.workoutData
-      .getWorkouts(selectedMuscleGroups ?? [], selectedEquipments ?? [], selectedLevels ?? [])
+      .getWorkouts(
+        selectedMuscleGroups ?? [],
+        selectedEquipments ?? [],
+        selectedLevels ?? []
+      )
       .subscribe((data: WorkoutsByGroup[]) => {
-        this.workoutGroups = data;
+        if (this.segment === 'favorites') {
+          var favouriteWorkouts = data
+            .map((workoutGroup) => {
+              return {
+                ...workoutGroup,
+                workouts: workoutGroup.workouts!.filter((workout) =>
+                  this.user.hasFavorite(workout?.id!)
+                ),
+              };
+            })
+            .filter((workoutGroup) => workoutGroup.workouts.length > 0);
+
+          this.workoutGroups = favouriteWorkouts;
+        } else {
+          this.workoutGroups = data;
+        }
       });
   }
 

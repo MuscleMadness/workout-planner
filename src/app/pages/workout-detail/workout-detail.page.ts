@@ -25,7 +25,7 @@ export class WorkoutDetailPage implements OnInit {
       delay: 2500,
       disableOnInteraction: false
     },
-    loop: true
+    loop: true,
   };
 
   ngOnInit() {}
@@ -38,7 +38,7 @@ export class WorkoutDetailPage implements OnInit {
         this.workout = workout;
 
         this.isFavorite = this.userProvider.hasFavorite(
-          this.workout?.name!
+          this.workout?.id!
         );
       });
     }
@@ -53,11 +53,11 @@ export class WorkoutDetailPage implements OnInit {
   }
 
   toggleFavorite() {
-    if (this.userProvider.hasFavorite(this.workout?.name!)) {
-      this.userProvider.removeFavorite(this.workout?.name!);
+    if (this.userProvider.hasFavorite(this.workout?.id!)) {
+      this.userProvider.removeFavorite(this.workout?.id!);
       this.isFavorite = false;
     } else {
-      this.userProvider.addFavorite(this.workout?.name!);
+      this.userProvider.addFavorite(this.workout?.id!);
       this.isFavorite = true;
     }
   }

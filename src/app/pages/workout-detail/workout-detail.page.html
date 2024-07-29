@@ -21,17 +21,15 @@
 </ion-header>
 <ion-content>
   <div class="workout-detail">
-    <swiper-container
-      [slidesPerView]="1"
-      [loop]="true"
-      [pagination]="true"
-      [config]="swiperConfig"
-    >
-      <swiper-slide *ngFor="let image of workout?.images">
+    <swiper-container [loop]="true" [pagination]="true" [navigation]="true" [autoplay]="{ delay: 1000 }" autoplay="true">
+      <swiper-slide *ngFor="let image of workout?.images; let i = index">
         <img [src]="'assets/exercises/' + image" />
       </swiper-slide>
+      <!-- Add MM Logo -->
+      <swiper-slide>Slide 1</swiper-slide>
     </swiper-container>
 
+    <h3 class="ion-padding-top ion-padding-start">Details</h3>
     <ion-list lines="none">
       <ion-item>
         <ion-label> Level </ion-label>
