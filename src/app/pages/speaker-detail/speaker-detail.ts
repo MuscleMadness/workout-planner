@@ -47,7 +47,7 @@ export class SpeakerDetailPage {
       buttons: [
         {
           text: 'Copy Link',
-          icon: null,
+          icon: '',
           handler: () => {
             console.log(
               'Copy link clicked on https://twitter.com/' + speaker.twitter
@@ -64,12 +64,12 @@ export class SpeakerDetailPage {
         },
         {
           text: 'Share via ...',
-          icon: null
+          icon: ''
         },
         {
           text: 'Cancel',
           role: 'cancel',
-          icon: null
+          icon: ''
         }
       ]
     });
@@ -85,14 +85,14 @@ export class SpeakerDetailPage {
       buttons: [
         {
           text: `Email ( ${speaker.email} )`,
-          icon: mode !== 'ios' ? 'mail' : null,
+          icon: mode !== 'ios' ? 'mail' : '',
           handler: () => {
             window.open('mailto:' + speaker.email);
           }
         },
         {
           text: `Call ( ${speaker.phone} )`,
-          icon: mode !== 'ios' ? 'call' : null,
+          icon: mode !== 'ios' ? 'call' : '',
           handler: () => {
             window.open('tel:' + speaker.phone);
           }
@@ -100,7 +100,7 @@ export class SpeakerDetailPage {
         {
           text: 'Cancel',
           role: 'cancel',
-          icon: null
+          icon: ''
         }
       ]
     });
