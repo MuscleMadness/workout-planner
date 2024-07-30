@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import { WorkoutsPage } from '../workouts/workouts.page';
+import { WorkoutPlannerPage } from '../workout-planner/workout-planner.page';
 
 const routes: Routes = [
   {
@@ -16,37 +17,20 @@ const routes: Routes = [
             component: WorkoutsPage,
           },
           {
-            path: 'session/:sessionId',
-            loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
+            path: 'workouts/:workoutId',
+            loadChildren: () => import('../workout-detail/workout-detail.module').then( m => m.WorkoutDetailPageModule)
           }
         ]
       },
       {
-        path: 'speakers',
+        path: 'workout-planner',
         children: [
           {
             path: '',
-            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule)
-          },
-          {
-            path: 'session/:sessionId',
-            loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
-          },
-          {
-            path: 'speaker-details/:speakerId',
-            loadChildren: () => import('../speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule)
+            component: WorkoutPlannerPage
           }
         ]
-      },
-      {
-        path: 'map',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../map/map.module').then(m => m.MapModule)
-          }
-        ]
-      },
+      },            
       {
         path: 'about',
         children: [

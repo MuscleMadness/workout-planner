@@ -48,10 +48,6 @@ export class WorkoutDetailPage implements OnInit {
     this.defaultHref = `/app/tabs/workouts`;
   }
 
-  sessionClick(item: string) {
-    console.log('Clicked', item);
-  }
-
   toggleFavorite() {
     if (this.userProvider.hasFavorite(this.workout?.id!)) {
       this.userProvider.removeFavorite(this.workout?.id!);
@@ -62,7 +58,7 @@ export class WorkoutDetailPage implements OnInit {
     }
   }
 
-  shareSession() {
-    console.log('Clicked share session');
+  shareWorkout() {
+    console.log('Sharing Workout');
   }
 }
