@@ -25,13 +25,14 @@ export class WorkoutData {
 
   load(): any {
     if (this.exercises) {
+      console.log('returning data from memory');
       return of(this.exercises);
     } else {
-      console.log('downloading data');
+      console.log('returning data from file');
       return this.http
         .get('assets/data/workouts.json')
         .pipe(map(this.processData, this));
-      // .pipe(map(this.organizeByMajorMuscleGroup, this));
+        // .pipe(map(this.organizeByMajorMuscleGroup, this));
     }
   }
 
@@ -98,7 +99,8 @@ export class WorkoutData {
   getWorkouts(
     muscleGroups: string[],
     equipments: string[],
-    levels: string[]
+    levels: string[],
+    queryText: string = ''
   ): any {
     return this.load()
       .pipe(
@@ -110,7 +112,8 @@ export class WorkoutData {
                   muscleGroups.length == 0) ||
                 muscleGroups.includes(exercise.primaryMuscles?.[0] ?? '')) &&
               (equipments.length == 0 ||
-                equipments.includes(exercise.equipment ?? ''))
+                equipments.includes(exercise.equipment ?? '')) &&
+              (queryText == '' || exercise.name!.toLowerCase().includes(queryText))
             );
           });
           return filteredExercises;

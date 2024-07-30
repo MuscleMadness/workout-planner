@@ -26,9 +26,12 @@
       </ion-button>
       <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
         <span *ngIf="ios">Filter</span>
+        <div class="icon-container">
         <span *ngIf="!ios">
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </span>
+        <span class="badge" *ngIf="filtersEnabled"></span>
+      </div>        
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

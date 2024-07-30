@@ -32,6 +32,7 @@ export class WorkoutsPage implements OnInit {
   showSearchbar: boolean = false;
   workoutGroups: WorkoutsByGroup[] = [];
   workoutFilter?: WorkoutFilter;
+  filtersEnabled: boolean = false;
 
   constructor(
     public workoutData: WorkoutData,
@@ -92,11 +93,17 @@ export class WorkoutsPage implements OnInit {
       .filter((l) => l.isChecked)
       .map((l) => l.name);
 
+    this.filtersEnabled =
+      selectedMuscleGroups?.length != this.workoutFilter?.muscleGroups.length ||
+      selectedLevels?.length != this.workoutFilter?.levels.length ||
+      selectedEquipments?.length != this.workoutFilter?.equipments.length;
+
     this.workoutData
       .getWorkouts(
         selectedMuscleGroups ?? [],
         selectedEquipments ?? [],
-        selectedLevels ?? []
+        selectedLevels ?? [],
+        this.queryText.toLowerCase()
       )
       .subscribe((data: WorkoutsByGroup[]) => {
         if (this.segment === 'favorites') {
