@@ -70,8 +70,4 @@ export class AccountPage implements AfterViewInit {
     this.userData.logout();
     this.router.navigateByUrl('/login');
   }
-
-  support() {
-    this.router.navigateByUrl('/support');
-  }
 }
