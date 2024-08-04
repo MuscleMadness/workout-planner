@@ -72,12 +72,9 @@ export class WorkoutsPage implements OnInit {
         name: muscle!,
         isChecked: true,
       }));
-
-      // localStorage.setItem('lastFilter', JSON.stringify(this.workoutFilter));
     } else {
       this.workoutFilter = JSON.parse(lastFilter);
     }
-    console.log(this.workoutFilter);
   }
 
   updateWorkouts() {
@@ -140,6 +137,7 @@ export class WorkoutsPage implements OnInit {
     const { data } = await modal.onWillDismiss();
     if (data) {
       this.workoutFilter = data;
+      localStorage.setItem('lastFilter', JSON.stringify(this.workoutFilter));
       this.updateWorkouts();
     }
   }

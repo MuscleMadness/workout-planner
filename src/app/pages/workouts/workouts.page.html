@@ -84,9 +84,11 @@
           <ion-item routerLink="/app/tabs/workouts/{{workout.id}}">
             <ion-thumbnail slot="start">
               <img
+                loading="lazy"
                 src="{{ workout.thumbnail }}"
                 alt="{{ workout.thumbnail }}"
-                loading="lazy"
+                width="150"
+                height="100"
               />
             </ion-thumbnail>
             <ion-label>
