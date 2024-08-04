@@ -10,6 +10,7 @@ class Exercise {
   category?: string;
   images?: string[];
   id?: string;
+  isFavourite: boolean = false;
 
   get thumbnail(): string | null {
     return this.images && this.images.length > 0

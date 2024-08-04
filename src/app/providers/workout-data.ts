@@ -32,7 +32,7 @@ export class WorkoutData {
       return this.http
         .get('assets/data/workouts.json')
         .pipe(map(this.processData, this));
-        // .pipe(map(this.organizeByMajorMuscleGroup, this));
+      // .pipe(map(this.organizeByMajorMuscleGroup, this));
     }
   }
 
@@ -77,9 +77,10 @@ export class WorkoutData {
 
   processData(data: any) {
     console.log('processing data');
-    this.exercises = data.map((data: Exercise) =>
-      Object.assign(new Exercise(), data)
-    );
+    this.exercises = data.map((data: Exercise) => {
+      data.isFavourite = this.user.hasFavorite(data.id!);
+      return Object.assign(new Exercise(), data);
+    });
     this.fetchEquipments();
     return this.exercises;
   }
@@ -113,7 +114,8 @@ export class WorkoutData {
                 muscleGroups.includes(exercise.primaryMuscles?.[0] ?? '')) &&
               (equipments.length == 0 ||
                 equipments.includes(exercise.equipment ?? '')) &&
-              (queryText == '' || exercise.name!.toLowerCase().includes(queryText))
+              (queryText == '' ||
+                exercise.name!.toLowerCase().includes(queryText))
             );
           });
           return filteredExercises;

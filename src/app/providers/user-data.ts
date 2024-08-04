@@ -1,26 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserData {
   favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
-  constructor(
-    public storage: Storage
-  ) { }
+  constructor(public storage: Storage) {
+    this.initializeStorage().then(() => {
+      this.initializeFavorites();
+    });
+  }
+
+  async initializeStorage() {
+    await this.storage.create();
+  }
+
+  async initializeFavorites() {
+    this.favorites = (await this.storage.get('favourites')) || [];
+  }
 
   hasFavorite(workoutId: string): boolean {
-    return (this.favorites.indexOf(workoutId) > -1);
+    return this.favorites.indexOf(workoutId) > -1;
   }
 
   addFavorite(workoutId: string): void {
-    this.favorites.push(workoutId);
-    this.storage.set('favourites', this.favorites);
+    if (!this.hasFavorite(workoutId)) {
+      this.favorites.push(workoutId);
+      this.storage.set('favourites', this.favorites);
+    } else {
+      console.log('Workout already favorited');
+    }
   }
 
   removeFavorite(workoutId: string): void {
@@ -46,11 +59,14 @@ export class UserData {
   }
 
   logout(): Promise<any> {
-    return this.storage.remove(this.HAS_LOGGED_IN).then(() => {
-      return this.storage.remove('username');
-    }).then(() => {
-      window.dispatchEvent(new CustomEvent('user:logout'));
-    });
+    return this.storage
+      .remove(this.HAS_LOGGED_IN)
+      .then(() => {
+        return this.storage.remove('username');
+      })
+      .then(() => {
+        window.dispatchEvent(new CustomEvent('user:logout'));
+      });
   }
 
   setUsername(username: string): Promise<any> {

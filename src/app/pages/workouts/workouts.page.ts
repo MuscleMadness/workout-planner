@@ -143,11 +143,14 @@ export class WorkoutsPage implements OnInit {
       this.updateWorkouts();
     }
   }
-  async addFavorite(slidingItem: IonItemSliding, sessionData: any) {}
-
-  async removeFavorite(
-    slidingItem: IonItemSliding,
-    sessionData: any,
-    title: string
-  ) {}
+  async toggleFavorite(slidingItem: IonItemSliding, exercise: Exercise) {
+    if (exercise.isFavourite) {
+      console.log('removing favorite');
+      this.user.removeFavorite(exercise.id!);
+    } else {
+      console.log('adding favorite');
+      this.user.addFavorite(exercise.id!);
+    }
+    slidingItem.close();
+  }
 }
