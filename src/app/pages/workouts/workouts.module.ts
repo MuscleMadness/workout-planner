@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 import { WorkoutsPageRoutingModule } from './workouts-routing.module';
 
@@ -14,6 +15,7 @@ import { WorkoutFilterComponent } from '../workout-filter/workout-filter.compone
     CommonModule,
     FormsModule,
     IonicModule,
+    ScrollingModule,
     WorkoutsPageRoutingModule
   ],
   declarations: [WorkoutsPage, WorkoutFilterComponent],

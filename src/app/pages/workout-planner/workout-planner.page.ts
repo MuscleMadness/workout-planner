@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, IonRouterOutlet } from '@ionic/angular';
+import { WorkoutData } from 'src/app/providers/workout-data';
+import Exercise from 'src/app/models/Excercise';
+import { WorkoutPlannerEditorComponent } from '../workout-planner-editor/workout-planner-editor.component';
 import {
   Equipment,
   FitnessLevel,
   FocusArea,
   Goal,
   Preference,
-  WorkoutDay,
   WorkoutPlan,
-  WorkoutPlanner,
-} from '../../providers/workout-planner';
-import { WorkoutData } from 'src/app/providers/workout-data';
-import Exercise from 'src/app/models/Excercise';
+  WorkoutPlanConfig,
+} from 'src/app/models/workout-plan';
+import { WorkoutPlanner } from 'src/app/providers/workout-planner';
+import { UserData } from 'src/app/providers/user-data';
 
 @Component({
   selector: 'app-workout-planner',
@@ -19,45 +22,29 @@ import Exercise from 'src/app/models/Excercise';
 })
 export class WorkoutPlannerPage implements OnInit {
   workoutPlan?: WorkoutPlan;
+  workoutConfig?: WorkoutPlanConfig;
+  ios: boolean = false;
 
   constructor(
     public workoutPlanner: WorkoutPlanner,
-    public workoutData: WorkoutData
+    public workoutData: WorkoutData,
+    public modalCtrl: ModalController,
+    public routerOutlet: IonRouterOutlet,
+    private userData: UserData
   ) {}
 
   ngOnInit() {
-    this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
-      this.reloadWorkoutPlan();
+    this.workoutPlanner.getWorkoutConfig().then((config) => {
+      this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
+        this.reloadWorkoutPlan();
+      });
     });
   }
 
   reloadWorkoutPlan() {
-    const goal: Goal = 'Muscle Growth';
-    const fitnessLevel: FitnessLevel = 'intermediate';
-    const daysPerWeek = 4;
-    const equipment: Equipment[] = ['barbell', 'dumbbell'];
-    const focusAreas: FocusArea[] = [
-      'chest',
-      'legs',
-      'back',
-      'arms',
-      'upper body',
-      'core',
-    ];
-    const duration = 60; // in minutes
-    const preferences: Preference[] = ['compound', 'isolation'];
-
     this.workoutPlanner
-      .generateWorkoutPlan(
-        goal,
-        fitnessLevel,
-        daysPerWeek,
-        equipment,
-        focusAreas,
-        duration,
-        preferences
-      )
-      .then((workoutPlan) => {
+      .generateWorkoutPlan(this.workoutConfig!)
+      .then((workoutPlan: WorkoutPlan) => {
         this.workoutPlan = workoutPlan;
 
         console.log('Returning cached workout plan:', this.workoutPlan);
@@ -69,5 +56,26 @@ export class WorkoutPlannerPage implements OnInit {
           images && images.length > 0 ? 'assets/exercises/' + images[0] : null
         );
       });
+  }
+
+  async presentFilter() {
+    const modal = await this.modalCtrl.create({
+      component: WorkoutPlannerEditorComponent,
+      presentingElement: this.routerOutlet.nativeEl,
+      componentProps: { filter: null },
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      this.userData.clearWorkoutPlan();
+      this.workoutConfig = data;
+      console.log('Creating workout plan with config', data);
+      this.workoutPlanner
+        .generateWorkoutPlan(this.workoutConfig!)
+        .then((workoutPlan: WorkoutPlan) => {
+          this.workoutPlan = workoutPlan;
+        });
+    }
   }
 }

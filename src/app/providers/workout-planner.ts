@@ -3,53 +3,17 @@ import Exercise from '../models/Excercise';
 import { WorkoutData } from './workout-data';
 import { MuscleGroupService } from '../services/muscle-group-service.service';
 import { UserData } from './user-data';
-
-type Goal = 'Muscle Growth' | 'Strength' | 'Endurance';
-type FitnessLevel = 'beginner' | 'intermediate' | 'expert';
-type Equipment =
-  | 'body only'
-  | 'machine'
-  | 'other'
-  | 'foam roll'
-  | 'Cardio'
-  | 'kettlebells'
-  | 'dumbbell'
-  | 'cable'
-  | 'barbell'
-  | 'bands'
-  | 'medicine ball'
-  | 'exercise ball'
-  | 'e-z curl bar';
-type MuscleGroup =
-  | 'all'
-  | 'chest'
-  | 'legs'
-  | 'back'
-  | 'arms'
-  | 'upper body'
-  | 'core';
-type FocusArea = MuscleGroup;
-type Preference = 'compound' | 'isolation';
-
-interface WorkoutDay {
-  day: string;
-  muscleGroups: MuscleGroup[];
-  exercises: Exercise[];
-  sets: number;
-  reps: number;
-  rest: string;
-}
-
-interface WorkoutPlan {
-  days: WorkoutDay[];
-  goal?: Goal;
-  fitnessLevel?: FitnessLevel;
-  daysPerWeek?: number;
-  equipment?: Equipment[];
-  focusAreas?: FocusArea[];
-  duration?: number;
-  preferences?: Preference[];
-}
+import {
+  Equipment,
+  FitnessLevel,
+  FocusArea,
+  Goal,
+  MuscleGroup,
+  Preference,
+  WorkoutDay,
+  WorkoutPlan,
+  WorkoutPlanConfig,
+} from '../models/workout-plan';
 
 @Injectable({
   providedIn: 'root',
@@ -66,14 +30,59 @@ class WorkoutPlanner {
       console.log('initialize workout data');
     });
   }
+
+  defaultWorkoutConfig(): WorkoutPlanConfig {
+    const goal: Goal = 'Build Muscle';
+    const fitnessLevel: FitnessLevel = 'intermediate';
+    const daysPerWeek = 4;
+    const equipment: Equipment[] = ['barbell', 'dumbbell'];
+    const focusAreas: FocusArea[] = [
+      'chest',
+      'legs',
+      'back',
+      'arms',
+      'upper body',
+      'core',
+    ];
+    const duration = 60; // in minutes
+    const preferences: Preference[] = ['compound', 'isolation'];
+    var workoutConfig: WorkoutPlanConfig = {
+      goal,
+      fitnessLevel,
+      daysPerWeek,
+      equipment,
+      focusAreas,
+      duration,
+      preferences,
+    };
+    return workoutConfig;
+  }
+
+  async getWorkoutConfig(): Promise<WorkoutPlanConfig> {
+    var defaultWorkoutConfig = this.defaultWorkoutConfig();
+    var cachedWorkoutConfig = await this.userData.getWorkoutPlan();
+    if (cachedWorkoutConfig === null) {
+      return defaultWorkoutConfig;
+    }
+    var workoutConfig: WorkoutPlanConfig = {
+      goal: cachedWorkoutConfig.goal ?? defaultWorkoutConfig.goal,
+      fitnessLevel:
+        cachedWorkoutConfig.fitnessLevel ?? defaultWorkoutConfig.fitnessLevel,
+      daysPerWeek:
+        cachedWorkoutConfig.daysPerWeek ?? defaultWorkoutConfig.daysPerWeek,
+      equipment:
+        cachedWorkoutConfig.equipment ?? defaultWorkoutConfig.equipment,
+      focusAreas:
+        cachedWorkoutConfig.focusAreas ?? defaultWorkoutConfig.focusAreas,
+      duration: cachedWorkoutConfig.duration ?? defaultWorkoutConfig.duration,
+      preferences:
+        cachedWorkoutConfig.preferences ?? defaultWorkoutConfig.preferences,
+    };
+    return workoutConfig;
+  }
+
   async generateWorkoutPlan(
-    goal: Goal,
-    fitnessLevel: FitnessLevel,
-    daysPerWeek: number,
-    equipment: Equipment[],
-    focusAreas: FocusArea[],
-    duration: number,
-    preferences: Preference[]
+    workoutConfig: WorkoutPlanConfig
   ): Promise<WorkoutPlan> {
     // Load from cache if there is a previous workout plan for the same parameters
     const cachedWorkoutPlan = await this.userData.getWorkoutPlan();
@@ -82,15 +91,19 @@ class WorkoutPlanner {
     }
 
     // 1. Determine workout split
-    const workoutSplit = this.determineSplit(daysPerWeek, goal, preferences);
+    const workoutSplit = this.determineSplit(
+      workoutConfig.daysPerWeek,
+      workoutConfig.goal,
+      workoutConfig.preferences
+    );
 
     // 2. Select exercises based on goal, equipment, and focus areas
     const exercises = this.selectExercises(
-      goal,
-      fitnessLevel,
-      equipment,
-      focusAreas,
-      preferences
+      workoutConfig.goal,
+      workoutConfig.fitnessLevel,
+      workoutConfig.equipment,
+      workoutConfig.focusAreas,
+      workoutConfig.preferences
     );
 
     console.log('selected ', exercises.length, ' exercises');
@@ -99,22 +112,22 @@ class WorkoutPlanner {
     const workoutSchedule = this.createWorkoutSchedule(
       workoutSplit,
       exercises,
-      fitnessLevel,
-      goal,
-      duration
+      workoutConfig.fitnessLevel,
+      workoutConfig.goal,
+      workoutConfig.duration
     );
 
     // 4. Generate and return the workout plan
     var weeklyPlan = this.generateWeeklyPlan(workoutSchedule);
 
     // 5. persist the workout plan
-    weeklyPlan.goal = goal;
-    weeklyPlan.fitnessLevel = fitnessLevel;
-    weeklyPlan.daysPerWeek = daysPerWeek;
-    weeklyPlan.equipment = equipment;
-    weeklyPlan.focusAreas = focusAreas;
-    weeklyPlan.duration = duration;
-    weeklyPlan.preferences = preferences;
+    weeklyPlan.goal = workoutConfig.goal;
+    weeklyPlan.fitnessLevel = workoutConfig.fitnessLevel;
+    weeklyPlan.daysPerWeek = workoutConfig.daysPerWeek;
+    weeklyPlan.equipment = workoutConfig.equipment;
+    weeklyPlan.focusAreas = workoutConfig.focusAreas;
+    weeklyPlan.duration = workoutConfig.duration;
+    weeklyPlan.preferences = workoutConfig.preferences;
     console.log('Generated workout plan:', weeklyPlan);
     this.userData.saveWorkoutPlan(weeklyPlan);
     return weeklyPlan;
@@ -243,10 +256,12 @@ class WorkoutPlanner {
 
   determineSets(goal: Goal, fitnessLevel: FitnessLevel): number {
     // Example logic for sets based on goal
-    if (goal === 'Muscle Growth') {
-      return fitnessLevel === 'beginner' ? 3 : 4;
-    } else if (goal === 'Strength') {
+    if (goal === 'Lose Weight') {
+      return fitnessLevel === 'beginner' ? 5 : 6;
+    } else if (goal === 'Build Muscle') {
       return fitnessLevel === 'beginner' ? 4 : 5;
+    } else if (goal === 'Stay Fit') {
+      return 3;
     }
     // Add more conditions
     return 3;
@@ -254,10 +269,10 @@ class WorkoutPlanner {
 
   determineReps(goal: Goal, fitnessLevel: FitnessLevel): number {
     // Example logic for reps based on goal
-    if (goal === 'Muscle Growth') {
+    if (goal === 'Lose Weight') {
+      return 12;
+    } else if (goal === 'Build Muscle') {
       return 8;
-    } else if (goal === 'Strength') {
-      return 6;
     }
     // Add more conditions
     return 10;
@@ -265,9 +280,9 @@ class WorkoutPlanner {
 
   determineRest(goal: Goal, fitnessLevel: FitnessLevel): string {
     // Example logic for rest based on goal
-    if (goal === 'Muscle Growth') {
+    if (goal === 'Lose Weight') {
       return '60-90 seconds';
-    } else if (goal === 'Strength') {
+    } else if (goal === 'Build Muscle') {
       return '2-3 minutes';
     }
     // Add more conditions
@@ -288,14 +303,4 @@ class WorkoutPlanner {
   }
 }
 
-export {
-  WorkoutPlanner,
-  Goal,
-  FitnessLevel,
-  Equipment,
-  MuscleGroup,
-  FocusArea,
-  Preference,
-  WorkoutDay,
-  WorkoutPlan,
-};
+export { WorkoutPlanner };

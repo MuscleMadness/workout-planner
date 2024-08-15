@@ -31,6 +31,7 @@ export class WorkoutsPage implements OnInit {
   segment = 'all';
   showSearchbar: boolean = false;
   workoutGroups: WorkoutsByGroup[] = [];
+  allExercises: Exercise[] = [];
   workoutFilter?: WorkoutFilter;
   filtersEnabled: boolean = false;
 
@@ -119,6 +120,9 @@ export class WorkoutsPage implements OnInit {
         } else {
           this.workoutGroups = data;
         }
+        this.allExercises = this.workoutGroups.flatMap(
+          (group) => group.workouts
+        ) as Exercise[];
       });
   }
 

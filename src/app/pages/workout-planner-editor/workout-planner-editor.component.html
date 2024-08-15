@@ -1,0 +1,82 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+
+    <ion-title> Create Workout Plan </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()" strong>Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>What is your fitness level?</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-segment [(ngModel)]="workoutConfig!.fitnessLevel">
+      <ion-segment-button value="beginner">
+        <ion-label>Beginner</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="intermediate">
+        <ion-label>Intermediate</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="advanced">
+        <ion-label>Advanced</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>What is your goal?</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-segment [(ngModel)]="workoutConfig!.goal">
+      <ion-segment-button value="Lose Weight">
+        <ion-label>Lose Weight</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Build Muscle">
+        <ion-label>Build Muscle</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Endurance">
+        <ion-label>Stay Fit</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>How many days you can train in a week?</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-range
+      [(ngModel)]="workoutConfig!.daysPerWeek"
+      aria-label="Days in a Week"
+      [ticks]="true"
+      [pin]="true"
+      [snaps]="true"
+      [min]="2"
+      [max]="6"
+    >
+      <ion-label slot="start">2</ion-label>
+      <ion-label slot="end">6</ion-label>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>What are the equipments you have access to?</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-chip
+      *ngFor="let equipment of equipments"
+      (click)="toggleEquipment(equipment)"
+      [color]="
+        workoutConfig!.equipment.includes(equipment) ? 'primary' : 'medium'
+      "
+    >
+      <ion-label>{{ equipment }}</ion-label>
+    </ion-chip>
+  </ion-item>
+</ion-content>

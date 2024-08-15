@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { WorkoutDay, WorkoutPlan } from './workout-planner';
 import Exercise from '../models/Excercise';
+import { WorkoutDay, WorkoutPlan } from '../models/workout-plan';
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +52,11 @@ export class UserData {
     return true;
   }
 
+  clearWorkoutPlan(): void {
+    this.storage.remove('lastWorkoutPlan');
+    this.storage.remove('lastWorkoutPlanGeneratedDate');
+  }
+
   async getWorkoutPlan(): Promise<WorkoutPlan | null> {
 
     // if last workout plan was generated more than 7 days ago, return null
@@ -72,7 +77,7 @@ export class UserData {
     }
 
     var workoutDays = (plan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
-      var exercises = workoutDay.exercises.map((exercise) => {
+      var exercises = workoutDay.exercises.map((exercise : Exercise) => {
         return Object.assign(new Exercise(), exercise);
       });
       workoutDay.exercises = exercises;

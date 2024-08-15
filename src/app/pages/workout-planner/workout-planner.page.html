@@ -1,6 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Workout-Planner</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentFilter()">
+        <span *ngIf="ios">Filter</span>
+        <div class="icon-container">
+          <span *ngIf="!ios">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </span>
+        </div>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
