@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { WorkoutDay, WorkoutPlan } from './workout-planner';
+import Exercise from '../models/Excercise';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +44,42 @@ export class UserData {
       this.favorites.splice(index, 1);
     }
     this.storage.set('favourites', this.favorites);
+  }
+
+  saveWorkoutPlan(workoutPlan: WorkoutPlan): boolean {
+    this.storage.set('lastWorkoutPlan', workoutPlan);
+    this.storage.set('lastWorkoutPlanGeneratedDate', new Date());
+    return true;
+  }
+
+  async getWorkoutPlan(): Promise<WorkoutPlan | null> {
+
+    // if last workout plan was generated more than 7 days ago, return null
+    const lastGeneratedDate = await this.storage.get('lastWorkoutPlanGeneratedDate');
+    if (lastGeneratedDate) {
+      const today = new Date();
+      const diffTime = Math.abs(today.getTime() - new Date(lastGeneratedDate).getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays > 7) {
+        // clear the last workout plan
+        this.storage.remove('lastWorkoutPlan');
+        return null;
+      }
+    }
+    const plan = await this.storage.get('lastWorkoutPlan');
+    if (!plan) {
+      return null;
+    }
+
+    var workoutDays = (plan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
+      var exercises = workoutDay.exercises.map((exercise) => {
+        return Object.assign(new Exercise(), exercise);
+      });
+      workoutDay.exercises = exercises;
+      return workoutDay;
+    });
+    (plan as WorkoutPlan).days = workoutDays;
+    return plan as WorkoutPlan | null;
   }
 
   login(username: string): Promise<any> {

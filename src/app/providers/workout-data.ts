@@ -97,6 +97,11 @@ export class WorkoutData {
     );
   }
 
+  getAllWorkouts() {
+    console.log('getting all workouts');
+    return this.exercises!;
+  }
+
   getWorkouts(
     muscleGroups: string[],
     equipments: string[],

@@ -61,6 +61,10 @@ export class MuscleGroupService {
   ];
   constructor() {}
 
+  getAllMuscleGroupsFlat() {
+    return this.majorGroupsBasic;
+  }
+
   // This method will return all the excercises
   getMuscleGroups() {
     const muscleGroupsBasicArray: MuscleGroup[] = [

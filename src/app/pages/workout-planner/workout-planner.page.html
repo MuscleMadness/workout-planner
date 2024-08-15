@@ -4,6 +4,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p>This is Workout-Planner page</p>
+<ion-content fullscreen="true">
+  <ion-list>
+    <ion-item-group *ngFor="let workoutDay of workoutPlan?.days">
+      <ion-item-divider
+        sticky
+        *ngIf="workoutDay.exercises && workoutDay.exercises.length > 0"
+        color="primary"
+      >
+        <ion-label> {{workoutDay.day}} </ion-label>
+      </ion-item-divider>
+      <ion-item
+        *ngFor="let workout of workoutDay.exercises"
+        routerLink="/app/tabs/workouts/{{workout.id}}"
+      >
+        <ion-thumbnail slot="start">
+          <img
+            src="{{ workout.thumbnail }}"
+            alt="{{ workout.thumbnail }}"
+            width="150"
+            height="100"
+          />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{workout.name}}</h2>
+          <p>{{workoutDay.sets}} x {{workoutDay.reps}} Sets</p>
+          <p>{{workoutDay.rest}} seconds rest</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
