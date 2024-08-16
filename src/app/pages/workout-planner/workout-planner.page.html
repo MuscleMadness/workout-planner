@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Workout-Planner</ion-title>
+    <ion-title>Workout Planner</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="presentFilter()">
         <span *ngIf="ios">Filter</span>
@@ -22,7 +22,10 @@
         *ngIf="workoutDay.exercises && workoutDay.exercises.length > 0"
         color="primary"
       >
-        <ion-label> {{workoutDay.day}} </ion-label>
+        <ion-label>
+          <h1>{{ workoutDay.day }}</h1>
+          <h3>{{ workoutDay.muscleGroups.join(', ') }}</h3>
+        </ion-label>
       </ion-item-divider>
       <ion-item
         *ngFor="let workout of workoutDay.exercises"

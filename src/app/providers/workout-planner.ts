@@ -106,8 +106,6 @@ class WorkoutPlanner {
       workoutConfig.preferences
     );
 
-    console.log('selected ', exercises.length, ' exercises');
-
     // 3. Create the weekly workout schedule
     const workoutSchedule = this.createWorkoutSchedule(
       workoutSplit,
@@ -191,17 +189,13 @@ class WorkoutPlanner {
       )
       .flatMap((muscleGroup) => muscleGroup.values);
 
-    console.log('Focus Areas:', focusAreas);
-    console.log('All Muscles:', allMuscles);
-
-    // Example logic to filter exercises
+    // Filter exercises based on equipment and muscle focus areas
     var filteredExercises = exerciseDatabase.filter((exercise) => {
       return (
         equipment.includes(exercise.equipment as Equipment) &&
         allMuscles.includes(exercise.primaryMuscles![0])
       );
     });
-    console.log('Filtered Exercises:', filteredExercises.length);
     return filteredExercises;
   }
 

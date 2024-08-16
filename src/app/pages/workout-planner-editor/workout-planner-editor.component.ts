@@ -34,7 +34,6 @@ export class WorkoutPlannerEditorComponent implements OnInit {
 
   ngOnInit() {
     this.workoutConfig = this.workoutPlanner.defaultWorkoutConfig();
-    console.log('workoutConfig', this.workoutConfig);
     // this.cdr.detectChanges();
   }  
 
@@ -46,7 +45,6 @@ export class WorkoutPlannerEditorComponent implements OnInit {
   }
 
   applyFilters() {
-    console.log('workoutConfig', this.workoutConfig);
     this.dismiss(this.workoutConfig);
   }
 

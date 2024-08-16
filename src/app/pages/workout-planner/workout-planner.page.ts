@@ -35,6 +35,7 @@ export class WorkoutPlannerPage implements OnInit {
 
   ngOnInit() {
     this.workoutPlanner.getWorkoutConfig().then((config) => {
+      this.workoutConfig = config;
       this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
         this.reloadWorkoutPlan();
       });
@@ -46,15 +47,6 @@ export class WorkoutPlannerPage implements OnInit {
       .generateWorkoutPlan(this.workoutConfig!)
       .then((workoutPlan: WorkoutPlan) => {
         this.workoutPlan = workoutPlan;
-
-        console.log('Returning cached workout plan:', this.workoutPlan);
-        console.log(this.workoutPlan.days[0].exercises[0]);
-        console.log(this.workoutPlan.days[0].exercises[0].images![0]);
-        console.log(this.workoutPlan.days[0].exercises[0].thumbnail);
-        var images = this.workoutPlan.days[0].exercises[0].images;
-        console.log(
-          images && images.length > 0 ? 'assets/exercises/' + images[0] : null
-        );
       });
   }
 
@@ -62,7 +54,7 @@ export class WorkoutPlannerPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: WorkoutPlannerEditorComponent,
       presentingElement: this.routerOutlet.nativeEl,
-      componentProps: { filter: null },
+      componentProps: { workoutConfig: this.workoutConfig },
     });
     await modal.present();
 
@@ -70,7 +62,7 @@ export class WorkoutPlannerPage implements OnInit {
     if (data) {
       this.userData.clearWorkoutPlan();
       this.workoutConfig = data;
-      console.log('Creating workout plan with config', data);
+
       this.workoutPlanner
         .generateWorkoutPlan(this.workoutConfig!)
         .then((workoutPlan: WorkoutPlan) => {
