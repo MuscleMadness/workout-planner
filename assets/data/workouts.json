@@ -242,6 +242,9 @@
       "Alternate_Hammer_Curl/0.jpg",
       "Alternate_Hammer_Curl/1.jpg"
     ],
+    "videos" : [
+      "rPIUC0wTsik"
+    ],
     "id": "Alternate_Hammer_Curl"
   },
   {
@@ -291,6 +294,9 @@
     "images": [
       "Alternate_Incline_Dumbbell_Curl/0.jpg",
       "Alternate_Incline_Dumbbell_Curl/1.jpg"
+    ],
+    "videos" : [
+      "938E4oigd2k"
     ],
     "id": "Alternate_Incline_Dumbbell_Curl"
   },
@@ -1146,6 +1152,9 @@
     "images": [
       "Barbell_Curl/0.jpg",
       "Barbell_Curl/1.jpg"
+    ],
+    "videos" :[
+      "1wgSAr2hPHk"
     ],
     "id": "Barbell_Curl"
   },
@@ -4723,6 +4732,9 @@
       "Concentration_Curls/0.jpg",
       "Concentration_Curls/1.jpg"
     ],
+    "videos" :[
+      "cHxRJdSVIkA"
+    ],
     "id": "Concentration_Curls"
   },
   {
@@ -4771,6 +4783,9 @@
     "images": [
       "Cross_Body_Hammer_Curl/0.jpg",
       "Cross_Body_Hammer_Curl/1.jpg"
+    ],
+    "videos": [
+      "5z4PyEHiWAQ"
     ],
     "id": "Cross_Body_Hammer_Curl"
   },
@@ -8018,6 +8033,9 @@
       "Hammer_Curls/0.jpg",
       "Hammer_Curls/1.jpg"
     ],
+    "videos" : [
+      "0Jqhz1DkAeQ"
+    ],
     "id": "Hammer_Curls"
   },
   {
@@ -8956,6 +8974,9 @@
     "images": [
       "Incline_Hammer_Curls/0.jpg",
       "Incline_Hammer_Curls/1.jpg"
+    ],
+    "videos":[
+      "3KZyKj5Hiks"
     ],
     "id": "Incline_Hammer_Curls"
   },
@@ -14366,6 +14387,9 @@
     "images": [
       "Preacher_Curl/0.jpg",
       "Preacher_Curl/1.jpg"
+    ],
+    "videos" :[
+      "Pp1VDEfd_us"
     ],
     "id": "Preacher_Curl"
   },
@@ -20105,6 +20129,9 @@
       "Standing_One-Arm_Dumbbell_Triceps_Extension/0.jpg",
       "Standing_One-Arm_Dumbbell_Triceps_Extension/1.jpg"
     ],
+    "videos": [
+      "KIUsudC0wQI"
+    ],
     "id": "Standing_One-Arm_Dumbbell_Triceps_Extension"
   },
   {
@@ -21301,6 +21328,9 @@
     "images": [
       "Tricep_Dumbbell_Kickback/0.jpg",
       "Tricep_Dumbbell_Kickback/1.jpg"
+    ],
+    "videos":[
+      "3Bv1n7-DN7c"
     ],
     "id": "Tricep_Dumbbell_Kickback"
   },
