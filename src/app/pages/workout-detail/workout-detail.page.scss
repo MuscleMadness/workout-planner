@@ -22,3 +22,8 @@ swiper-slide {
     align-items: center;
     justify-content: center;
 }
+
+div > youtube-player > iframe {
+    display: block;
+    width: 100%;
+  }

@@ -8,12 +8,14 @@ import { WorkoutDetailPageRoutingModule } from './workout-detail-routing.module'
 
 import { WorkoutDetailPage } from './workout-detail.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    YouTubePlayerModule,
     WorkoutDetailPageRoutingModule
   ],
   declarations: [WorkoutDetailPage],
