@@ -4,6 +4,7 @@ class WorkoutFilter {
   // categories: {name: string, isChecked: boolean}[] = [];
   equipments: { name: string; isChecked: boolean }[] = [];
   muscleGroups: { name: string; isChecked: boolean }[] = [];
+  showOnlyWorkoutsWithVideos: boolean = false;
   // secondaryMuscles: {name: string, isChecked: boolean}[] = [];
 }
 

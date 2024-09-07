@@ -9,6 +9,7 @@ class Exercise {
   instructions?: string[];
   category?: string;
   images?: string[];
+  videos?: string[];
   id?: string;
   isFavourite: boolean = false;
 

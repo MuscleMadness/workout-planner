@@ -106,7 +106,8 @@ export class WorkoutData {
     muscleGroups: string[],
     equipments: string[],
     levels: string[],
-    queryText: string = ''
+    queryText: string = '',
+    sohwOnlyWorkoutsWithVideos: boolean = false
   ): any {
     return this.load()
       .pipe(
@@ -123,6 +124,11 @@ export class WorkoutData {
                 exercise.name!.toLowerCase().includes(queryText))
             );
           });
+          if (sohwOnlyWorkoutsWithVideos) {
+            filteredExercises = filteredExercises.filter(
+              (exercise) => exercise.videos?.length! > 0
+            );
+          }
           return filteredExercises;
         })
       )

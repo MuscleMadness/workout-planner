@@ -19,15 +19,20 @@ export class WorkoutFilterComponent implements OnInit {
   ios: boolean = false;
   workoutFilter?: WorkoutFilter;
   allMusclesChecked: boolean = false;
+  showOnlyWorkoutsWithVideos: boolean = false;
 
   ngOnInit() {}
 
   ionViewWillEnter() {
     this.ios = this.config.get('mode') === `ios`;
     this.workoutFilter = this.navParams.get('filter');
+    this.showOnlyWorkoutsWithVideos = this.workoutFilter?.showOnlyWorkoutsWithVideos;
   }
 
   applyFilters() {
+    if (this.workoutFilter) {
+      this.workoutFilter.showOnlyWorkoutsWithVideos = this.showOnlyWorkoutsWithVideos;
+    }
     this.dismiss(this.workoutFilter);
   }
 

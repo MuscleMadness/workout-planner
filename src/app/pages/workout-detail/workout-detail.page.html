@@ -21,7 +21,7 @@
 </ion-header>
 <ion-content>
   <div class="ion-padding-top workout-detail">
-    <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment [(ngModel)]="selectedSegment" *ngIf="workout?.videos">
       <ion-segment-button value="text">
         <ion-label>Text</ion-label>
       </ion-segment-button>
@@ -83,7 +83,7 @@
       </ion-item-group>
     </div>
     <div *ngIf="selectedSegment === 'video'">
-      <youtube-player videoId="rk631SYQ9Ck" [width]="screenWidth" [height]="screenHeight" />
+      <youtube-player [videoId]="workout?.videos![0]" [width]="screenWidth" [height]="screenHeight" />
     </div>
   </div>
 </ion-content>

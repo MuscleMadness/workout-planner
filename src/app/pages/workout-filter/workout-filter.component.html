@@ -15,6 +15,17 @@
 <ion-content>
   <ion-list [lines]="ios ? 'inset' : 'full'">
     <ion-item-divider color="primary" sticky>
+      <ion-label> General </ion-label>
+    </ion-item-divider>
+
+    <ion-item>
+      <ion-checkbox aria-label="Show only workouts with videos" 
+      [(ngModel)]="showOnlyWorkoutsWithVideos">
+        Show only workouts with videos
+      </ion-checkbox>
+    </ion-item>
+
+    <ion-item-divider color="primary" sticky>
       <ion-label> Target Muscle Group </ion-label>
       <ion-checkbox
         [(ngModel)]="allMusclesChecked"
@@ -96,4 +107,3 @@
     </ion-item>
   </ion-list>
 </ion-content>
-

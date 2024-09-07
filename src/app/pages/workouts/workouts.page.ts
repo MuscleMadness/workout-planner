@@ -101,7 +101,8 @@ export class WorkoutsPage implements OnInit {
         selectedMuscleGroups ?? [],
         selectedEquipments ?? [],
         selectedLevels ?? [],
-        this.queryText.toLowerCase()
+        this.queryText.toLowerCase(),
+        this.workoutFilter?.showOnlyWorkoutsWithVideos
       )
       .subscribe((data: WorkoutsByGroup[]) => {
         if (this.segment === 'favorites') {
