@@ -15,7 +15,7 @@ class Exercise {
 
   get thumbnail(): string | null {
     return this.images && this.images.length > 0
-      ? 'assets/exercises/' + this.images[0]
+      ? 'assets/thumbnails/' + this.images[0]
       : null;
   }
 }
