@@ -1,7 +1,9 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color='primary' (click)="startApp()" [hidden]="!showSkip">Skip</ion-button>
+      <ion-button color="primary" (click)="startApp()" [hidden]="!showSkip"
+        >Skip</ion-button
+      >
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -9,35 +11,48 @@
 <ion-content fullscreen="true">
   <div class="slide-container">
     <section class="slide">
-      <img src="assets/img/ica-slidebox-img-1.png" class="slide-image" />
+      <img src="assets/img/tutorial/gym-logo-no-bg.svg" class="slide-image" />
       <h2 class="slide-title">
         Welcome to
-        <b>ICA</b>
+        <b>Workout Planner</b>
       </h2>
       <p>
-        The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.
+        The <b>Muscle Madness Workout Planner</b> is a companison app to the
+        people who are looking to get in shape and build muscle. This app will
+        help you plan your workouts and give instructions on how to perform
+        them.
       </p>
     </section>
 
     <section class="slide">
-      <img src="assets/img/ica-slidebox-img-2.png" class="slide-image" />
+      <img src="assets/img/tutorial/workouts-list.png" class="slide-image" />
       <h2 class="slide-title">What is Ionic?</h2>
       <p>
-        <b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.
+        In the workouts screen, you can view all the workouts that are available
+        to you. You can also view the details of each workout by tapping on
+        them. There are literally hundreds of workouts to choose from. If that
+        is too much for you, you can also filter the workouts by muscle group,
+        experience leve, available equipment....
       </p>
     </section>
 
     <section class="slide">
-      <img src="assets/img/ica-slidebox-img-3.png" class="slide-image" />
-      <h2 class="slide-title">What is Ionic Appflow?</h2>
+      <img src="assets/img/tutorial/workout-planner.png" class="slide-image" />
+      <h2 class="slide-title">View Workouts</h2>
       <p>
-        <b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.
+        The workout planner is where you can quickly view which routine you have
+        to follow in a week. The planner uses customized AI engine to generate
+        the best workout plan for you based on your goals, experience level, and
+        available equipment. You can also customize the plan to your liking.
       </p>
     </section>
 
     <section class="slide">
-      <img src="assets/img/ica-slidebox-img-4.png" class="slide-image" />
-      <h2 class="slide-title">Ready to Play?</h2>
+      <img
+        src="assets/img/tutorial/ica-slidebox-img-4.png"
+        class="slide-image"
+      />
+      <h2 class="slide-title">Ready to Start?</h2>
       <ion-button fill="clear" (click)="startApp()">
         Continue
         <ion-icon slot="end" name="arrow-forward"></ion-icon>
