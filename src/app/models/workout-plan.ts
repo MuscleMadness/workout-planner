@@ -31,6 +31,7 @@ interface WorkoutDay {
   day: string;
   muscleGroups: MuscleGroup[];
   exercises: Exercise[];
+  exerciseIds: string[];
   sets: number;
   reps: number;
   rest: string;

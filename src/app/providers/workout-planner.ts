@@ -27,7 +27,7 @@ class WorkoutPlanner {
 
   ngOnInit() {
     this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
-      console.log('initialize workout data');
+      console.log('initialized workout data');
     });
   }
 
@@ -58,12 +58,29 @@ class WorkoutPlanner {
     return workoutConfig;
   }
 
+  // WorkoutPlan initially will only have the exercise ids
+  // This function will fill in the exercise data from the workoutData
+  async fillInExcerciseData(workoutPlan : WorkoutPlan) {
+    var exercises = this.workoutData.getAllWorkouts();       
+    var days: WorkoutDay[]  = []
+    workoutPlan.days.forEach((day) => {
+      day.exercises = day.exerciseIds.map((id) => exercises.find((ex) => ex.id === id)).filter((ex): ex is Exercise => ex !== undefined);
+      days.push(day);
+      return day;
+    });
+    return workoutPlan;
+
+  }
+
   async getWorkoutConfig(): Promise<WorkoutPlanConfig> {
     var defaultWorkoutConfig = this.defaultWorkoutConfig();
+    console.log('Getting workout config');
     var cachedWorkoutConfig = await this.userData.getWorkoutPlan();
     if (cachedWorkoutConfig === null) {
       return defaultWorkoutConfig;
     }
+    cachedWorkoutConfig = await this.fillInExcerciseData(cachedWorkoutConfig);
+
     var workoutConfig: WorkoutPlanConfig = {
       goal: cachedWorkoutConfig.goal ?? defaultWorkoutConfig.goal,
       fitnessLevel:
@@ -85,8 +102,9 @@ class WorkoutPlanner {
     workoutConfig: WorkoutPlanConfig
   ): Promise<WorkoutPlan> {
     // Load from cache if there is a previous workout plan for the same parameters
-    const cachedWorkoutPlan = await this.userData.getWorkoutPlan();
+    var cachedWorkoutPlan = await this.userData.getWorkoutPlan();
     if (cachedWorkoutPlan !== null) {
+      cachedWorkoutPlan = await this.fillInExcerciseData(cachedWorkoutPlan!);
       return cachedWorkoutPlan;
     }
 
@@ -126,8 +144,8 @@ class WorkoutPlanner {
     weeklyPlan.focusAreas = workoutConfig.focusAreas;
     weeklyPlan.duration = workoutConfig.duration;
     weeklyPlan.preferences = workoutConfig.preferences;
-    console.log('Generated workout plan:', weeklyPlan);
     this.userData.saveWorkoutPlan(weeklyPlan);
+    weeklyPlan = await this.fillInExcerciseData(weeklyPlan!);
     return weeklyPlan;
   }
 
@@ -216,10 +234,13 @@ class WorkoutPlanner {
         split.muscleGroups,
         4
       );
+      const dailyExerciseids = dailyExercises.map((exercise) => exercise.id).filter((id): id is string => id !== undefined);
+
       workoutSchedule.push({
         day: split.day,
         muscleGroups: split.muscleGroups,
         exercises: dailyExercises,
+        exerciseIds: dailyExerciseids,
         sets: this.determineSets(goal, fitnessLevel),
         reps: this.determineReps(goal, fitnessLevel),
         rest: this.determineRest(goal, fitnessLevel),

@@ -47,6 +47,10 @@ export class UserData {
   }
 
   saveWorkoutPlan(workoutPlan: WorkoutPlan): boolean {
+    // Delete the excerises from the workout plan before saving it to save space
+    workoutPlan.days.forEach((workoutDay: WorkoutDay) => {
+      workoutDay.exercises = [];
+    });
     this.storage.set('lastWorkoutPlan', workoutPlan);
     this.storage.set('lastWorkoutPlanGeneratedDate', new Date());
     return true;
@@ -77,10 +81,10 @@ export class UserData {
     }
 
     var workoutDays = (plan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
-      var exercises = workoutDay.exercises.map((exercise : Exercise) => {
-        return Object.assign(new Exercise(), exercise);
-      });
-      workoutDay.exercises = exercises;
+      // var exercises = workoutDay.exercises.map((exercise : Exercise) => {
+      //   return Object.assign(new Exercise(), exercise);
+      // });
+      // workoutDay.exercises = exercises;
       return workoutDay;
     });
     (plan as WorkoutPlan).days = workoutDays;

@@ -34,12 +34,14 @@ export class WorkoutPlannerPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.workoutPlanner.getWorkoutConfig().then((config) => {
-      this.workoutConfig = config;
-      this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
-        this.reloadWorkoutPlan();
+    this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
+      this.workoutPlanner.getWorkoutConfig().then((config) => {
+        this.workoutConfig = config;
+        this.reloadWorkoutPlan();        
       });
     });
+
+    
   }
 
   reloadWorkoutPlan() {
