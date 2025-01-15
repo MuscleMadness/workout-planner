@@ -1,5 +1,5 @@
 {
-  "name": "workout-tracker",
+  "name": "workout-planner",
   "integrations": {
     "capacitor": {}
   },
