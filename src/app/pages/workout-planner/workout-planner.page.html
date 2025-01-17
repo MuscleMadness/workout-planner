@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Workout Planner</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="presentFilter()">
+      <ion-button (click)="presentFilter()" *ngIf="selectedSegment === 'custom'">
         <span *ngIf="ios">Filter</span>
         <div class="icon-container">
           <span *ngIf="!ios">
@@ -16,7 +16,7 @@
 
 <ion-content fullscreen="true">
   <div class="ion-padding-top workout-detail">
-    <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="reloadWorkoutPlan()">
       <ion-segment-button value="from-coach">
         <ion-label>From Coach</ion-label>
       </ion-segment-button>
@@ -24,8 +24,9 @@
         <ion-label>Custom</ion-label>
       </ion-segment-button>
     </ion-segment>
+  </div>
 
-    <div *ngIf="selectedSegment === 'custom'">
+    <div>
       <ion-list>
         <ion-item-group *ngFor="let workoutDay of workoutPlan?.days">
           <ion-item-divider
@@ -58,6 +59,5 @@
           </ion-item>
         </ion-item-group>
       </ion-list>
-    </div>
   </div>
 </ion-content>

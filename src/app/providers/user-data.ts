@@ -56,7 +56,6 @@ export class UserData {
     });
 
     workoutPlan.days = workoutDays;
-    console.log(JSON.stringify(workoutPlan));
 
     await this.storage.set('lastWorkoutPlan', workoutPlan);
     await this.storage.set('lastWorkoutPlanGeneratedDate', new Date());
@@ -86,7 +85,6 @@ export class UserData {
     if (!plan) {
       return null;
     }
-    console.log(JSON.stringify(plan));
 
     var workoutDays = (plan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
       // var exercises = workoutDay.exercises.map((exercise : Exercise) => {

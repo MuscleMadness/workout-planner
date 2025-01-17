@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { WorkoutData } from 'src/app/providers/workout-data';
 import Exercise from 'src/app/models/Excercise';
@@ -31,26 +31,43 @@ export class WorkoutPlannerPage implements OnInit {
     public workoutData: WorkoutData,
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
-    private userData: UserData
+    private userData: UserData,
+    private cdr: ChangeDetectorRef    
   ) {}
 
   ngOnInit() {
     this.workoutData.loadWorkOuts().subscribe((data: Exercise[]) => {
       this.workoutPlanner.getWorkoutConfig().then((config) => {
         this.workoutConfig = config;
-        this.reloadWorkoutPlan();        
+        this.reloadWorkoutPlan();
       });
     });
-
-    
   }
 
   reloadWorkoutPlan() {
+    if (this.selectedSegment === 'custom') {
+      this.loadCustomPlan();
+    } else {
+      this.fetchWorkoutPlanFromCoach();
+    }
+  }
+
+  loadCustomPlan() {
     this.workoutPlanner
       .generateWorkoutPlan(this.workoutConfig!)
       .then((workoutPlan: WorkoutPlan) => {
         this.workoutPlan = workoutPlan;
       });
+  }
+
+  fetchWorkoutPlanFromCoach() {
+    this.workoutPlanner.fetchWorkoutPlanFromCoach()
+    .then((data) => {
+      console.log(data);
+      this.workoutPlan = data;
+      console.log('workout plan ' + JSON.stringify(this.workoutPlan))
+      this.cdr.detectChanges();
+    });
   }
 
   async presentFilter() {

@@ -14,6 +14,9 @@ import {
   WorkoutPlan,
   WorkoutPlanConfig,
 } from '../models/workout-plan';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable, switchMap } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +25,8 @@ class WorkoutPlanner {
   constructor(
     public workoutData: WorkoutData,
     private userData: UserData,
-    private muscleGroupService: MuscleGroupService
+    private muscleGroupService: MuscleGroupService,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
@@ -68,6 +72,7 @@ class WorkoutPlanner {
       days.push(day);
       return day;
     });
+    workoutPlan.days = days;
     return workoutPlan;
 
   }
@@ -315,6 +320,17 @@ class WorkoutPlanner {
     return {
       days: workoutDays,
     };
+  }
+
+  async fetchWorkoutPlanFromCoach() : Promise<WorkoutPlan> {
+    // Make the api call to fetch workout plan from google drive json file
+    try {
+      const workoutPlan = await this.http.get<WorkoutPlan>(environment.workoutPlanUrl).toPromise();
+      return this.fillInExcerciseData(workoutPlan!);
+    } catch (error) {
+      console.error('Error fetching workout plan:', error);
+      throw error;
+    }
   }
 }
 
