@@ -15,36 +15,49 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-list>
-    <ion-item-group *ngFor="let workoutDay of workoutPlan?.days">
-      <ion-item-divider
-        sticky
-        *ngIf="workoutDay.exercises && workoutDay.exercises.length > 0"
-        color="primary"
-      >
-        <ion-label>
-          <h1>{{ workoutDay.day }}</h1>
-          <h3>{{ workoutDay.muscleGroups.join(', ') }}</h3>
-        </ion-label>
-      </ion-item-divider>
-      <ion-item
-        *ngFor="let workout of workoutDay.exercises"
-        routerLink="/app/tabs/workouts/{{workout.id}}"
-      >
-        <ion-thumbnail slot="start">
-          <img
-            src="{{ workout.thumbnail }}"
-            alt="{{ workout.thumbnail }}"
-            width="150"
-            height="100"
-          />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{workout.name}}</h2>
-          <p>{{workoutDay.sets}} x {{workoutDay.reps}} Sets</p>
-          <p>{{workoutDay.rest}} seconds rest</p>
-        </ion-label>
-      </ion-item>
-    </ion-item-group>
-  </ion-list>
+  <div class="ion-padding-top workout-detail">
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button value="from-coach">
+        <ion-label>From Coach</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="custom">
+        <ion-label>Custom</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="selectedSegment === 'custom'">
+      <ion-list>
+        <ion-item-group *ngFor="let workoutDay of workoutPlan?.days">
+          <ion-item-divider
+            sticky
+            *ngIf="workoutDay.exercises && workoutDay.exercises.length > 0"
+            color="primary"
+          >
+            <ion-label>
+              <h1>{{ workoutDay.day }}</h1>
+              <h3>{{ workoutDay.muscleGroups.join(', ') }}</h3>
+            </ion-label>
+          </ion-item-divider>
+          <ion-item
+            *ngFor="let workout of workoutDay.exercises"
+            routerLink="/app/tabs/workouts/{{workout.id}}"
+          >
+            <ion-thumbnail slot="start">
+              <img
+                src="{{ workout.thumbnail }}"
+                alt="{{ workout.thumbnail }}"
+                width="150"
+                height="100"
+              />
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{workout.name}}</h2>
+              <p>{{workoutDay.sets}} x {{workoutDay.reps}} Sets</p>
+              <p>{{workoutDay.rest}} seconds rest</p>
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </div>
+  </div>
 </ion-content>

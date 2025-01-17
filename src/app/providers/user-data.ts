@@ -46,13 +46,20 @@ export class UserData {
     this.storage.set('favourites', this.favorites);
   }
 
-  saveWorkoutPlan(workoutPlan: WorkoutPlan): boolean {
+  async saveWorkoutPlan(workoutPlan: WorkoutPlan): Promise<boolean> {
     // Delete the excerises from the workout plan before saving it to save space
-    workoutPlan.days.forEach((workoutDay: WorkoutDay) => {
-      workoutDay.exercises = [];
+    var workoutDays = (workoutPlan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
+      return {
+        ...workoutDay,
+        exercises: []
+      };
     });
-    this.storage.set('lastWorkoutPlan', workoutPlan);
-    this.storage.set('lastWorkoutPlanGeneratedDate', new Date());
+
+    workoutPlan.days = workoutDays;
+    console.log(JSON.stringify(workoutPlan));
+
+    await this.storage.set('lastWorkoutPlan', workoutPlan);
+    await this.storage.set('lastWorkoutPlanGeneratedDate', new Date());
     return true;
   }
 
@@ -79,6 +86,7 @@ export class UserData {
     if (!plan) {
       return null;
     }
+    console.log(JSON.stringify(plan));
 
     var workoutDays = (plan as WorkoutPlan).days.map((workoutDay: WorkoutDay) => {
       // var exercises = workoutDay.exercises.map((exercise : Exercise) => {

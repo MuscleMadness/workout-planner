@@ -144,7 +144,7 @@ class WorkoutPlanner {
     weeklyPlan.focusAreas = workoutConfig.focusAreas;
     weeklyPlan.duration = workoutConfig.duration;
     weeklyPlan.preferences = workoutConfig.preferences;
-    this.userData.saveWorkoutPlan(weeklyPlan);
+    await this.userData.saveWorkoutPlan(weeklyPlan);
     weeklyPlan = await this.fillInExcerciseData(weeklyPlan!);
     return weeklyPlan;
   }

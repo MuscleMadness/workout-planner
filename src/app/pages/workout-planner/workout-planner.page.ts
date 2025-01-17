@@ -24,6 +24,7 @@ export class WorkoutPlannerPage implements OnInit {
   workoutPlan?: WorkoutPlan;
   workoutConfig?: WorkoutPlanConfig;
   ios: boolean = false;
+  selectedSegment: string = 'from-coach';
 
   constructor(
     public workoutPlanner: WorkoutPlanner,
