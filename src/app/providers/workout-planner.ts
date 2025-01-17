@@ -325,6 +325,7 @@ class WorkoutPlanner {
   async fetchWorkoutPlanFromCoach() : Promise<WorkoutPlan> {
     // Make the api call to fetch workout plan from google drive json file
     try {
+      console.log('fetching from url ' + environment.workoutPlanUrl);
       const workoutPlan = await this.http.get<WorkoutPlan>(environment.workoutPlanUrl).toPromise();
       return this.fillInExcerciseData(workoutPlan!);
     } catch (error) {
