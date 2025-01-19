@@ -29,7 +29,7 @@ jobs:
         npm install
     - name: Build
       run: |
-        ionic build --prod -- --base-href 'https://musclemadness.co.in/workout-planner/'
+        ionic build --prod -- --base-href 'https://training.musclemadness.co.in'
         ls www
 
     - name: Deploy
