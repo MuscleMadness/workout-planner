@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { checkTutorialGuard } from './providers/check-tutorial.guard';
 
 const routes: Routes = [
@@ -40,11 +40,16 @@ const routes: Routes = [
   {
     path: 'workout-planner',
     loadChildren: () => import('./pages/workout-planner/workout-planner.module').then( m => m.WorkoutPlannerPageModule)
-  }
+  },
+  { 
+    path: 'not-found', 
+    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundPageModule) 
+  },
+  { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
