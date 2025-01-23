@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage-angular';
 
 import { UserData } from './providers/user-data';
 import { register } from 'swiper/element/bundle';
+import { FileDownloadService } from './services/file-downloader-service';
 
 register();
 
@@ -49,6 +50,7 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private fileDownloadService: FileDownloadService    
   ) {
     this.initializeApp();
   }
@@ -57,6 +59,7 @@ export class AppComponent implements OnInit {
     await this.storage.create();
     this.checkLoginStatus();
     this.listenForLoginEvents();
+    this.downloadPlanner();
 
     this.swUpdate.versionUpdates.subscribe(async res => {
       const toast = await this.toastCtrl.create({
@@ -76,6 +79,17 @@ export class AppComponent implements OnInit {
         .onDidDismiss()
         .then(() => this.swUpdate.activateUpdate())
         .then(() => window.location.reload());
+    });
+  }
+
+  downloadPlanner() {
+    const fileUrl = 'https://drive.google.com/uc?export=download&id=1Rop2mco0XsLVMx_U3-iGjZj9ne0naOTl';
+    // const fileId = "1Rop2mco0XsLVMx_U3-iGjZj9ne0naOTl";
+    // const url = `http://localhost:3000/download?id=${fileId}`;
+    this.fileDownloadService.downloadJsonFile(fileUrl).subscribe(data => {
+      console.log(data);
+    }, error => {
+      console.error('Error downloading the file', error);
     });
   }
 
