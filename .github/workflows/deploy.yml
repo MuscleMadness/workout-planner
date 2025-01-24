@@ -27,10 +27,14 @@ jobs:
       run: |
         npm i -D -E @angular/cli
         npm install
+
     - name: Build
       run: |
         ionic build --prod -- --base-href 'https://training.musclemadness.co.in'
         ls www
+
+    - name: Add CNAME file
+      run: echo 'training.musclemadness.co.in' > www/CNAME
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2
