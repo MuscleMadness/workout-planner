@@ -77,5 +77,11 @@
     "equipment": ["barbell", "dumbbell"],
     "focusAreas": ["chest", "legs", "back", "arms", "upper body", "core"],
     "duration": 60,
-    "preferences": ["compound", "isolation"]
+    "preferences": ["compound", "isolation"],
+    "coach": {
+        "name": "Ramaraj",
+        "experience": "10 years",
+        "gymName": "MM Gym"
+    },
+    "createdDate": "2025-02-02"
 }
