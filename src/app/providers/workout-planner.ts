@@ -336,16 +336,22 @@ class WorkoutPlanner {
     );
 
     // Calculate the week number
-    const weekNumber: number = Math.ceil(
-      (daysSinceStartOfYear + startOfYear.getDay() + 1) / 4
+    const weekNumberOfYear: number = Math.ceil(
+      (daysSinceStartOfYear + startOfYear.getDay() + 1) / 7
     );
 
+    // Calculate the week number in the range 1 to 4
+    const weekNumber: number = ((weekNumberOfYear - 1) % 4) + 1;
+
     // Call the fetchWorkoutPlanFromCoach function with the week number
-    const weeklyPlanUrl = environment.workoutPlanBaseUrl + "weekly-plan-" + weekNumber + ".json";
+    const weeklyPlanUrl =
+      environment.workoutPlanBaseUrl + 'weekly-plan-' + weekNumber + '.json';
     return this.fetchWorkoutPlanFromCoach(weeklyPlanUrl);
   }
 
-  private async fetchWorkoutPlanFromCoach(weeklyPlanUrl : string): Promise<WorkoutPlan> {
+  private async fetchWorkoutPlanFromCoach(
+    weeklyPlanUrl: string
+  ): Promise<WorkoutPlan> {
     // Make the api call to fetch workout plan from google drive json file
     try {
       console.log('fetching from url ' + weeklyPlanUrl);
@@ -355,8 +361,8 @@ class WorkoutPlanner {
       return this.fillInExcerciseData(workoutPlan!);
     } catch (error) {
       console.error('Error fetching workout plan:', error);
-      console.log('fetching from url failed, fetching from default');  
-      return this.fetchWorkoutPlanFromCoach(environment.defaultWorkoutPlanUrl);    
+      console.log('fetching from url failed, fetching from default');
+      return this.fetchWorkoutPlanFromCoach(environment.defaultWorkoutPlanUrl);
     }
   }
 }
