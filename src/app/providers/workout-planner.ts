@@ -337,7 +337,7 @@ class WorkoutPlanner {
 
     // Calculate the week number
     const weekNumber: number = Math.ceil(
-      (daysSinceStartOfYear + startOfYear.getDay() + 1) / 7
+      (daysSinceStartOfYear + startOfYear.getDay() + 1) / 4
     );
 
     // Call the fetchWorkoutPlanFromCoach function with the week number

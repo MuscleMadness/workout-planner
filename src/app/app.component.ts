@@ -59,7 +59,6 @@ export class AppComponent implements OnInit {
     await this.storage.create();
     this.checkLoginStatus();
     this.listenForLoginEvents();
-    // this.downloadPlanner();
 
     this.swUpdate.versionUpdates.subscribe(async res => {
       const toast = await this.toastCtrl.create({
@@ -80,19 +79,7 @@ export class AppComponent implements OnInit {
         .then(() => this.swUpdate.activateUpdate())
         .then(() => window.location.reload());
     });
-  }
-
-  downloadPlanner() {
-    const fileUrl = 'https://drive.google.com/uc?export=download&id=1Rop2mco0XsLVMx_U3-iGjZj9ne0naOTl';
-    // const fileUrl = "https://drive.usercontent.google.com/download?id=1Rop2mco0XsLVMx_U3-iGjZj9ne0naOTl&export=download";
-    // const fileId = "1Rop2mco0XsLVMx_U3-iGjZj9ne0naOTl";
-    // const url = `http://localhost:3000/download?id=${fileId}`;
-    this.fileDownloadService.downloadJsonFile(fileUrl).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.error('Error downloading the file', error);
-    });
-  }
+  }  
 
   initializeApp() {
     this.platform.ready().then(() => {
