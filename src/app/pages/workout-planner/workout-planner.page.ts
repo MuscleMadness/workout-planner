@@ -61,11 +61,10 @@ export class WorkoutPlannerPage implements OnInit {
   }
 
   fetchWorkoutPlanFromCoach() {
-    this.workoutPlanner.fetchWorkoutPlanFromCoach()
+    this.workoutPlanner.fetchThisWeeksWorkoutPlan()
     .then((data) => {
       console.log(data);
       this.workoutPlan = data;
-      console.log('workout plan ' + JSON.stringify(this.workoutPlan))
       this.cdr.detectChanges();
     });
   }

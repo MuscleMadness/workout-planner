@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  workoutPlanUrl : 'https://musclemadness.co.in/datasource/planner.json'
+  workoutPlanBaseUrl : 'https://musclemadness.co.in/datasource/',
+  defaultWorkoutPlanUrl : '../../assets/data/default-workout-plan.json'  
 };

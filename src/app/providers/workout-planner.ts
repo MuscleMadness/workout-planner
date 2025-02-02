@@ -64,17 +64,18 @@ class WorkoutPlanner {
 
   // WorkoutPlan initially will only have the exercise ids
   // This function will fill in the exercise data from the workoutData
-  async fillInExcerciseData(workoutPlan : WorkoutPlan) {
-    var exercises = this.workoutData.getAllWorkouts();       
-    var days: WorkoutDay[]  = []
+  async fillInExcerciseData(workoutPlan: WorkoutPlan) {
+    var exercises = this.workoutData.getAllWorkouts();
+    var days: WorkoutDay[] = [];
     workoutPlan.days.forEach((day) => {
-      day.exercises = day.exerciseIds.map((id) => exercises.find((ex) => ex.id === id)).filter((ex): ex is Exercise => ex !== undefined);
+      day.exercises = day.exerciseIds
+        .map((id) => exercises.find((ex) => ex.id === id))
+        .filter((ex): ex is Exercise => ex !== undefined);
       days.push(day);
       return day;
     });
     workoutPlan.days = days;
     return workoutPlan;
-
   }
 
   async getWorkoutConfig(): Promise<WorkoutPlanConfig> {
@@ -239,7 +240,9 @@ class WorkoutPlanner {
         split.muscleGroups,
         4
       );
-      const dailyExerciseids = dailyExercises.map((exercise) => exercise.id).filter((id): id is string => id !== undefined);
+      const dailyExerciseids = dailyExercises
+        .map((exercise) => exercise.id)
+        .filter((id): id is string => id !== undefined);
 
       workoutSchedule.push({
         day: split.day,
@@ -322,15 +325,38 @@ class WorkoutPlanner {
     };
   }
 
-  async fetchWorkoutPlanFromCoach() : Promise<WorkoutPlan> {
+  async fetchThisWeeksWorkoutPlan(): Promise<WorkoutPlan> {
+    // There are 4 weeks of workout plans. Find the current week from the start of the year from the current date
+    const currentDate: Date = new Date();
+    const startOfYear: Date = new Date(currentDate.getFullYear(), 0, 1);
+
+    // Calculate the number of days between the current date and the start of the year
+    const daysSinceStartOfYear: number = Math.floor(
+      (currentDate.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000)
+    );
+
+    // Calculate the week number
+    const weekNumber: number = Math.ceil(
+      (daysSinceStartOfYear + startOfYear.getDay() + 1) / 7
+    );
+
+    // Call the fetchWorkoutPlanFromCoach function with the week number
+    const weeklyPlanUrl = environment.workoutPlanBaseUrl + "weekly-plan-" + weekNumber + ".json";
+    return this.fetchWorkoutPlanFromCoach(weeklyPlanUrl);
+  }
+
+  private async fetchWorkoutPlanFromCoach(weeklyPlanUrl : string): Promise<WorkoutPlan> {
     // Make the api call to fetch workout plan from google drive json file
     try {
-      console.log('fetching from url ' + environment.workoutPlanUrl);
-      const workoutPlan = await this.http.get<WorkoutPlan>(environment.workoutPlanUrl).toPromise();
+      console.log('fetching from url ' + weeklyPlanUrl);
+      const workoutPlan = await this.http
+        .get<WorkoutPlan>(weeklyPlanUrl)
+        .toPromise();
       return this.fillInExcerciseData(workoutPlan!);
     } catch (error) {
       console.error('Error fetching workout plan:', error);
-      throw error;
+      console.log('fetching from url failed, fetching from default');  
+      return this.fetchWorkoutPlanFromCoach(environment.defaultWorkoutPlanUrl);    
     }
   }
 }
