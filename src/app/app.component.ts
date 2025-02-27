@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
       icon: 'people'
     },    
     {
+      title: 'Nutrients',
+      url: '/nutrients',
+      icon: 'information-circle'
+    },    
+    {
       title: 'About',
       url: '/app/tabs/about',
       icon: 'information-circle'

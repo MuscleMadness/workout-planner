@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'workout-planner',
     loadChildren: () => import('./pages/workout-planner/workout-planner.module').then( m => m.WorkoutPlannerPageModule)
+  },
+  {
+    path: 'nutrients',
+    loadChildren: () => import('./pages/nutrients/nutrients.module').then( m => m.NutrientsPageModule)
   }
 ];
 

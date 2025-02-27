@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Nutrients</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Food List</ion-title>
+      <ion-buttons slot="end">
+        <ion-select placeholder="Sort By" (ionChange)="sortFoodItems($event)">
+          <ion-select-option value="name-asc">Name (A-Z)</ion-select-option>
+          <ion-select-option value="name-desc">Name (Z-A)</ion-select-option>
+          <ion-select-option value="protein-asc">Protein (Low to High)</ion-select-option>
+          <ion-select-option value="protein-desc">Protein (High to Low)</ion-select-option>
+          <ion-select-option value="fat-asc">Fat (Low to High)</ion-select-option>
+          <ion-select-option value="fat-desc">Fat (High to Low)</ion-select-option>
+          <ion-select-option value="carbs-asc">Carbs (Low to High)</ion-select-option>
+          <ion-select-option value="carbs-desc">Carbs (High to Low)</ion-select-option>
+          <ion-select-option value="calories-asc">Calories (Low to High)</ion-select-option>
+          <ion-select-option value="calories-desc">Calories (High to Low)</ion-select-option>
+          <ion-select-option value="cost-asc">Cost per 10g (Low to High)</ion-select-option>
+          <ion-select-option value="cost-desc">Cost per 10g (High to Low)</ion-select-option>
+        </ion-select>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid *ngIf="foodItems.length > 0; else noData">
+      <ion-row class="header-row">
+        <ion-col size="4"><strong>Name</strong></ion-col>
+        <ion-col size="4"><strong>Nutrition (g)</strong></ion-col>
+        <ion-col size="2"><strong>Calories</strong></ion-col>
+        <ion-col size="2"><strong>Cost per 10g (₹)</strong></ion-col>
+      </ion-row>
+      <ion-row *ngFor="let food of foodItems">
+        <ion-col size="4">
+          <ion-icon [color]="food.Type === 'Veg' ? 'success' : 'danger'" name="ellipse"></ion-icon>
+          {{ food.FoodName }}
+        </ion-col>
+        <ion-col size="4">
+          Protein: {{ food.Protein }}<br>
+          Fat: {{ food.Fat }}<br>
+          Carbs: {{ food.Carbs }}
+        </ion-col>
+        <ion-col size="2">{{ food.Calories }}</ion-col>
+        <ion-col size="2">{{ food.CostPerTenGram }}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ng-template #noData>
+      <ion-item>
+        <ion-label>No food data available</ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-content>
+</ion-content>
