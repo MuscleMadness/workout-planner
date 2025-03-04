@@ -17,7 +17,7 @@ export class NutrientsPage implements OnInit {
   fetchFoodData() {
     this.http.get<any[]>('assets/data/nutrients.json').subscribe(
       (data: any[]) => {
-        this.foodItems = data;
+        this.foodItems = data.filter((item) => item.Popular);
       },
       (error) => {
         console.error('Error fetching food data:', error);
