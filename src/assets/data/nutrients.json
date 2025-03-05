@@ -322,5 +322,17 @@
     "Type": "Veg",
     "CaloriesPer10gProtein": 160,
     "Popular": true
+  },
+  {
+    "FoodName": "Green Peas",
+    "Thumbnail": "green_peas.jpg",
+    "Protein": 5.4,
+    "Fat": 0.4,
+    "Carbs": 14.5,
+    "Calories": 81,
+    "CostPerTenGram": 6,
+    "Type": "Veg",
+    "CaloriesPer10gProtein": 150,
+    "Popular": true
   }
 ]
