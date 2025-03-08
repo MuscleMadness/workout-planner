@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 
 import { MenuController, Platform, ToastController } from '@ionic/angular';
@@ -12,6 +12,8 @@ import { Storage } from '@ionic/storage-angular';
 import { UserData } from './providers/user-data';
 import { register } from 'swiper/element/bundle';
 import { FileDownloadService } from './services/file-downloader-service';
+import { MEASUREMENT_ID } from './models/AnalyticEvents';
+import { GoogleAnalyticsService } from './services/google-analytics.service';
 
 register();
 
@@ -55,9 +57,15 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
-    private fileDownloadService: FileDownloadService    
+    private fileDownloadService: FileDownloadService,
+    private gaService: GoogleAnalyticsService 
   ) {
     this.initializeApp();
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.gaService.trackPageView(event.urlAfterRedirects);
+      }      
+    })
   }
 
   async ngOnInit() {

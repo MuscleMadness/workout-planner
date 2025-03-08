@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage-angular';
+import { CATEGORY_TUTORIAL, TYPE_TUTORIAL_COMPLETED } from 'src/app/models/AnalyticEvents';
+import { GoogleAnalyticsService } from 'src/app/services/google-analytics.service';
 
 @Component({
   selector: 'page-tutorial',
@@ -17,18 +19,30 @@ export class TutorialPage {
     public menu: MenuController,
     public router: Router,
     public storage: Storage,
+    private googleAnalyticsService: GoogleAnalyticsService
   ) {}
 
+  skipTutorial() {
+    this.googleAnalyticsService.trackEvent(TYPE_TUTORIAL_COMPLETED, CATEGORY_TUTORIAL, 'Skip Tutorial Tapped');
+
+    this.openHomePage();
+  }
+
   startApp() {
-    this.router
-      .navigateByUrl('/app/tabs/workouts', { replaceUrl: true })
+    this.googleAnalyticsService.trackEvent(TYPE_TUTORIAL_COMPLETED, CATEGORY_TUTORIAL, 'Tutorial Completed');
+
+    this.openHomePage()
       .then(() => this.storage.set('ion_did_tutorial', true));
+  }
+
+  openHomePage() {
+    return this.router.navigateByUrl('/app/tabs/workouts', { replaceUrl: true });
   }
 
   ionViewWillEnter() {
     this.storage.get('ion_did_tutorial').then(res => {
       if (res === true) {
-        this.router.navigateByUrl('/app/tabs/workouts', { replaceUrl: true });
+        this.openHomePage();
       }
     });
 

@@ -17,6 +17,8 @@ import WorkoutsByGroup from 'src/app/models/WorkoutsByGroup';
 import { WorkoutFilterComponent } from '../workout-filter/workout-filter.component';
 import { filter } from 'rxjs';
 import WorkoutFilter from '../../models/WorkoutFilter';
+import { GoogleAnalyticsService } from 'src/app/services/google-analytics.service';
+import { CATEGORY_FILTER, CATEGORY_PERSONALIZATION, TYPE_FAVORITE_TOGGLED, TYPE_FILTER_BUTTON_CLICKED, TYPE_WORKOUT_GROUP_TOGGLED } from 'src/app/models/AnalyticEvents';
 
 @Component({
   selector: 'app-workouts',
@@ -41,7 +43,8 @@ export class WorkoutsPage implements OnInit {
     public routerOutlet: IonRouterOutlet,
     public modalCtrl: ModalController,
     public user: UserData,
-    public config: Config
+    public config: Config,
+    private gaService: GoogleAnalyticsService
   ) {}
 
   ngOnInit() {
@@ -140,10 +143,12 @@ export class WorkoutsPage implements OnInit {
   }
 
   toggleList(workoutGroup: WorkoutsByGroup) {
+    this.gaService.trackEvent(TYPE_WORKOUT_GROUP_TOGGLED, CATEGORY_PERSONALIZATION, workoutGroup.expanded ? 'Workout Group Collapsed' : 'Workout Group Expanded');
     workoutGroup.expanded = workoutGroup.expanded ? false : true;
   }
 
   async presentFilter() {
+    this.gaService.trackEvent(TYPE_FILTER_BUTTON_CLICKED, CATEGORY_FILTER, 'Filter Popup Opened');
     const modal = await this.modalCtrl.create({
       component: WorkoutFilterComponent,
       presentingElement: this.routerOutlet.nativeEl,
@@ -159,6 +164,7 @@ export class WorkoutsPage implements OnInit {
     }
   }
   async toggleFavorite(slidingItem: IonItemSliding, exercise: Exercise) {
+    this.gaService.trackEvent(TYPE_FAVORITE_TOGGLED, CATEGORY_PERSONALIZATION, exercise.isFavourite ? 'Favorite Removed' : 'Favorite Added');
     if (exercise.isFavourite) {
       console.log('removing favorite');
       this.user.removeFavorite(exercise.id!);
