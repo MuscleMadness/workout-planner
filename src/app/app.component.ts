@@ -35,12 +35,12 @@ export class AppComponent implements OnInit {
     },    
     {
       title: 'Nutrients',
-      url: '/nutrients',
+      url: '/app/tabs/nutrients',
       icon: 'information-circle'
     },    
     {
       title: 'About',
-      url: '/app/tabs/about',
+      url: '/about',
       icon: 'information-circle'
     }
   ];

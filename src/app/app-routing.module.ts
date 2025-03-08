@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'nutrients',
     loadChildren: () => import('./pages/nutrients/nutrients.module').then( m => m.NutrientsPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutModule)
   }
 ];
 

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import { WorkoutsPage } from '../workouts/workouts.page';
 import { WorkoutPlannerPage } from '../workout-planner/workout-planner.page';
+import { NutrientsPage } from '../nutrients/nutrients.page';
 
 const routes: Routes = [
   {
@@ -32,11 +33,11 @@ const routes: Routes = [
         ]
       },            
       {
-        path: 'about',
+        path: 'nutrients',
         children: [
           {
             path: '',
-            loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
+            component: NutrientsPage
           }
         ]
       },
