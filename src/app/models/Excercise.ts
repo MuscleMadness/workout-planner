@@ -12,6 +12,7 @@ class Exercise {
   videos?: string[];
   id?: string;
   isFavourite: boolean = false;
+  muscleGroups: string = ""
 
   get thumbnail(): string | null {
     return this.images && this.images.length > 0

@@ -34,7 +34,8 @@ export class WorkoutsPage implements OnInit {
   allExercises: Exercise[] = [];
   workoutFilter?: WorkoutFilter;
   filtersEnabled: boolean = false;
-
+  groupNames: string[] = [];
+  
   constructor(
     public workoutData: WorkoutData,
     public routerOutlet: IonRouterOutlet,
@@ -124,6 +125,17 @@ export class WorkoutsPage implements OnInit {
         this.allExercises = this.workoutGroups.flatMap(
           (group) => group.workouts
         ) as Exercise[];
+
+        this.groupNames = Array.from(
+          new Set(
+            this.allExercises
+              .map((e) => e.muscleGroups)
+              .filter((mg) => mg !== undefined)
+              .map((mg) => mg!.charAt(0).toUpperCase() + mg!.slice(1).toLowerCase())
+          )
+        ) as string[];
+
+        console.log(this.groupNames);
       });
   }
 
