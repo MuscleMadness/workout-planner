@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Muscle Groups</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="base-image-container">
+    <img src="assets/muscle-groups/baseImage.png" alt="Base Muscle Group" class="base-image" />
+    <img *ngFor="let muscle of muscleGroups" [src]="'assets/muscle-groups/' + muscle.image" [class.highlight]="muscle.selected" class="muscle-image" />
+  </div>
+
+  <ion-chip *ngFor="let muscle of muscleGroups" (click)="toggleMuscleSelection(muscle)" [color]="muscle.selected ? 'primary' : 'medium'">
+    <ion-label>{{ muscle.name }}</ion-label>
+  </ion-chip>
+</ion-content>

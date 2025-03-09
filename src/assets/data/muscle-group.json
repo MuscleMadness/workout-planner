@@ -1,0 +1,129 @@
+[
+  {
+    "key": "core",
+    "muscles": [
+      {
+        "key": "abdominals",
+        "name": "Abdominals",
+        "imageName": "abs.png"
+      }
+    ],
+    "name": "Core",
+    "orderNumber": 1
+  },
+  {
+    "key": "legs",
+    "muscles": [
+      {
+        "key": "hamstrings",
+        "name": "Hamstrings",
+        "imageName": "hamstring.png"
+      },
+      {
+        "key": "adductors",
+        "name": "Adductors",
+        "imageName": "adductors.png"
+      },
+      {
+        "key": "quadriceps",
+        "name": "Quadriceps",
+        "imageName": "quadriceps.png"
+      },
+      {
+        "key": "calves",
+        "name": "Calves",
+        "imageName": "calfs.png"
+      },
+      {
+        "key": "glutes",
+        "name": "Glutes",
+        "imageName": "gluteus.png"
+      },
+      {
+        "key": "abductors",
+        "name": "Abductors",
+        "imageName": "abductors.png"
+      }
+    ],
+    "name": "Legs",
+    "orderNumber": 2
+  },
+  {
+    "key": "arms",
+    "muscles": [
+      {
+        "key": "biceps",
+        "name": "Biceps",
+        "imageName": "biceps.png"
+      },
+      {
+        "key": "triceps",
+        "name": "Triceps",
+        "imageName": "triceps.png"
+      },
+      {
+        "key": "forearms",
+        "name": "Forearms",
+        "imageName": "forearms.png"
+      }
+    ],
+    "name": "Arms",
+    "orderNumber": 3
+  },
+  {
+    "key": "upper body",
+    "muscles": [
+      {
+        "key": "shoulders",
+        "name": "Shoulders",
+        "imageName": "shoulders.png"
+      },
+      {
+        "key": "traps",
+        "name": "Traps",
+        "imageName": "shoulders_back.png"
+      },
+      {
+        "key": "neck",
+        "name": "Neck",
+        "imageName": "neck.png"
+      }
+    ],
+    "name": "Upper Body",
+    "orderNumber": 4
+  },
+  {
+    "key": "back",
+    "muscles": [
+      {
+        "key": "middle back",
+        "name": "Middle Back",
+        "imageName": "back_upper.png"
+      },
+      {
+        "key": "lower back",
+        "name": "Lower Back",
+        "imageName": "back_lower.png"
+      },
+      {
+        "key": "lats",
+        "name": "Lats",
+        "imageName": "latissimus.png"
+      }
+    ],
+    "name": "Back",
+    "orderNumber": 5
+  },
+  {
+    "key": "chest",
+    "muscles": [
+      {
+        "key": "chest",
+        "name": "Chest",
+        "imageName": "chest.png"
+      }
+    ],
+    "name": "Chest",
+    "orderNumber": 6
+  }
+]

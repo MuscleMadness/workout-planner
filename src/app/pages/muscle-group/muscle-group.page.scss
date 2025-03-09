@@ -1,0 +1,27 @@
+.base-image-container {
+  position: relative;
+  text-align: center;
+}
+
+.base-image {
+  width: 100%;
+  height: auto;
+}
+
+.muscle-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.muscle-image.highlight {
+  opacity: 1;
+}
+
+ion-chip {
+  margin: 5px;
+}

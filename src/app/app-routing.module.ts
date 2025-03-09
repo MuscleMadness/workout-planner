@@ -48,7 +48,11 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutModule)
+  },  {
+    path: 'muscle-group',
+    loadChildren: () => import('./pages/muscle-group/muscle-group.module').then( m => m.MuscleGroupPageModule)
   }
+
 ];
 
 @NgModule({
