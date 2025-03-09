@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MuscleGroup } from '../models/MuscleGroup';
+import { MuscleGroup, MuscleGroupNew } from '../models/MuscleGroup';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -59,10 +61,16 @@ export class MuscleGroupService {
     'neck',
     'abductors',
   ];
-  constructor() {}
+  private jsonUrl = 'assets/data/muscle-group.json';
+
+  constructor(private http: HttpClient) {}
 
   getAllMuscleGroupsFlat() {
     return this.majorGroupsBasic;
+  }
+
+  getMuscleGroupsNew(): Observable<MuscleGroupNew[]> {
+    return this.http.get<MuscleGroupNew[]>(this.jsonUrl);
   }
 
   // This method will return all the excercises

@@ -38,7 +38,12 @@ export class AppComponent implements OnInit {
     {
       title: 'Nutrients',
       url: '/app/tabs/nutrients',
-      icon: 'information-circle'
+      icon: 'nutrition'
+    },
+    {
+      title: 'Know your Muscles',
+      url: '/muscle-group',
+      icon: 'man'
     },    
     {
       title: 'About',

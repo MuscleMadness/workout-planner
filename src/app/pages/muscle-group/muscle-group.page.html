@@ -1,16 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Muscle Groups</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Know your muscles</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="base-image-container">
     <img src="assets/muscle-groups/baseImage.png" alt="Base Muscle Group" class="base-image" />
-    <img *ngFor="let muscle of muscleGroups" [src]="'assets/muscle-groups/' + muscle.image" [class.highlight]="muscle.selected" class="muscle-image" />
+    <img *ngFor="let muscle of muscleGroups" [src]="'assets/muscle-groups/' + muscle.imageName" [class.highlight]="muscle.selected" class="muscle-image" />
   </div>
 
-  <ion-chip *ngFor="let muscle of muscleGroups" (click)="toggleMuscleSelection(muscle)" [color]="muscle.selected ? 'primary' : 'medium'">
-    <ion-label>{{ muscle.name }}</ion-label>
-  </ion-chip>
+  <ion-item-divider>
+    <ion-label>Muscle Groups</ion-label>
+  </ion-item-divider>
+  <div class="chip-container">
+    <ion-chip *ngFor="let group of muscleGroupData" (click)="toggleGroupSelection(group)" [color]="group.selected ? 'primary' : 'medium'">
+      <ion-label>{{ group.name }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <ion-item-divider>
+    <ion-label>Individual Muscles</ion-label>
+  </ion-item-divider>
+  <div class="chip-container">
+    <ion-chip *ngFor="let muscle of muscleGroups" (click)="toggleMuscleSelection(muscle)" [color]="muscle.selected ? 'primary' : 'medium'">
+      <ion-label>{{ muscle.name }}</ion-label>
+    </ion-chip>
+  </div>
 </ion-content>
