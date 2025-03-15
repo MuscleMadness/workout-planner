@@ -45,10 +45,13 @@ export class WorkoutPlannerPage implements OnInit {
   }
 
   reloadWorkoutPlan() {
+    // If the url path has a query parameter with a google drive file id, then load the workout plan from the google drive file
+    const urlParams = new URLSearchParams(window.location.search);
+    const googleDriveFileId = urlParams.get('googleDriveFileId');   
     if (this.selectedSegment === 'custom') {
       this.loadCustomPlan();
     } else {
-      this.fetchWorkoutPlanFromCoach();
+      this.fetchWorkoutPlanFromCoach(googleDriveFileId);
     }
   }
 
@@ -60,8 +63,8 @@ export class WorkoutPlannerPage implements OnInit {
       });
   }
 
-  fetchWorkoutPlanFromCoach() {
-    this.workoutPlanner.fetchThisWeeksWorkoutPlan()
+  fetchWorkoutPlanFromCoach(googleDriveFileId: string | null) {
+    this.workoutPlanner.fetchWorkoutPlanFromCoach(googleDriveFileId)
     .then((data) => {
       console.log(data);
       this.workoutPlan = data;

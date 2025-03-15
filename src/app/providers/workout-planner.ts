@@ -325,7 +325,16 @@ class WorkoutPlanner {
     };
   }
 
-  async fetchThisWeeksWorkoutPlan(): Promise<WorkoutPlan> {
+  public async fetchWorkoutPlanFromCoach(googleDriveFileId: string | null): Promise<WorkoutPlan> {
+    if (googleDriveFileId) {
+      return this.fetchWorkoutPlanFromGoogleDrive(googleDriveFileId);      
+    } else {
+      return this.fetchThisWeeksWorkoutPlan();
+    }
+  }
+
+
+  private async fetchThisWeeksWorkoutPlan(): Promise<WorkoutPlan> {
     // There are 4 weeks of workout plans. Find the current week from the start of the year from the current date
     const currentDate: Date = new Date();
     const startOfYear: Date = new Date(currentDate.getFullYear(), 0, 1);
@@ -343,13 +352,19 @@ class WorkoutPlanner {
     // Calculate the week number in the range 1 to 4
     const weekNumber: number = ((weekNumberOfYear - 1) % 4) + 1;
 
-    // Call the fetchWorkoutPlanFromCoach function with the week number
+    // Call the fetchWorkoutPlanFromUrl function with the week number
     const weeklyPlanUrl =
       environment.workoutPlanBaseUrl + 'weekly-plan-' + weekNumber + '.json';
-    return this.fetchWorkoutPlanFromCoach(weeklyPlanUrl);
+    return this.fetchWorkoutPlanFromUrl(weeklyPlanUrl);
   }
 
-  private async fetchWorkoutPlanFromCoach(
+  private fetchWorkoutPlanFromGoogleDrive(fileId: string): Promise<WorkoutPlan> {
+    console.log('fetching from google drive');
+    const url = `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media&key=${environment.googleDriveApiKey}`;
+    return this.fetchWorkoutPlanFromUrl(url);
+  }
+
+  private async fetchWorkoutPlanFromUrl(
     weeklyPlanUrl: string
   ): Promise<WorkoutPlan> {
     // Make the api call to fetch workout plan from google drive json file
@@ -362,7 +377,7 @@ class WorkoutPlanner {
     } catch (error) {
       console.error('Error fetching workout plan:', error);
       console.log('fetching from url failed, fetching from default');
-      return this.fetchWorkoutPlanFromCoach(environment.defaultWorkoutPlanUrl);
+      return this.fetchWorkoutPlanFromUrl(environment.defaultWorkoutPlanUrl);
     }
   }
 }
