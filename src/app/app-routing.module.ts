@@ -51,6 +51,10 @@ const routes: Routes = [
   },  {
     path: 'muscle-group',
     loadChildren: () => import('./pages/muscle-group/muscle-group.module').then( m => m.MuscleGroupPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   }
 
 ];

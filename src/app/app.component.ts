@@ -47,6 +47,11 @@ export class AppComponent implements OnInit {
       icon: 'man'
     },    
     {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
+    },
+    {
       title: 'About',
       url: '/about',
       icon: 'information-circle'
@@ -120,6 +125,7 @@ export class AppComponent implements OnInit {
   }
   
   switchLanguage(lang: string) {
+    console.log('Switching language to', lang);
     this.translate.use(lang);
     localStorage.setItem('lang', lang);
   }
