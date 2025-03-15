@@ -14,6 +14,7 @@ import { register } from 'swiper/element/bundle';
 import { FileDownloadService } from './services/file-downloader-service';
 import { MEASUREMENT_ID } from './models/AnalyticEvents';
 import { GoogleAnalyticsService } from './services/google-analytics.service';
+import { TranslateService } from '@ngx-translate/core';
 
 register();
 
@@ -63,8 +64,10 @@ export class AppComponent implements OnInit {
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
     private fileDownloadService: FileDownloadService,
-    private gaService: GoogleAnalyticsService 
+    private gaService: GoogleAnalyticsService,
+    private translate: TranslateService
   ) {
+    this.initializeTranslation();
     this.initializeApp();
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -98,6 +101,28 @@ export class AppComponent implements OnInit {
         .then(() => window.location.reload());
     });
   }  
+  
+  initializeTranslation() {
+    this.translate.addLangs(['en', 'ta']);
+    this.translate.setDefaultLang('en');
+  
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      this.translate.use(savedLang);
+    } else {
+      const browserLang = this.translate.getBrowserLang();
+      console.log('Browser Lang', browserLang);
+      const defaultLang = browserLang && browserLang.match(/en|ta/) ? browserLang : 'en';
+      console.log('Default Lang', defaultLang);
+      this.translate.use(defaultLang);
+      localStorage.setItem('lang', defaultLang);
+    }
+  }
+  
+  switchLanguage(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
 
   initializeApp() {
     this.platform.ready().then(() => {

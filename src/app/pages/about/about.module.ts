@@ -7,12 +7,15 @@ import { AboutPage } from './about';
 import { PopoverPage } from '../about-popover/about-popover';
 import { AboutPageRoutingModule } from './about-routing.module';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        AboutPageRoutingModule
+        AboutPageRoutingModule,
+        TranslateModule
     ],
     declarations: [AboutPage, PopoverPage],
     bootstrap: [AboutPage]
