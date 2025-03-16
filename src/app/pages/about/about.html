@@ -32,26 +32,11 @@
       </a>
     </div>
 
-    <h3 class="ion-padding-top ion-padding-start">About</h3>
+    <h3 class="ion-padding-top ion-padding-start">{{ 'ABOUT.ABOUT' | translate }}</h3>
 
-    <p class="ion-padding-start ion-padding-end">
-      Welcome to <span class="app-name">MM Workout Planner</span>, your ultimate
-      workout companion designed specifically for beginners in the gym. In a
-      place where fitness knowledge is limited, our app is here to bridge the
-      gap and empower the youth to take their first steps towards a healthier
-      lifestyle.
-    </p>
+    <p class="ion-padding-start ion-padding-end" [innerHTML]="'ABOUT.WELCOME_MESSAGE' | translate"></p>
 
-    <p class="ion-padding-start ion-padding-end">
-      Whether you're new to the gym or just starting your fitness journey,
-      <span class="app-name">MM Workout Planner</span> provides you with a
-      comprehensive library of workouts, complete with step-by-step
-      instructions, images, and videos. Our goal is to make fitness accessible,
-      understandable, and achievable for everyone in our community. With
-      <span class="app-name">MM Workout Planner</span>, you'll have all the
-      tools and guidance you need to confidently navigate your workouts and
-      build a stronger, healthier you.
-    </p>
+    <p class="ion-padding-start ion-padding-end" [innerHTML]="'ABOUT.FITNESS_JOURNEY' | translate"></p>
 
     <div class="about-header">
       <img
