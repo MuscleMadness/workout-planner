@@ -1,6 +1,8 @@
 {
-    "ABOUT": {
-      "CONTACT_US": "Contact Us"
-    }
+  "ABOUT": {
+    "CONTACT_US": "Contact Us",
+    "ABOUT": "About",
+    "WELCOME_MESSAGE": "Welcome to <span class=\"app-name\">MM Workout Planner</span>, your ultimate workout companion designed specifically for beginners in the gym. In a place where fitness knowledge is limited, our app is here to bridge the gap and empower the youth to take their first steps towards a healthier lifestyle.",
+    "FITNESS_JOURNEY": "Whether you're new to the gym or just starting your fitness journey, <span class=\"app-name\">MM Workout Planner</span> provides you with a comprehensive library of workouts, complete with step-by-step instructions, images, and videos. Our goal is to make fitness accessible, understandable, and achievable for everyone in our community. With <span class=\"app-name\">MM Workout Planner</span>, you'll have all the tools and guidance you need to confidently navigate your workouts and build a stronger, healthier you."
   }
-  
+}
