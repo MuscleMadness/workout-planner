@@ -8,6 +8,7 @@ import Exercise from '../models/Excercise';
 import Equipment from '../models/Equipment';
 import WorkoutsByGroup from '../models/WorkoutsByGroup';
 import { MuscleGroupService } from '../services/muscle-group-service.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,16 @@ export class WorkoutData {
   constructor(
     public http: HttpClient,
     public user: UserData,
-    private muscleGroupService: MuscleGroupService
+    private muscleGroupService: MuscleGroupService,
+    private translateService: TranslateService
   ) {}
+
+  private getWorkoutJsonFile(): string {
+    if (this.translateService.currentLang === 'ta') {
+      return 'assets/data/workouts-ta.json';
+    }
+   return 'assets/data/workouts.json';
+  }
 
   load(): any {
     if (this.exercises) {
@@ -30,7 +39,7 @@ export class WorkoutData {
     } else {
       console.log('returning data from file');
       return this.http
-        .get('assets/data/workouts.json')
+        .get(this.getWorkoutJsonFile())
         .pipe(map(this.processData, this));
       // .pipe(map(this.organizeByMajorMuscleGroup, this));
     }
