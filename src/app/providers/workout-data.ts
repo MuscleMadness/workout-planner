@@ -173,7 +173,7 @@ export class WorkoutData {
     ];
     // uniqueEquipmentNames.unshift('all');
     const uniqueEquipments = uniqueEquipmentNames.map(
-      (equipment) => new Equipment(equipment)
+      (equipment) => new Equipment({ id: equipment })
     );
     this.equipments = uniqueEquipments;
   }
