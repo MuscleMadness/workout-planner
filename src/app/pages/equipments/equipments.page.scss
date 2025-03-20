@@ -1,0 +1,16 @@
+ion-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--ion-color-light);
+  }
+
+  ion-text {
+    transition: color 0.3s ease;
+  }
+
+  &:hover ion-text {
+    color: var(--ion-color-primary);
+  }
+}

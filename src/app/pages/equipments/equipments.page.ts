@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 import Equipment from '../../models/Equipment';
+import { EquipmentServiceService } from '../../services/equipment-service.service';
 
 @Component({
   selector: 'app-equipments',
@@ -10,32 +10,29 @@ import Equipment from '../../models/Equipment';
 })
 export class EquipmentsPage implements OnInit {
   equipments: Equipment[] = [];
-  private thumbnailBasePath = 'assets/equipments/'; // Base path for thumbnails
 
-  constructor(private http: HttpClient, private translate: TranslateService) {}
+  constructor(
+    private equipmentService: EquipmentServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadEquipments();
   }
 
   loadEquipments() {
-    const lang = this.translate.currentLang || 'en'; // Default to 'en' if no language is set
-    const filePath = `assets/data/${lang}/equipments.json`;
-
-    this.http.get<Equipment[]>(filePath).subscribe(
+    this.equipmentService.getAllEquipments().subscribe(
       (data) => {
-        this.equipments = data.map((item) => {
-          // Construct the full thumbnail path
-          if (item.thumbnail) {
-            item.thumbnail = this.thumbnailBasePath + item.thumbnail;
-          }
-          return new Equipment(item);
-        });
+        this.equipments = data;
         console.log('Loaded Equipments:', this.equipments);
       },
       (error) => {
         console.error('Error loading equipments:', error);
       }
     );
+  }
+
+  openDetailPage(equipmentId: string) {
+    this.router.navigate(['/equipments', equipmentId]);
   }
 }

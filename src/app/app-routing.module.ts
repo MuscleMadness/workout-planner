@@ -48,7 +48,8 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutModule)
-  },  {
+  },
+  {
     path: 'muscle-group',
     loadChildren: () => import('./pages/muscle-group/muscle-group.module').then( m => m.MuscleGroupPageModule)
   },
@@ -59,6 +60,10 @@ const routes: Routes = [
   {
     path: 'equipments',
     loadChildren: () => import('./pages/equipments/equipments.module').then( m => m.EquipmentsPageModule)
+  },
+  {
+    path: 'equipments/:id',
+    loadChildren: () => import('./pages/equipment-detail/equipment-detail.module').then( m => m.EquipmentDetailPageModule)
   }
 
 ];
