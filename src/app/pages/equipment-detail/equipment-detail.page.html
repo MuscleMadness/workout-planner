@@ -26,9 +26,27 @@
       />
     </div>
     <h2>Workouts</h2>
-    <ul>
-      <li *ngFor="let workout of equipment?.exercises">{{ workout }}</li>
-    </ul>
+    <ion-list>
+      <ion-item
+        *ngFor="let workout of workouts"
+        routerLink="/app/tabs/workouts/{{workout.id}}"
+      >
+        <ion-thumbnail slot="start">
+          <img
+            [src]="'assets/thumbnails/' + workout.images[0]"
+            *ngIf="workout.images && workout.images.length > 0"
+            alt="{{ workout.name }}"
+          />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ workout.name }}</h2>
+          <p>
+            {{workout.primaryMuscles &&
+              workout.primaryMuscles[0]}}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </div>
 
   <div *ngIf="selectedSegment === 'video'" class="equipment-video">

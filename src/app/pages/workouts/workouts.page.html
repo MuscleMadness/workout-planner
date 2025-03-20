@@ -92,10 +92,14 @@
                 <!-- <ion-chip [outline]="true"
                     >{{workout.primaryMuscles &&
                     workout.primaryMuscles[0]}}</ion-chip
-                  >
+                  > -->
+                  <p>
+                    {{workout.primaryMuscles &&
+                      workout.primaryMuscles[0]}}
+                  </p>
                   <p style="text-transform: capitalize">
                     {{workout.equipment ?? 'Body Only'}}
-                  </p> -->
+                  </p>
               </ion-label>
             </ion-item>
             <!-- <ion-item-options>
