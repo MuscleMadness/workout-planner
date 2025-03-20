@@ -2,46 +2,40 @@
   {
     "id": "lat_pull_down_seated_rowing",
     "name": "Lat pull down/Seated rowing",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "pull_down_mid_row.png",
     "exercises": [
       "Elevated_Cable_Rows",
       "Close-Grip_Front_Lat_Pulldown",
       "Seated_One-arm_Cable_Pulley_Rows"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "peck_fly_rear_delt",
     "name": "Peck Fly/ Rear Delt",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "pec_deck_rear_delt.png",
     "exercises": [
       "Butterfly"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "functional_trainer",
     "name": "Functional Trainer",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "functional_trainer.png",
     "exercises": [],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "smith_machine_with_squat_rack",
     "name": "Smith Machine with Squat Rack",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "smith_machine.png",
     "exercises": [
       "Smith_Incline_Shoulder_Raise",
       "Smith_Machine_Bench_Press",
@@ -49,142 +43,120 @@
       "Smith_Machine_Squat"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "hack_squat_leg_press",
     "name": "Hack Squat / Leg Press",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "leg_press.png",
     "exercises": [
       "Leg_Press"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "multipress_machine",
     "name": "Multipress Machine",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "multi-press.png",
     "exercises": [
       "Machine_Bench_Press",
       "Leverage_Shoulder_Press"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "squat_rack",
     "name": "Squat rack",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "squat_rack.png",
     "exercises": [
       "Weighted_Squat"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "seated_calf_raise",
     "name": "Seated Calf raise",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "seated_calf.png",
     "exercises": [
       "Seated_Calf_Raise"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "leg_extension_leg_curl",
     "name": "Leg Extension / Leg Curl",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "leg-curl-extension.png",
     "exercises": [
       "Leg_Extensions",
       "Lying_Leg_Curls"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "chin_dip_assist",
     "name": "Chin/Dip Assist",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "chip_dip_assist.png",
     "exercises": [
       "Parallel_Bar_Dip",
       "Dips_-_Chest_Version",
       "Dips_-_Triceps_Version"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "t_bar_rowing",
     "name": "T-Bar Rowing",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "t_bar_row.png",
     "exercises": [
       "Lying_T-Bar_Row"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "forearm_machine",
     "name": "ForeArm Machine",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "wrist_curl.png",
     "exercises": [],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "hyper_extension",
     "name": "Hyper Extension",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "hyper_extension.png",
     "exercises": [
       "Hyperextensions_Back_Extensions"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   },
   {
     "id": "seated_preacher_curl_bench",
     "name": "Seated Preacher Curl Bench",
-    "thumbnail": "chest-press.png",
+    "thumbnail": "preacher_curl.png",
     "exercises": [
       "Preacher_Curl",
       "Preacher_Hammer_Dumbbell_Curl"
     ],
     "videos": [
-      {
-        "id": "jGb86DYMgFQ"
-      }
+      "XhIsIcjIbCw"
     ]
   }
 ]
