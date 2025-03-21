@@ -26,10 +26,13 @@
       />
     </div>
     <h2>Workouts</h2>
-    <ion-list>
+    <ion-list *ngFor="let muscleGroup of groupedWorkouts | keyvalue">
+      <ion-item-divider>
+        <ion-label>{{ muscleGroup.key }}</ion-label>
+      </ion-item-divider>
       <ion-item
-        *ngFor="let workout of workouts"
-        routerLink="/app/tabs/workouts/{{workout.id}}"
+        *ngFor="let workout of muscleGroup.value"
+        [routerLink]="'/app/tabs/workouts/' + workout.id"
       >
         <ion-thumbnail slot="start">
           <img
@@ -40,9 +43,10 @@
         </ion-thumbnail>
         <ion-label>
           <h2>{{ workout.name }}</h2>
-          <p>
-            {{workout.primaryMuscles &&
-              workout.primaryMuscles[0]}}
+          <p
+            *ngIf="workout.primaryMuscles && workout.primaryMuscles.length > 0"
+          >
+            {{ workout.primaryMuscles[0] }}
           </p>
         </ion-label>
       </ion-item>

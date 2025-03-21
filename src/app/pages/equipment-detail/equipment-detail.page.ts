@@ -12,7 +12,7 @@ import Exercise from '../../models/Excercise';
 })
 export class EquipmentDetailPage implements OnInit {
   equipment: Equipment | undefined;
-  workouts: Exercise[] = [];
+  groupedWorkouts: { [muscleGroup: string]: Exercise[] } = {};
   selectedSegment: string = 'details';
   screenWidth: number = window.innerWidth;
   screenHeight: number = Math.min(window.innerHeight / 2, 360); // Limit height to 360px
@@ -59,13 +59,24 @@ export class EquipmentDetailPage implements OnInit {
     if (this.equipment?.exercises) {
       this.workoutsService.getWorkoutsByIds(this.equipment.exercises).subscribe(
         (data) => {
-          this.workouts = data;
-          console.log('Workouts for this equipment:', this.workouts);
+          this.groupedWorkouts = this.groupByMuscleGroup(data);
+          console.log('Grouped Workouts:', this.groupedWorkouts);
         },
         (error) => {
           console.error('Error loading workouts:', error);
         }
       );
     }
+  }
+
+  groupByMuscleGroup(workouts: Exercise[]): { [muscleGroup: string]: Exercise[] } {
+    return workouts.reduce((groups, workout) => {
+      const muscleGroup = workout.muscleGroups;
+      if (!groups[muscleGroup]) {
+        groups[muscleGroup] = [];
+      }
+      groups[muscleGroup].push(workout);
+      return groups;
+    }, {} as { [muscleGroup: string]: Exercise[] });
   }
 }
