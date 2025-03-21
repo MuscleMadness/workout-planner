@@ -27,7 +27,20 @@
     "id": "functional_trainer",
     "name": "Functional Trainer",
     "thumbnail": "functional_trainer.png",
-    "exercises": [],
+    "exercises": [
+      "Cable_Crunch",
+      "Cable_Crossover",
+      "Cable_Hammer_Curls_-_Rope_Attachment",
+      "Cable_Incline_Pushdown",
+      "Cable_Incline_Triceps_Extension",
+      "Cable_Lying_Triceps_Extension",
+      "Cable_One_Arm_Tricep_Extension",
+      "Cable_Preacher_Curl",
+      "Low_Cable_Triceps_Extension",
+      "Face_Pull",
+      "Front_Cable_Raise",
+      "Cable_Hip_Adduction"
+    ],
     "videos": [
       "XhIsIcjIbCw"
     ]
@@ -40,7 +53,22 @@
       "Smith_Incline_Shoulder_Raise",
       "Smith_Machine_Bench_Press",
       "Smith_Machine_Decline_Press",
-      "Smith_Machine_Squat"
+      "Smith_Machine_Squat",
+      "Smith_Machine_Behind_the_Back_Shrug",
+      "Smith_Machine_Bent_Over_Row",
+      "Smith_Machine_Calf_Raise",
+      "Smith_Machine_Close-Grip_Bench_Press",
+      "Smith_Machine_Hip_Raise",
+      "Smith_Machine_Hang_Power_Clean",
+      "Smith_Machine_Incline_Bench_Press",
+      "Smith_Machine_Leg_Press",
+      "Smith_Machine_One-Arm_Upright_Row",
+      "Smith_Machine_Overhead_Shoulder_Press",
+      "Smith_Machine_Pistol_Squat",
+      "Smith_Machine_Reverse_Calf_Raises",
+      "Smith_Machine_Stiff-Legged_Deadlift",
+      "Smith_Machine_Upright_Row",
+      "Smith_Single-Leg_Split_Squat"
     ],
     "videos": [
       "XhIsIcjIbCw"
