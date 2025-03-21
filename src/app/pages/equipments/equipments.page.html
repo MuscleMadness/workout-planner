@@ -1,23 +1,22 @@
-<ion-content>
-  <ion-header class="ion-no-border">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title> <h3>Equipments</h3> </ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> <h3>Equipments</h3> </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let equipment of equipments" (click)="openDetailPage(equipment.id)">
-        <ion-thumbnail slot="start">
-          <img [src]="equipment.thumbnail" alt="{{ equipment.name }}" />
-        </ion-thumbnail>
-        <ion-text color="secondary">
-          {{ equipment.name }}
-        </ion-text>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item
+      *ngFor="let equipment of equipments"
+      (click)="openDetailPage(equipment.id)"
+    >
+      <ion-thumbnail slot="start">
+        <img [src]="equipment.thumbnail" alt="{{ equipment.name }}" />
+      </ion-thumbnail>
+      <ion-text color="secondary"> {{ equipment.name }} </ion-text>
+    </ion-item>
+  </ion-list>
 </ion-content>
