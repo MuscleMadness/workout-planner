@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Workout Plan Info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p><strong>Coach Name:</strong> {{ workoutPlan?.coach?.name || 'N/A' }}</p>
+  <p><strong>Gym Name:</strong> {{ workoutPlan?.coach?.gymName || 'N/A' }}</p>
+  <p><strong>Created Date:</strong> {{ workoutPlan?.createdDate || 'N/A' }}</p>
+</ion-content>

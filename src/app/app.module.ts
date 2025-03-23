@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PlannerInfoComponent } from './components/planner-info/planner-info.component';
 
 // Function to load translation files
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     })
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, PlannerInfoComponent],
   providers: [InAppBrowser],
   bootstrap: [AppComponent],
 })

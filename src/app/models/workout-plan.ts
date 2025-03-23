@@ -46,6 +46,13 @@ interface WorkoutPlan {
   focusAreas?: FocusArea[];
   duration?: number;
   preferences?: Preference[];
+  coach?: Coach;
+  createdDate?: string;
+}
+
+interface Coach {
+  name: string;
+  gymName: string;
 }
 
 interface WorkoutPlanConfig {

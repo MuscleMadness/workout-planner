@@ -14,6 +14,8 @@ import {
 } from 'src/app/models/workout-plan';
 import { WorkoutPlanner } from 'src/app/providers/workout-planner';
 import { UserData } from 'src/app/providers/user-data';
+import { AlertController } from '@ionic/angular';
+import { PlannerInfoComponent } from 'src/app/components/planner-info/planner-info.component';
 
 @Component({
   selector: 'app-workout-planner',
@@ -28,6 +30,7 @@ export class WorkoutPlannerPage implements OnInit {
 
   constructor(
     public workoutPlanner: WorkoutPlanner,
+    public alertController: AlertController,
     public workoutData: WorkoutData,
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
@@ -71,6 +74,16 @@ export class WorkoutPlannerPage implements OnInit {
       this.cdr.detectChanges();
     });
   }
+
+  // Method to show the info popup
+  async showCoachInfo() {
+    const alert = await this.modalCtrl.create({
+      component: PlannerInfoComponent,
+      componentProps: { workoutPlan: this.workoutPlan },
+    });
+  
+    await alert.present();
+  }  
 
   async presentFilter() {
     const modal = await this.modalCtrl.create({
