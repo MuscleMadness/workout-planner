@@ -200,11 +200,10 @@ export class WorkoutPlannerPage implements OnInit {
 
       // Add footer (centered)
       doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text(gymAddress, pageWidth / 2, pageHeight - 20, { align: 'center' }); // Centered address
-      doc.text(`Prepared by: ${coachName}`, pageWidth / 2, pageHeight - 10, {
-        align: 'center',
+      doc.setFont('helvetica', 'italic');
+      doc.text(`Prepared by: ${coachName}`, 10, pageHeight - 20, {
       }); // Centered coach name
+      doc.text(gymAddress, 10, pageHeight - 10, {  }); // Centered address
 
       // Get the current URL
       const currentUrl = window.location.href;
@@ -222,8 +221,8 @@ export class WorkoutPlannerPage implements OnInit {
           if (!err) {
             // Add QR code to the bottom-right corner
             const qrCodeSize = 50; // Fixed size for the QR code
-            const qrCodeX = pageWidth/2 - qrCodeSize/2; // Right margin
-            const qrCodeY = yLeft + 20; // Bottom margin
+            const qrCodeX = pageWidth - qrCodeSize - 10; // Right margin
+            const qrCodeY = pageHeight - qrCodeSize - 10; // Bottom margin
             doc.addImage(
               qrCodeDataUrl,
               'PNG',
