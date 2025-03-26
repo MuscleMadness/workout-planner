@@ -13,8 +13,11 @@
           </span>
         </div>
       </ion-button>
-      <ion-button (click)="showCoachInfo()">
+      <ion-button (click)="showCoachInfo()" *ngIf="selectedSegment != 'custom'">
         <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="exportToPdf()">
+        <ion-icon slot="icon-only" name="print-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
