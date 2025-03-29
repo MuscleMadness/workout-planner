@@ -47,6 +47,11 @@ export class AppComponent implements OnInit {
       icon: 'man'
     },    
     {
+      title: 'Fitness Fundamentals',
+      url: '/fitness-fundamentals',
+      icon: 'book'
+    },
+    {
       title: 'Equipments',
       url: '/equipments',
       icon: 'barbell'

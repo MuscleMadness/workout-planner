@@ -19,11 +19,13 @@ export class FundamentalsService {
   // Fetch all fundamentals with caching
   getAllFundamentals(): Observable<FitnessFundamental[]> {
     if (this.fundamentalsCache) {
+      console.log('Returning cached fundamentals:', this.fundamentalsCache);
       // Return cached data as an observable
       return of(this.fundamentalsCache);
     }
 
     const lang = this.translate.currentLang || 'en'; // Default to 'en' if no language is set
+    console.log('Loading fundamentals for language:', lang);
     const filePath = `assets/data/${lang}/fitness_fundamentals.json`;
 
     return this.http.get<FitnessFundamental[]>(filePath).pipe(

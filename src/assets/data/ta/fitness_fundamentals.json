@@ -3,91 +3,91 @@
     "order": 1,
     "category": "Fundamentals",
     "topic": "Gym Ethics & Etiquette",
-    "description": "Gym Etiquette: The Unwritten Rules of the Gym",
+    "description": "Gym Etiquette: ஜிம்மில் பின்பற்ற வேண்டிய சில விதிகள்",
     "youtubeVideoId": "O-uPYxjSc3s"
   },
   {
     "order": 1,
     "category": "Fundamentals",
     "topic": "Things to Know Before Joining a Gym",
-    "description": "10 Things You Should Know Before Joining a Gym",
+    "description": "ஜிம்மில் சேரும் முன் நீங்கள் தெரிந்து கொள்ள வேண்டிய 10 விஷயங்கள்",
     "youtubeVideoId": "EKUNGQ4LmH8"
   },
   {
     "order": 1,
     "category": "Fundamentals",
     "topic": "Understanding Gym Equipment",
-    "description": "Beginner's Guide to Gym Equipment",
+    "description": "ஜிம் மிஷின்கள் பற்றிய ஒரு அறிமுகம்",
     "youtubeVideoId": "m1UF4RgGoY0"
+  },
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Workout Splits",
+    "description": "புதிதாக ஜிம்மில் சேர்பவர்கள் பின்பற்ற வேண்டிய workout splits",
+    "youtubeVideoId": "pVeriZkz_6I"
   },
   {
     "order": 2,
     "category": "Workout Best Practices",
     "topic": "Warm-up & Cool-down",
-    "description": "The Importance of Warming Up and Cooling Down",
+    "description": "வார்மிங் அப் மற்றும் ஸ்டிரிச்சிங் routine",
     "youtubeVideoId": "VecbXgWY0DI"
   },
   {
     "order": 2,
     "category": "Workout Best Practices",
     "topic": "Progressive Overload",
-    "description": "Progressive Overload Explained: How to Get Stronger Over Time",
+    "description": "Progressive Overload - என்றால் என்ன?",
     "youtubeVideoId": "k0J8URJfUTg"
   },
   {
     "order": 3,
     "category": "Nutrition & Diet",
     "topic": "Pre & Post-Workout Nutrition",
-    "description": "What to Eat Before and After a Workout",
+    "description": "உடற்பயிற்சிக்கு முன்னும் பின்னும் என்ன சாப்பிட வேண்டும்?",
     "youtubeVideoId": "PM8kiHcAD7Q"
   },
   {
     "order": 3,
     "category": "Nutrition & Diet",
     "topic": "Macronutrients vs. Micronutrients",
-    "description": "Understanding Macronutrients and Micronutrients",
+    "description": "மேக்ரோநியூட்ரியண்ட்ஸ் மற்றும் மைக்ரோநியூட்ரியண்ட்ஸைப் பற்றிய ஒரு அறிமுகம்",
     "youtubeVideoId": "tzpHEs2m5h8"
   },
   {
     "order": 4,
     "category": "Motivation & Mindset",
     "topic": "Setting Realistic Goals",
-    "description": "How to Set and Achieve Your Fitness Goals",
+    "description": "உங்கள் இலக்குகளை எவ்வாறு அமைப்பது மற்றும் அடைவது?",
     "youtubeVideoId": "thbQTBtt11c"
   },
   {
     "order": 4,
     "category": "Motivation & Mindset",
     "topic": "Consistency Over Perfection",
-    "description": "Why Consistency Beats Perfection in Fitness",
+    "description": "தொடர்ந்து முயற்சிப்பதன் பலன்",
     "youtubeVideoId": "8ZAtxFM4Dmw"
   },
   {
     "order": 5,
     "category": "Injury Prevention & Safety",
     "topic": "Common Gym Injuries & How to Avoid Them",
-    "description": "Top 5 Common Gym Injuries and Prevention Tips",
+    "description": "ஜிம்மில் ஏற்பட கூடிய காயங்கள் மற்றும் அதனை தடுக்கும் முறைகள்",
     "youtubeVideoId": "GE01xnzXLxQ"
   },
   {
     "order": 5,
     "category": "Injury Prevention & Safety",
     "topic": "When to Stop vs. Push Through Pain",
-    "description": "Listening to Your Body: Pain vs. Discomfort",
+    "description": "எப்போது வலியை மீறி வொர்கவுட் செய்ய வேண்டும்/எப்போது கூடாது?",
     "youtubeVideoId": "iwiKE1LMEN4"
   },
   {
     "order": 6,
     "category": "Advanced Tips",
-    "topic": "Workout Splits",
-    "description": "Understanding Workout Splits and Periodization",
-    "youtubeVideoId": "pVeriZkz_6I"
-  },
-  {
-    "order": 6,
-    "category": "Advanced Tips",
     "topic": "Tracking Progress",
-    "description": "How to Track Your Fitness Progress Effectively",
+    "description": "உங்களது பிராக்கிரஸை கண்காணிப்பதின் அவசியம் ",
     "youtubeVideoId": "5u_1hT4VYyE"
   }
 ]
