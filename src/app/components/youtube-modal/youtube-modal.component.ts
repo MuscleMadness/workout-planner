@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -8,9 +8,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class YoutubeModalComponent {
   @Input() videoId!: string;
+  maxWidth: number = 640;
+  screenHeight: number = window.innerHeight;
+  screenWidth = window.innerWidth;
 
   constructor(private modalController: ModalController) {
-    console.log('Video ID:', this.videoId);
+    this.updateVideoDimensions();
+  }
+
+  private updateVideoDimensions() {
+    this.screenWidth = Math.min(window.innerWidth, this.maxWidth);
+    this.screenHeight = this.screenWidth * (9 / 16);
   }
 
   OnInit() {
@@ -19,5 +27,10 @@ export class YoutubeModalComponent {
 
   closeModal() {
     this.modalController.dismiss();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    this.updateVideoDimensions();
   }
 }
