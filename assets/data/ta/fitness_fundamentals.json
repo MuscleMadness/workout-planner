@@ -1,0 +1,93 @@
+[
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Gym Ethics & Etiquette",
+    "description": "Gym Etiquette: The Unwritten Rules of the Gym",
+    "youtubeVideoId": "O-uPYxjSc3s"
+  },
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Things to Know Before Joining a Gym",
+    "description": "10 Things You Should Know Before Joining a Gym",
+    "youtubeVideoId": "EKUNGQ4LmH8"
+  },
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Understanding Gym Equipment",
+    "description": "Beginner's Guide to Gym Equipment",
+    "youtubeVideoId": "m1UF4RgGoY0"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Warm-up & Cool-down",
+    "description": "The Importance of Warming Up and Cooling Down",
+    "youtubeVideoId": "VecbXgWY0DI"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Progressive Overload",
+    "description": "Progressive Overload Explained: How to Get Stronger Over Time",
+    "youtubeVideoId": "k0J8URJfUTg"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Pre & Post-Workout Nutrition",
+    "description": "What to Eat Before and After a Workout",
+    "youtubeVideoId": "PM8kiHcAD7Q"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Macronutrients vs. Micronutrients",
+    "description": "Understanding Macronutrients and Micronutrients",
+    "youtubeVideoId": "tzpHEs2m5h8"
+  },
+  {
+    "order": 4,
+    "category": "Motivation & Mindset",
+    "topic": "Setting Realistic Goals",
+    "description": "How to Set and Achieve Your Fitness Goals",
+    "youtubeVideoId": "thbQTBtt11c"
+  },
+  {
+    "order": 4,
+    "category": "Motivation & Mindset",
+    "topic": "Consistency Over Perfection",
+    "description": "Why Consistency Beats Perfection in Fitness",
+    "youtubeVideoId": "8ZAtxFM4Dmw"
+  },
+  {
+    "order": 5,
+    "category": "Injury Prevention & Safety",
+    "topic": "Common Gym Injuries & How to Avoid Them",
+    "description": "Top 5 Common Gym Injuries and Prevention Tips",
+    "youtubeVideoId": "GE01xnzXLxQ"
+  },
+  {
+    "order": 5,
+    "category": "Injury Prevention & Safety",
+    "topic": "When to Stop vs. Push Through Pain",
+    "description": "Listening to Your Body: Pain vs. Discomfort",
+    "youtubeVideoId": "iwiKE1LMEN4"
+  },
+  {
+    "order": 6,
+    "category": "Advanced Tips",
+    "topic": "Workout Splits",
+    "description": "Understanding Workout Splits and Periodization",
+    "youtubeVideoId": "pVeriZkz_6I"
+  },
+  {
+    "order": 6,
+    "category": "Advanced Tips",
+    "topic": "Tracking Progress",
+    "description": "How to Track Your Fitness Progress Effectively",
+    "youtubeVideoId": "5u_1hT4VYyE"
+  }
+]
