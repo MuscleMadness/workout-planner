@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title> <h3>Fitness Fundamentals</h3> </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group *ngFor="let category of categories">
+      <ion-item-divider>
+        <ion-label>{{ category.category }}</ion-label>
+      </ion-item-divider>
+
+      <ion-item *ngFor="let item of category.fundamentals">
+        <ion-label>
+          <h2>{{ item.topic }}</h2>
+          <p>{{ item.description }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+</ion-content>

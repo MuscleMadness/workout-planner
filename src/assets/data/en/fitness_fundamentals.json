@@ -1,0 +1,149 @@
+[
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Gym Ethics & Etiquette",
+    "description": "Gym Etiquette: The Unwritten Rules of the Gym",
+    "youtubeVideoId": "abcd1234"
+  },
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Things to Know Before Joining a Gym",
+    "description": "10 Things You Should Know Before Joining a Gym",
+    "youtubeVideoId": "efgh5678"
+  },
+  {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Understanding Gym Equipment",
+    "description": "Beginner's Guide to Gym Equipment",
+    "youtubeVideoId": "ijkl9101"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Warm-up & Cool-down",
+    "description": "The Importance of Warming Up and Cooling Down",
+    "youtubeVideoId": "mnop1121"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Progressive Overload",
+    "description": "Progressive Overload Explained: How to Get Stronger Over Time",
+    "youtubeVideoId": "qrst3141"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Form & Technique",
+    "description": "Proper Form for Common Exercises",
+    "youtubeVideoId": "uvwx5161"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Rest & Recovery",
+    "description": "Why Rest Days Are Crucial for Muscle Growth",
+    "youtubeVideoId": "yzab7181"
+  },
+  {
+    "order": 2,
+    "category": "Workout Best Practices",
+    "topic": "Balancing Cardio & Strength Training",
+    "description": "How to Balance Cardio and Strength Training",
+    "youtubeVideoId": "cdef9202"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Pre & Post-Workout Nutrition",
+    "description": "What to Eat Before and After a Workout",
+    "youtubeVideoId": "ghij1222"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Macronutrients vs. Micronutrients",
+    "description": "Understanding Macronutrients and Micronutrients",
+    "youtubeVideoId": "klmn3242"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Hydration",
+    "description": "The Importance of Staying Hydrated During Exercise",
+    "youtubeVideoId": "opqr5262"
+  },
+  {
+    "order": 3,
+    "category": "Nutrition & Diet",
+    "topic": "Supplements 101",
+    "description": "Beginner's Guide to Fitness Supplements",
+    "youtubeVideoId": "stuv7282"
+  },
+  {
+    "order": 4,
+    "category": "Motivation & Mindset",
+    "topic": "Setting Realistic Goals",
+    "description": "How to Set and Achieve Your Fitness Goals",
+    "youtubeVideoId": "wxyz9303"
+  },
+  {
+    "order": 4,
+    "category": "Motivation & Mindset",
+    "topic": "Overcoming Gym Anxiety",
+    "description": "Tips to Overcome Gym Anxiety",
+    "youtubeVideoId": "abcd1354"
+  },
+  {
+    "order": 4,
+    "category": "Motivation & Mindset",
+    "topic": "Consistency Over Perfection",
+    "description": "Why Consistency Beats Perfection in Fitness",
+    "youtubeVideoId": "efgh2465"
+  },
+  {
+    "order": 5,
+    "category": "Injury Prevention & Safety",
+    "topic": "Common Gym Injuries & How to Avoid Them",
+    "description": "Top 5 Common Gym Injuries and Prevention Tips",
+    "youtubeVideoId": "ijkl3576"
+  },
+  {
+    "order": 5,
+    "category": "Injury Prevention & Safety",
+    "topic": "When to Stop vs. Push Through Pain",
+    "description": "Listening to Your Body: Pain vs. Discomfort",
+    "youtubeVideoId": "mnop4687"
+  },
+  {
+    "order": 5,
+    "category": "Injury Prevention & Safety",
+    "topic": "Importance of Stretching & Mobility",
+    "description": "Stretching and Mobility for Injury Prevention",
+    "youtubeVideoId": "qrst5798"
+  },
+  {
+    "order": 6,
+    "category": "Advanced Tips",
+    "topic": "Periodization & Workout Splits",
+    "description": "Understanding Workout Splits and Periodization",
+    "youtubeVideoId": "uvwx6809"
+  },
+  {
+    "order": 6,
+    "category": "Advanced Tips",
+    "topic": "Tracking Progress",
+    "description": "How to Track Your Fitness Progress Effectively",
+    "youtubeVideoId": "yzab7910"
+  },
+  {
+    "order": 6,
+    "category": "Advanced Tips",
+    "topic": "Plateau Busting Techniques",
+    "description": "Breaking Through Workout Plateaus",
+    "youtubeVideoId": "cdef8021"
+  }
+]
