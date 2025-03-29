@@ -21,6 +21,13 @@
     "youtubeVideoId": "m1UF4RgGoY0"
   },
   {
+    "order": 1,
+    "category": "Fundamentals",
+    "topic": "Workout Splits",
+    "description": "Understanding Workout Splits and Periodization",
+    "youtubeVideoId": "pVeriZkz_6I"
+  },
+  {
     "order": 2,
     "category": "Workout Best Practices",
     "topic": "Warm-up & Cool-down",
@@ -75,13 +82,6 @@
     "topic": "When to Stop vs. Push Through Pain",
     "description": "Listening to Your Body: Pain vs. Discomfort",
     "youtubeVideoId": "iwiKE1LMEN4"
-  },
-  {
-    "order": 6,
-    "category": "Advanced Tips",
-    "topic": "Workout Splits",
-    "description": "Understanding Workout Splits and Periodization",
-    "youtubeVideoId": "pVeriZkz_6I"
   },
   {
     "order": 6,
