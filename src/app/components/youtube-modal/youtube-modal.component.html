@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Video</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="video-container">
+    <ion-label>{{videoId}}</ion-label>
+    <youtube-player [videoId]="videoId" [width]="'100%'" [height]="'300px'"></youtube-player>
+  </div>
+</ion-content>

@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { PlannerInfoComponent } from './components/planner-info/planner-info.component';
+import { YoutubeModalComponent } from './components/youtube-modal/youtube-modal.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 // Function to load translation files
 export function HttpLoaderFactory(http: HttpClient) {
@@ -29,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    YouTubePlayerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
@@ -40,9 +43,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     })
   ],
-  declarations: [AppComponent, PlannerInfoComponent],
+  declarations: [AppComponent, PlannerInfoComponent, YoutubeModalComponent],
   providers: [InAppBrowser],
   bootstrap: [AppComponent],
+  exports: [YoutubeModalComponent]
 })
 
 export class AppModule {}

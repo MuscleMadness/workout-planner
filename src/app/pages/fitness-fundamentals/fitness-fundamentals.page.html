@@ -14,7 +14,7 @@
         <ion-label>{{ category.category }}</ion-label>
       </ion-item-divider>
 
-      <ion-item *ngFor="let item of category.fundamentals">
+      <ion-item *ngFor="let item of category.fundamentals" (click)="openVideo(item.youtubeVideoId)">
         <ion-label>
           <h2>{{ item.topic }}</h2>
           <p>{{ item.description }}</p>

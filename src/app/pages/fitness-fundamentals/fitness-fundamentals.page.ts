@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { FundamentalsService } from 'src/app/services/fundamentals.service';
 import { FitnessFundamentalCategory } from 'src/app/models/FitnessFundamental';
+import { YoutubeModalComponent } from 'src/app/components/youtube-modal/youtube-modal.component';
 
 @Component({
   selector: 'app-fitness-fundamentals',
@@ -10,7 +12,7 @@ import { FitnessFundamentalCategory } from 'src/app/models/FitnessFundamental';
 export class FitnessFundamentalsPage implements OnInit {
   categories: FitnessFundamentalCategory[] = []; // Array of grouped categories
 
-  constructor(private fundamentalsService: FundamentalsService) {}
+  constructor(private fundamentalsService: FundamentalsService, private modalController: ModalController) {}
 
   ngOnInit() {
     this.loadFundamentals();
@@ -28,4 +30,14 @@ export class FitnessFundamentalsPage implements OnInit {
       },
     });
   }
+
+  async openVideo(videoId: string) {
+    console.log('Opening video:', videoId);
+    const modal = await this.modalController.create({
+      component: YoutubeModalComponent,
+      componentProps: { videoId },
+    });
+    await modal.present();
+  }
+
 }
