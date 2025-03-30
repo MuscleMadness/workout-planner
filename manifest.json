@@ -1,6 +1,6 @@
 {
-  "name": "Workout Tracker",
-  "short_name": "Workout Tracker",
+  "name": "Muscle Madness Workout Planner",
+  "short_name": "Workout Planner",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [
