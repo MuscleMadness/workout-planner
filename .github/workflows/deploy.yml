@@ -28,6 +28,15 @@ jobs:
         npm i -D -E @angular/cli
         npm install
 
+    - name: Inject API Key into Environment File
+      run: |
+        echo "export const environment = {" > src/environments/environment.prod.ts
+        echo "  production: true," >> src/environments/environment.prod.ts
+        echo "  workoutPlanBaseUrl: 'https://musclemadness.co.in/datasource/'," >> src/environments/environment.prod.ts
+        echo "  defaultWorkoutPlanUrl: '../../assets/data/default-workout-plan.json'," >> src/environments/environment.prod.ts
+        echo "  googleDriveApiKey: '${{ secrets.GOOGLE_DRIVE_API_KEY }}'" >> src/environments/environment.prod.ts
+        echo "};" >> src/environments/environment.prod.ts
+
     - name: Build
       run: |
         ionic build --prod -- --base-href 'https://training.musclemadness.co.in'
