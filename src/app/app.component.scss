@@ -1,7 +1,10 @@
 ion-menu ion-content {
   --padding-top: 20px;
   --padding-bottom: 20px;
-  --background: var(--ion-item-background, var(--ion-background-color, #ffffff));
+  --background: var(
+    --ion-item-background,
+    var(--ion-background-color, #ffffff)
+  );
 }
 
 /* Remove background transitions for switching themes */
@@ -28,7 +31,7 @@ ion-menu.md ion-list-header {
 
   font-weight: 450;
 
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
 
   text-transform: uppercase;
 }
@@ -60,7 +63,6 @@ ion-menu.md ion-list:not(:last-of-type) {
   border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
 }
 
-
 /*
  * iOS Menu
 */
@@ -90,4 +92,14 @@ ion-menu.ios ion-item ion-icon {
 
 ion-menu.ios ion-item.selected ion-icon {
   color: var(--ion-color-primary);
+}
+
+.center-install-button {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: auto;
+  padding: 8px 16px;
+  font-size: 16px;
+  white-space: nowrap;
 }

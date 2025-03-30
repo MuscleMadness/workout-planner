@@ -69,6 +69,8 @@ export class AppComponent implements OnInit {
   ];
   loggedIn = false;
   dark = false;
+  showInstallButton: boolean = true;
+  deferredPrompt: any;
 
   constructor(
     private menu: MenuController,
@@ -89,6 +91,12 @@ export class AppComponent implements OnInit {
         this.gaService.trackPageView(event.urlAfterRedirects);
       }      
     })
+
+    window.addEventListener('beforeinstallprompt', (event: any) => {
+      event.preventDefault();
+      this.deferredPrompt = event;
+      this.showInstallButton = true;
+    });
   }
 
   async ngOnInit() {
@@ -148,6 +156,22 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  installApp() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      this.deferredPrompt.userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        this.deferredPrompt = null;
+        this.showInstallButton = false;
+      });
+    }
+  }
+
 
   checkLoginStatus() {
     return this.userData.isLoggedIn().then(loggedIn => {
