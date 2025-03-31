@@ -102,6 +102,13 @@ const routes: Routes = [
         (m) => m.FitnessFundamentalsPageModule
       ),
   },
+  {
+    path: 'membership',
+    loadChildren: () =>
+      import('./pages/membership/membership.module').then(
+        (m) => m.MembershipPageModule
+      ),
+  },
 ];
 
 @NgModule({

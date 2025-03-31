@@ -62,6 +62,12 @@ export class AppComponent implements OnInit {
       icon: 'settings'
     },
     {
+      title: 'MemberShip',
+      url: '/membership',
+      icon: 'card',
+      queryParams: { gymId: 'Gym20251' }
+    },
+    {
       title: 'About',
       url: '/about',
       icon: 'information-circle'

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Membership</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Show Loading Indicator -->
+  <ion-spinner *ngIf="loading"></ion-spinner>
+
+  <!-- Error Message -->
+  <ion-card *ngIf="error">
+    <ion-card-content>
+      <ion-text color="danger">{{ error }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Gym Information Card -->
+  <ion-card *ngIf="gymInfo">
+    <ion-card-header>
+      <ion-card-title>{{ gymInfo.name }}</ion-card-title>
+      <ion-card-subtitle>{{ gymInfo.address }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Owner:</strong> {{ gymInfo.owner }}</p>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <ion-button
+          color="primary"
+          fill="clear"
+          (click)="callGym(gymInfo.contactNumber)"
+        >
+          <ion-icon name="call" slot="start"></ion-icon>
+          Call Gym
+        </ion-button>
+        <ion-button
+          color="secondary"
+          fill="clear"
+          (click)="emailGym(gymInfo.email)"
+        >
+          <ion-icon name="mail" slot="start"></ion-icon>
+          Email Gym
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Membership Actions Below -->
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Enter Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" (click)="checkUser()"
+      >Check Membership</ion-button
+    >
+  </ion-list>
+
+  <!-- User Information Card -->
+  <ion-card *ngIf="userInfo">
+    <ion-card-header>
+      <ion-card-title>{{ userInfo.Name }}</ion-card-title>
+      <ion-card-subtitle>{{ userInfo.Address }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Phone:</strong> {{ userInfo.PhoneNumber }}</p>
+      <p><strong>Email:</strong> {{ userInfo.Email }}</p>
+      <p><strong>Membership Expiry:</strong> {{ userInfo.ExpiryDate }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
