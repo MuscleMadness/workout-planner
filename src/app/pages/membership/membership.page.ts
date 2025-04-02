@@ -160,8 +160,10 @@ export class MembershipPage implements OnInit {
 
     // const CALLBACK_URL = encodeURIComponent('http://localhost:8100/membership?gymId=Gym20251&phoneNumber=a');
 
-    const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
-    
+    // const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
+    const uri = `upi://pay?pa=${UPI_ID}&am=${AMOUNT}&cu=${CURRENCY}&url=${CALLBACK_URL}`;
+    console.log(uri);
+
     // Open UPI payment intent
     this.iab.create(uri, '_system');
   }
