@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
 
@@ -16,9 +16,11 @@ export class MembershipPage implements OnInit {
 
   phoneNumber: string = '';
   userInfo: User | null = null;
+  showRegisterButton = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private gymManagementService: GymManagementService
   ) {}
 
@@ -60,6 +62,7 @@ export class MembershipPage implements OnInit {
   }
 
   checkUser() {
+    this.showRegisterButton = false;
     if (!this.phoneNumber) {
       this.error = 'Please enter a phone number.';
       return;
@@ -68,23 +71,36 @@ export class MembershipPage implements OnInit {
     this.loading = true;
     this.error = '';
 
-    this.gymManagementService.getUserInfo(this.gymId, this.phoneNumber).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.loading = false;
-        if (response.status === 'success') {
-          this.userInfo = response.user; // Store user data
-        } else {
-          this.userInfo = null; // User does not exist
-          this.error = 'User not found. Would you like to register?';
+    this.gymManagementService
+      .getUserInfo(this.gymId, this.phoneNumber)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.loading = false;
+          if (response.status === 'success') {
+            this.userInfo = response.user; // Store user data
+          } else {
+            this.showRegisterButton = true;
+            this.userInfo = null; // User does not exist
+            this.error = 'User not found. Would you like to register?';
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.loading = false;
+          this.error = 'An error occurred while checking membership.';
         }
-      },
-      (error) => {
-        console.log(error);
-        this.loading = false;
-        this.error = 'An error occurred while checking membership.';
-      }
-    );
+      );
+  }
+
+  registerUser() {
+    if (this.gymId && this.phoneNumber) {
+      this.router.navigate(['/register-user'], {
+        queryParams: { gymId: this.gymId, phoneNumber: this.phoneNumber },
+      });
+    } else {
+      console.error('Gym ID or Phone Number is missing.');
+    }
   }
 
   callGym(contactNumber: string) {

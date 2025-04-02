@@ -19,3 +19,9 @@ export interface User {
   ExpiryDate: string; // ISO date format (e.g., "2025-05-01T15:41:47.097Z")
   CreatedDate: string; // Can be empty or in ISO format
 }
+
+export interface RegisterUserRequest {
+  action: string;
+  gymId: string;
+  payload: User;
+}

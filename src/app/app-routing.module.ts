@@ -109,6 +109,11 @@ const routes: Routes = [
         (m) => m.MembershipPageModule
       ),
   },
+  {
+    path: 'register-user',
+    loadChildren: () => import('./pages/register-user/register-user.module').then( m => m.RegisterUserPageModule)
+  },
+
 ];
 
 @NgModule({

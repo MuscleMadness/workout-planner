@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/membership"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="loading"></ion-spinner>
+
+  <ion-card *ngIf="error">
+    <ion-card-content>
+      <ion-text color="danger">{{ error }}</ion-text>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="gymInfo">
+    <ion-card-header>
+      <ion-card-title>{{ gymInfo.name }}</ion-card-title>
+      <ion-card-subtitle>{{ gymInfo.address }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <form (ngSubmit)="submitForm()" #registerForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Name *</ion-label>
+        <ion-input
+          type="text"
+          required
+          [(ngModel)]="user.Name"
+          name="name"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Phone Number *</ion-label>
+        <ion-input
+          type="tel"
+          required
+          [(ngModel)]="user.PhoneNumber"
+          name="phoneNumber"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date of Birth</ion-label>
+        <ion-datetime-button
+          datetime="dob-datetime"
+          presentation="date"
+        ></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime
+              #dobPicker
+              id="dob-datetime"
+              presentation="date"
+              name="dob"
+            ></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-accordion-group>
+        <ion-accordion value="optional">
+          <ion-item slot="header">
+            <ion-label>Optional Details</ion-label>
+          </ion-item>
+          <div slot="content">
+            <ion-item>
+              <ion-label position="floating">Gender</ion-label>
+              <ion-select [(ngModel)]="user.Gender" name="gender">
+                <ion-select-option value="Male">Male</ion-select-option>
+                <ion-select-option value="Female">Female</ion-select-option>
+                <ion-select-option value="Other">Other</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input
+                type="email"
+                [(ngModel)]="user.Email"
+                name="email"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Address</ion-label>
+              <ion-textarea
+                [(ngModel)]="user.Address"
+                name="address"
+              ></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Emergency Contact</ion-label>
+              <ion-input
+                type="tel"
+                [(ngModel)]="user.EmergencyContact"
+                name="emergencyContact"
+              ></ion-input>
+            </ion-item>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-list>
+
+    <div class="button-container">
+      <ion-button
+        expand="block"
+        color="primary"
+        type="submit"
+        [disabled]="!registerForm.form.valid"
+        >Register</ion-button
+      >
+    </div>
+  </form>
+</ion-content>
