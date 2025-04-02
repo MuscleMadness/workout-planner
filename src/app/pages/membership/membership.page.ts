@@ -153,6 +153,7 @@ export class MembershipPage implements OnInit {
     const ORDER_ID = this.generateRandomString();
     const AMOUNT = '10.00'; // Change as required
     const CURRENCY = 'INR';
+    const mc = '7997'; // Gym & Fitness Category
 
     // get the current url
     const currentUrl = window.location.href;
@@ -161,7 +162,7 @@ export class MembershipPage implements OnInit {
     // const CALLBACK_URL = encodeURIComponent('http://localhost:8100/membership?gymId=Gym20251&phoneNumber=a');
 
     // const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
-    const uri = `upi://pay?pa=${UPI_ID}&am=${AMOUNT}&cu=${CURRENCY}&url=${CALLBACK_URL}`;
+    const uri = `upi://pay?pa=${UPI_ID}&am=${AMOUNT}&mc=${mc}&cu=${CURRENCY}&url=${CALLBACK_URL}`;
     console.log(uri);
 
     // Open UPI payment intent
