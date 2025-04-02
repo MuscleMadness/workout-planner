@@ -132,6 +132,12 @@ export class MembershipPage implements OnInit {
     }
   }
 
+  clearUserInfo() {
+    this.phoneNumber = '';
+    this.userInfo = null;
+    this.showRegisterButton = false;
+  }
+
   callGym(contactNumber: string) {
     if (contactNumber) {
       window.open(`tel:${contactNumber}`, '_system'); // Opens the phone dialer

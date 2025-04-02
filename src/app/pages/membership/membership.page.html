@@ -51,7 +51,7 @@
   </ion-card>
 
   <!-- Membership Actions Below -->
-  <ion-item>
+  <ion-item  *ngIf="!userInfo">
     <ion-item>
       <ion-label position="floating">Enter your Phone Number</ion-label>
       <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>      
@@ -70,5 +70,6 @@
       <p><strong>Email:</strong> {{ userInfo.email }}</p>
       <p><strong>Membership Expiry:</strong> {{ userInfo.expiryDate }}</p>
     </ion-card-content>
+    <ion-button expand="block" color="danger" (click)="clearUserInfo()">Log out</ion-button>  
   </ion-card>
 </ion-content>
