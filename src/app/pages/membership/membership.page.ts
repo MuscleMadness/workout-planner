@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
 
@@ -21,7 +22,8 @@ export class MembershipPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private gymManagementService: GymManagementService
+    private gymManagementService: GymManagementService,
+    private iab: InAppBrowser
   ) {}
 
   ngOnInit() {
@@ -136,6 +138,36 @@ export class MembershipPage implements OnInit {
     this.phoneNumber = '';
     this.userInfo = null;
     this.showRegisterButton = false;
+  }
+
+  renewMembership() {
+    console.log('Renewing membership for:', this.userInfo?.name);    
+    this.payWithUPI();  
+  }
+
+  payWithUPI() {
+    const UPI_ID = '6poornima6-1@okhdfcbank'; // Replace with actual UPI ID
+    const UPI_NAME = 'Poornima';
+    const TXN_NOTE = 'Membership Payment';
+    const TXN_ID = this.generateRandomString();
+    const ORDER_ID = this.generateRandomString();
+    const AMOUNT = '10.00'; // Change as required
+    const CURRENCY = 'INR';
+
+    // get the current url
+    const currentUrl = window.location.href;
+    const CALLBACK_URL = encodeURIComponent(currentUrl);
+
+    // const CALLBACK_URL = encodeURIComponent('http://localhost:8100/membership?gymId=Gym20251&phoneNumber=a');
+
+    const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
+    
+    // Open UPI payment intent
+    this.iab.create(uri, '_system');
+  }
+
+  generateRandomString(): string {
+    return Math.random().toString(36).substring(2, 12);
   }
 
   callGym(contactNumber: string) {
