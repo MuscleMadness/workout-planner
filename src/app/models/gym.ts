@@ -8,16 +8,16 @@ export interface Gym {
 }
 
 export interface User {
-  UserId: number;
-  Name: string;
-  PhoneNumber: string;
-  Email: string;
-  DateOfBirth: string; // ISO date format (e.g., "1995-06-14T18:30:00.000Z")
-  Gender: string;
-  Address: string;
-  EmergencyContact: string;
-  ExpiryDate: string; // ISO date format (e.g., "2025-05-01T15:41:47.097Z")
-  CreatedDate: string; // Can be empty or in ISO format
+  userId: number;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  dateOfBirth: string; // ISO date format (e.g., "1995-06-14T18:30:00.000Z")
+  gender: string;
+  address: string;
+  emergencyContact: string;
+  expiryDate: string; // ISO date format (e.g., "2025-05-01T15:41:47.097Z")
+  createdDate: string; // Can be empty or in ISO format
 }
 
 export interface RegisterUserRequest {

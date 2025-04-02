@@ -30,7 +30,7 @@
         <ion-input
           type="text"
           required
-          [(ngModel)]="user.Name"
+          [(ngModel)]="user.name"
           name="name"
         ></ion-input>
       </ion-item>
@@ -40,7 +40,7 @@
         <ion-input
           type="tel"
           required
-          [(ngModel)]="user.PhoneNumber"
+          [(ngModel)]="user.phoneNumber"
           name="phoneNumber"
         ></ion-input>
       </ion-item>
@@ -71,7 +71,7 @@
           <div slot="content">
             <ion-item>
               <ion-label position="floating">Gender</ion-label>
-              <ion-select [(ngModel)]="user.Gender" name="gender">
+              <ion-select [(ngModel)]="user.gender" name="gender">
                 <ion-select-option value="Male">Male</ion-select-option>
                 <ion-select-option value="Female">Female</ion-select-option>
                 <ion-select-option value="Other">Other</ion-select-option>
@@ -82,7 +82,7 @@
               <ion-label position="floating">Email</ion-label>
               <ion-input
                 type="email"
-                [(ngModel)]="user.Email"
+                [(ngModel)]="user.email"
                 name="email"
               ></ion-input>
             </ion-item>
@@ -90,7 +90,7 @@
             <ion-item>
               <ion-label position="floating">Address</ion-label>
               <ion-textarea
-                [(ngModel)]="user.Address"
+                [(ngModel)]="user.address"
                 name="address"
               ></ion-textarea>
             </ion-item>
@@ -99,7 +99,7 @@
               <ion-label position="floating">Emergency Contact</ion-label>
               <ion-input
                 type="tel"
-                [(ngModel)]="user.EmergencyContact"
+                [(ngModel)]="user.emergencyContact"
                 name="emergencyContact"
               ></ion-input>
             </ion-item>

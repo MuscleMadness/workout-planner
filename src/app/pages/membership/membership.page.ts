@@ -27,7 +27,8 @@ export class MembershipPage implements OnInit {
   ngOnInit() {
     // Read gymId from query params
     this.gymId = this.route.snapshot.queryParamMap.get('gymId');
-    console.log('Gym ID:', this.gymId);
+    this.phoneNumber =
+      this.route.snapshot.queryParamMap.get('phoneNumber') ?? '';
 
     if (this.gymId) {
       this.getGymInfo();
@@ -47,11 +48,14 @@ export class MembershipPage implements OnInit {
       next: (response) => {
         console.log(response);
         if (response.success) {
+          this.loading = false;
           this.gymInfo = response.gymInfo;
+          if (this.phoneNumber) {
+            this.getUserInfo();
+          }
         } else {
           this.error = 'Failed to fetch gym details';
         }
-        this.loading = false;
       },
       error: (err) => {
         this.error = 'An error occurred while fetching gym details';
@@ -59,6 +63,31 @@ export class MembershipPage implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  getUserInfo() {
+    this.loading = true;
+    this.error = '';
+
+    this.gymManagementService
+      .getUserInfo(this.gymId, this.phoneNumber)
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.loading = false;
+          if (response.status === 'success') {
+            this.userInfo = response.user; // Store user data
+          } else {
+            this.userInfo = null; // User does not exist
+            this.phoneNumber = '';
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.loading = false;
+          this.phoneNumber = '';
+        }
+      );
   }
 
   checkUser() {

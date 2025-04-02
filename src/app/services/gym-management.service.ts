@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegisterUserRequest, User } from '../models/gym';
 
@@ -7,7 +7,8 @@ import { RegisterUserRequest, User } from '../models/gym';
   providedIn: 'root',
 })
 export class GymManagementService {
-  private apiUrl = 'https://script.google.com/macros/s/AKfycby90HgmIZ5H2HvQ5eHLh8ya9jJkCHRRLNnmEKYj0OGyF5d0TVFFckJeyTLk-zP2MHGyCw/exec';
+  private apiUrl =
+    'https://script.google.com/macros/s/AKfycby90HgmIZ5H2HvQ5eHLh8ya9jJkCHRRLNnmEKYj0OGyF5d0TVFFckJeyTLk-zP2MHGyCw/exec';
   // private apiUrl = '/api';
 
   constructor(private http: HttpClient) {}
@@ -35,6 +36,18 @@ export class GymManagementService {
       payload: user,
     };
 
-    return this.http.post<any>(this.apiUrl, request);
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/plain;charset=utf-8',
+    });
+
+    const options = {
+      headers: headers,
+      responseType: 'json' as const,
+      observe: 'body' as const,
+    };
+
+    console.log(JSON.stringify(request));
+
+    return this.http.post<any>(this.apiUrl, request, options);
   }
 }

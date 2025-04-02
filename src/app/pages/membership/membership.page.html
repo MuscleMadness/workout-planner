@@ -62,13 +62,13 @@
   <!-- User Information Card -->
   <ion-card *ngIf="userInfo">
     <ion-card-header>
-      <ion-card-title>{{ userInfo.Name }}</ion-card-title>
-      <ion-card-subtitle>{{ userInfo.Address }}</ion-card-subtitle>
+      <ion-card-title>{{ userInfo.name }}</ion-card-title>
+      <ion-card-subtitle>{{ userInfo.address }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Phone:</strong> {{ userInfo.PhoneNumber }}</p>
-      <p><strong>Email:</strong> {{ userInfo.Email }}</p>
-      <p><strong>Membership Expiry:</strong> {{ userInfo.ExpiryDate }}</p>
+      <p><strong>Phone:</strong> {{ userInfo.phoneNumber }}</p>
+      <p><strong>Email:</strong> {{ userInfo.email }}</p>
+      <p><strong>Membership Expiry:</strong> {{ userInfo.expiryDate }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
