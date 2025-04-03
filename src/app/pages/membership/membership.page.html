@@ -73,4 +73,7 @@
     <ion-button expand="block" color="success" (click)="renewMembership()">Renew Membership</ion-button>
     <ion-button expand="block" color="danger" (click)="clearUserInfo()">Log out</ion-button>  
   </ion-card>
+  <ion-textarea
+    placeholder="url"
+    [(ngModel)]="currentUrl"/>
 </ion-content>

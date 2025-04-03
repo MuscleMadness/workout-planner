@@ -35,6 +35,15 @@ export class MembershipPage implements OnInit {
     if (this.gymId) {
       this.getGymInfo();
     }
+    this.showCurrentUrl();
+  }
+
+  currentUrl: string = '';
+  async showCurrentUrl() {
+    // Get current URL with query parameters
+    const queryParams = this.route.snapshot.queryParams;
+    const url = window.location.href; // Full URL
+    this.currentUrl = url;
   }
 
   getGymInfo() {
@@ -141,8 +150,8 @@ export class MembershipPage implements OnInit {
   }
 
   renewMembership() {
-    console.log('Renewing membership for:', this.userInfo?.name);    
-    this.payWithUPI();  
+    console.log('Renewing membership for:', this.userInfo?.name);
+    this.payWithUPI();
   }
 
   payWithUPI() {
@@ -151,7 +160,7 @@ export class MembershipPage implements OnInit {
     const TXN_NOTE = 'Membership Payment';
     const TXN_ID = this.generateRandomString();
     const ORDER_ID = this.generateRandomString();
-    const AMOUNT = '10.00'; // Change as required
+    const AMOUNT = '1.00'; // Change as required
     const CURRENCY = 'INR';
     const mc = '7997'; // Gym & Fitness Category
 
@@ -161,8 +170,8 @@ export class MembershipPage implements OnInit {
 
     // const CALLBACK_URL = encodeURIComponent('http://localhost:8100/membership?gymId=Gym20251&phoneNumber=a');
 
-    // const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
-    const uri = `upi://pay?pa=${UPI_ID}&am=${AMOUNT}&mc=${mc}&cu=${CURRENCY}&url=${CALLBACK_URL}`;
+    const uri = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&mc=${mc}&tid=${TXN_ID}&am=${AMOUNT}&cu=${CURRENCY}&tn=${TXN_NOTE}&tr=${ORDER_ID}&url=${CALLBACK_URL}`;
+    // const uri = `upi://pay?pa=${UPI_ID}&am=${AMOUNT}&mc=${mc}&cu=${CURRENCY}&url=${CALLBACK_URL}`;
     console.log(uri);
 
     // Open UPI payment intent
