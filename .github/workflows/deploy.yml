@@ -34,7 +34,8 @@ jobs:
         echo "  production: true," >> src/environments/environment.prod.ts
         echo "  workoutPlanBaseUrl: 'https://musclemadness.co.in/datasource/'," >> src/environments/environment.prod.ts
         echo "  defaultWorkoutPlanUrl: '../../assets/data/default-workout-plan.json'," >> src/environments/environment.prod.ts
-        echo "  googleDriveApiKey: '${{ secrets.GOOGLE_DRIVE_API_KEY }}'" >> src/environments/environment.prod.ts
+        echo "  googleDriveApiKey: '${{ secrets.GOOGLE_DRIVE_API_KEY }}'," >> src/environments/environment.prod.ts
+        echo "  googleSignInClientId: '${{ secrets.GOOGLE_CLIENT_ID }}'" >> src/environments/environment.prod.ts
         echo "};" >> src/environments/environment.prod.ts
 
     - name: Build
