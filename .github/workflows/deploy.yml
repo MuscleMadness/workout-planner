@@ -25,8 +25,8 @@ jobs:
 
     - name: Install NPM Modules
       run: |
-        npm i -D -E @angular/cli
-        npm install --force
+        npm i -D -E @angular/cli --legacy-peer-deps
+        npm install --legacy-peer-deps
 
     - name: Inject API Key into Environment File
       run: |
