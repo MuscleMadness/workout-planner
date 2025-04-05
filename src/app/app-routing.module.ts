@@ -111,9 +111,18 @@ const routes: Routes = [
   },
   {
     path: 'register-user',
-    loadChildren: () => import('./pages/register-user/register-user.module').then( m => m.RegisterUserPageModule)
+    loadChildren: () =>
+      import('./pages/register-user/register-user.module').then(
+        (m) => m.RegisterUserPageModule
+      ),
   },
-
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then(
+        (m) => m.DashboardPageModule
+      ),
+  },
 ];
 
 @NgModule({

@@ -23,6 +23,20 @@ export class GymManagementService {
     return this.http.get<any>(url);
   }
 
+  getAllUsers(gymId: string | null): Observable<any> {
+    const authResultJson = localStorage.getItem('authResult');
+    const authResult = JSON.parse(authResultJson || '{}');
+    if (!authResult) {
+      return new Observable((observer) => {
+        observer.error('User not logged in.');
+        observer.complete();
+      });
+    } else {
+      const url = `${this.apiUrl}?gymId=${gymId}&action=getAllUsers&Authorization=Bearer ${authResult.accessToken.token}`;     
+      return this.http.get<any>(url);
+    }
+  }
+
   getUserPermissions(gymId: string | null, email: string): Observable<any> {
     const url = `${this.apiUrl}?gymId=${gymId}&action=checkSheetAccess&email=${email}`;
     return this.http.get<any>(url);

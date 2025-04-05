@@ -21,6 +21,7 @@ export class SettingsPage {
   selectedLanguage: string;
   isLoggedIn: boolean = false;
   userInfo: User | null = null;
+  showDashboardButton: boolean = false;
 
   constructor(
     private translateService: TranslateService,
@@ -28,7 +29,7 @@ export class SettingsPage {
     private platform: Platform,
     private route: ActivatedRoute,
     private router: Router,
-    private gymManagementService: GymManagementService,
+    private gymManagementService: GymManagementService
   ) {
     this.selectedLanguage = this.translateService.currentLang;
 
@@ -75,6 +76,17 @@ export class SettingsPage {
     } else {
       this.userInfo = null;
     }
+
+    var accessLevel = localStorage.getItem('role');
+    console.log('Access Level:', accessLevel);
+    if (accessLevel) {
+      this.showDashboardButton =
+        accessLevel === 'owner' ||
+        accessLevel === 'editor' ||
+        accessLevel === 'viewer';
+    } else {
+      this.showDashboardButton = false;
+    }
   }
 
   removeQueryParams() {
@@ -116,19 +128,25 @@ export class SettingsPage {
       localStorage.setItem('authResult', JSON.stringify(result));
       this.getUserPermissions(result?.profile?.email ?? '');
     }
-    this.loadSessionDetails();
   }
 
   getUserPermissions(email: string) {
-   this.gymManagementService.getUserPermissions("Gym20251", email).subscribe({
+    this.gymManagementService.getUserPermissions('Gym20251', email).subscribe({
       next: (response) => {
         console.log('User permissions:', response);
-        localStorage.setItem('role', response.role);
-      }, error: (err) => {
+        localStorage.setItem('role', response.accessLevel);
+        this.loadSessionDetails();
+      },
+      error: (err) => {
         console.error('Error fetching user permissions:', err);
-        localStorage.setItem('role', ''); 
-      }
+        localStorage.setItem('role', '');
+        this.loadSessionDetails();
+      },
     });
+  }
+
+  openDashboard() {
+    this.router.navigate(['/dashboard'], {});
   }
 
   async logout() {
