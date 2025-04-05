@@ -5,10 +5,20 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title> <h3>Settings</h3> </ion-title>
+
+      <ion-button slot="end" (click)="isLoggedIn ? logout() : login()" fill="clear">
+        {{ isLoggedIn ? 'Logout' : 'Login' }}
+      </ion-button>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
+  <ion-content>
+    <ion-card *ngIf="userInfo">
+      <ion-card-header>
+        <ion-card-title>{{ userInfo.name }}</ion-card-title>
+        <ion-card-subtitle>{{ userInfo.email }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
     <ion-item>
       <ion-label>Language</ion-label>
       <ion-select [(ngModel)]="selectedLanguage" (ionChange)="changeLanguage($event)">
@@ -16,5 +26,5 @@
         <ion-select-option value="ta">தமிழ்</ion-select-option>
       </ion-select>
     </ion-item>
-  </ion-list>
+  </ion-content>
 </ion-content>

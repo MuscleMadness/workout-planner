@@ -23,6 +23,11 @@ export class GymManagementService {
     return this.http.get<any>(url);
   }
 
+  getUserPermissions(gymId: string | null, email: string): Observable<any> {
+    const url = `${this.apiUrl}?gymId=${gymId}&action=checkSheetAccess&email=${email}`;
+    return this.http.get<any>(url);
+  }
+
   registerUser(gymId: string | null, user: User): Observable<User> {
     if (!gymId) {
       return new Observable((observer) => {
