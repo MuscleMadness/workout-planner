@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
@@ -14,6 +14,8 @@ export class RegisterUserPage implements OnInit {
   gymInfo: Gym | null = null;
   loading: boolean = false;
   error: string | null = null;
+
+  userId: string | null = null;
 
   // User object to hold form data, conforming to the User interface
   user: User = {
@@ -35,16 +37,29 @@ export class RegisterUserPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private gymManagementService: GymManagementService
+    private gymManagementService: GymManagementService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     // Read gymId from query params
     this.gymId = this.route.snapshot.queryParamMap.get('gymId');
-    console.log('Gym ID:', this.gymId);
+    if (!this.gymId) {
+      this.gymId = localStorage.getItem('gymId');
+    }
 
     if (this.gymId) {
       this.getGymInfo();
+    }
+
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state?.['user']) {
+      this.user = navigation.extras.state['user'];
+      console.log('User object received:', this.user);
+      this.userId = String(this.user.userId);
+      this.cdr.detectChanges();
+    } else {
+      // If no user object is passed, check for userId in query params
     }
   }
 
@@ -66,6 +81,9 @@ export class RegisterUserPage implements OnInit {
           this.error = 'Failed to fetch gym details';
         }
         this.loading = false;
+        if (this.userId) {
+          // this.loadUserDetails(this.userId);
+        }
       },
       error: (err) => {
         this.error = 'An error occurred while fetching gym details';
@@ -73,6 +91,28 @@ export class RegisterUserPage implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  loadUserDetails(userId: string) {
+    this.loading = true;
+    this.error = '';
+
+    this.gymManagementService.getUserInfo(this.gymId, this.userId!).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.loading = false;
+        if (response.status === 'success') {
+          this.user = response.user;
+        } else {
+          this.error = 'User not found';
+        }
+      },
+      (error) => {
+        console.log(error);
+        this.loading = false;
+        this.error = 'Failed to fetch user details';
+      }
+    );
   }
 
   submitForm() {
@@ -91,6 +131,31 @@ export class RegisterUserPage implements OnInit {
     this.loading = true;
     this.error = null;
 
+    if (this.userId) {
+      this.updateUser();
+    } else {
+      this.registerUser();
+    }
+  }
+
+  updateUser() {
+    this.gymManagementService.updateUser(this.gymId, this.user).subscribe({
+      next: (user) => {
+        this.loading = false;
+        console.log('User data successfully:', user);
+        // Handle success, e.g., navigate to a success page
+        this.router
+          .navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = 'Failed to save user. Please try again.';
+        console.error('Error while saving user data:', err);
+      },
+    });
+  }
+
+  registerUser() {
     this.gymManagementService.registerUser(this.gymId, this.user).subscribe({
       next: (user) => {
         this.loading = false;

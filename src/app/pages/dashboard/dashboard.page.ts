@@ -45,7 +45,16 @@ export class DashboardPage implements OnInit {
         this.loading = false;
         console.log('Fetched Users:', data);
         this.users = data.map((user: any) => ({
-          ...user,
+          userId: user.UserId,
+          name: user.Name,
+          phoneNumber: user.PhoneNumber,
+          email: user.Email,
+          dateOfBirth: user.DateOfBirth,
+          gender: user.Gender,
+          address: user.Address,
+          emergencyContact: user.EmegencyContact,
+          createdDate: user.CreatedDate,
+          expiryDate: user.ExpiryDate,
           expiresInDays: this.calculateExpiryInDays(user.ExpiryDate),
         }));
       },
@@ -88,8 +97,9 @@ export class DashboardPage implements OnInit {
   }
 
   openUserDetails(user: User) {
-    this.router.navigate(['/user-detail'], {
-      queryParams: { userId: user.userId, gymId: this.gymId },
+    this.router.navigate(['/register-user'], {
+      queryParams: { gymId: this.gymId },
+      state: { user: user }
     });
   }
 }

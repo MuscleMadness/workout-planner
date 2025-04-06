@@ -32,7 +32,7 @@ export class GymManagementService {
         observer.complete();
       });
     } else {
-      const url = `${this.apiUrl}?gymId=${gymId}&action=getAllUsers&Authorization=Bearer ${authResult.accessToken.token}`;     
+      const url = `${this.apiUrl}?gymId=${gymId}&action=getAllUsers&Authorization=Bearer ${authResult.accessToken.token}`;
       return this.http.get<any>(url);
     }
   }
@@ -40,6 +40,34 @@ export class GymManagementService {
   getUserPermissions(gymId: string | null, email: string): Observable<any> {
     const url = `${this.apiUrl}?gymId=${gymId}&action=checkSheetAccess&email=${email}`;
     return this.http.get<any>(url);
+  }
+
+  updateUser(gymId: string | null, user: User): Observable<User> {
+    if (!gymId) {
+      return new Observable((observer) => {
+        observer.error('gymId is required.');
+        observer.complete();
+      });
+    }
+    const request: RegisterUserRequest = {
+      action: 'updateUser',
+      gymId: gymId,
+      payload: user,
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'text/plain;charset=utf-8',
+    });
+
+    const options = {
+      headers: headers,
+      responseType: 'json' as const,
+      observe: 'body' as const,
+    };
+
+    console.log(JSON.stringify(request));
+
+    return this.http.post<any>(this.apiUrl, request, options);
   }
 
   registerUser(gymId: string | null, user: User): Observable<User> {

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/membership"></ion-back-button>
     </ion-buttons>
-    <ion-title>Register</ion-title>
+    <ion-title> {{ userId ? 'Edit' : 'Register' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -114,7 +114,7 @@
         color="primary"
         type="submit"
         [disabled]="!registerForm.form.valid"
-        >Register</ion-button
+        > {{ userId ? 'Save' : 'Register' }}</ion-button
       >
     </div>
   </form>
