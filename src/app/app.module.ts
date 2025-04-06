@@ -17,6 +17,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { PlannerInfoComponent } from './components/planner-info/planner-info.component';
 import { YoutubeModalComponent } from './components/youtube-modal/youtube-modal.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { LogPaymentModalComponent } from './components/log-payment/log-payment.component';
 
 // Function to load translation files
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     })
   ],
-  declarations: [AppComponent, PlannerInfoComponent, YoutubeModalComponent],
+  declarations: [AppComponent, PlannerInfoComponent, YoutubeModalComponent, LogPaymentModalComponent],
   providers: [InAppBrowser],
   bootstrap: [AppComponent],
   exports: [YoutubeModalComponent]

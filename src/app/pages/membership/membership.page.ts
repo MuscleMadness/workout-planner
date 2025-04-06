@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Platform, ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-membership',
@@ -25,8 +24,8 @@ export class MembershipPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private iab: InAppBrowser,
-    private gymManagementService: GymManagementService,
-    private toastCtrl: ToastController
+    private alertController: AlertController,
+    private gymManagementService: GymManagementService
   ) {}
 
   ngOnInit() {
@@ -157,10 +156,52 @@ export class MembershipPage implements OnInit {
     this.showRegisterButton = false;
   }
 
+  /*
   renewMembership() {
     console.log('Renewing membership for:', this.userInfo?.name);
-    this.payWithUPI();
+    // this.payWithUPI();
+    this.payWithRazorpay();
   }
+
+  async payWithRazorpay() {
+    const options = {
+      key: 'rzp_test_67nmj4fudxepiV', 
+      amount: '10',
+      description: 'Monthly Membership Fee',
+      image: 'https://training.musclemadness.co.in/assets/img/appicon.svg',
+      order_id: 'order_QFfVse5PMggaEs',
+      currency: 'INR',
+      name: 'Muscle Madness Fitness Center',
+      prefill: {
+        email: this.userInfo?.email,
+        contact: this.userInfo?.phoneNumber,
+      },
+      theme: {
+        color: '#c93636',
+      },
+    };
+    try {
+      let data = await Checkout.open(options);
+      console.log(data.response + 'AcmeCorp');
+
+      this.presentAlert(data.response);
+    } catch (error) {
+      console.error('Error in payment:', JSON.stringify(error));
+      this.presentAlert(JSON.stringify(error));
+    }
+  }    
+
+  async presentAlert(response: string) {
+    let responseObj = JSON.parse(response);
+    console.log('message' + responseObj['razorpay_payment_id']);
+    const alert = await this.alertController.create({
+      message: responseObj['razorpay_payment_id'],
+      backdropDismiss: true,
+    });
+
+    await alert.present();
+  }
+    */
 
   payWithUPI() {
     const UPI_ID = '6poornima6-1@okhdfcbank'; // Replace with actual UPI ID

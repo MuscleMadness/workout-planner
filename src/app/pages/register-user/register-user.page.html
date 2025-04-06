@@ -114,7 +114,15 @@
         color="primary"
         type="submit"
         [disabled]="!registerForm.form.valid"
-        > {{ userId ? 'Save' : 'Register' }}</ion-button
+      >
+        {{ userId ? 'Save' : 'Register' }}</ion-button
+      >
+      <ion-button
+        expand="block"
+        color="primary"
+        *ngIf="showLogPaymentButton"
+        (click)="onLogPayment()"
+        >Log Payment</ion-button
       >
     </div>
   </form>

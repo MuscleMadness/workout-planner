@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterUserRequest, User } from '../models/gym';
+import { Payment, RegisterUserRequest, User } from '../models/gym';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +49,7 @@ export class GymManagementService {
         observer.complete();
       });
     }
+
     const request: RegisterUserRequest = {
       action: 'updateUser',
       gymId: gymId,
@@ -96,5 +97,45 @@ export class GymManagementService {
     console.log(JSON.stringify(request));
 
     return this.http.post<any>(this.apiUrl, request, options);
+  }
+
+  logPayment(gymId: string | null, payment: Payment): Observable<any> {
+    if (!gymId) {
+      return new Observable((observer) => {
+        observer.error('gymId is required.');
+        observer.complete();
+      });
+    }
+    const authResultJson = localStorage.getItem('authResult');
+    const authResult = JSON.parse(authResultJson || '{}');
+    if (!authResult) {
+      return new Observable((observer) => {
+        observer.error('User not logged in.');
+        observer.complete();
+      });
+    } else {
+      const authorization = 'Bearer ' + authResult.accessToken.token;
+      payment.transactionId = authResult.profile.givenName
+      const request = {
+        action: 'addPayment',
+        gymId: gymId,
+        payload: payment,
+        authorization: authorization,
+      };
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'text/plain;charset=utf-8',
+      });
+
+      const options = {
+        headers: headers,
+        responseType: 'json' as const,
+        observe: 'body' as const,
+      };
+
+      console.log(JSON.stringify(request));
+
+      return this.http.post<any>(this.apiUrl, request, options);
+    }
   }
 }

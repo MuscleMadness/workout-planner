@@ -1,0 +1,43 @@
+<!-- log-payment-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Log Payment</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedDuration">
+      <ion-item>
+        <ion-label>1 Month (₹500)</ion-label>
+        <ion-radio slot="start" [value]="{ days: 30, amount: 500 }"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>3 Months (₹1400)</ion-label>
+        <ion-radio slot="start" [value]="{ days: 90, amount: 1400 }"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>6 Months (₹2700)</ion-label>
+        <ion-radio slot="start" [value]="{ days: 180, amount: 2700 }"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Payment Mode</ion-label>
+    <ion-segment [(ngModel)]="paymentMode">
+      <ion-segment-button value="Cash">
+        <ion-label>Cash</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="GPay">
+        <ion-label>GPay</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
+
+  <ion-button expand="block" class="ion-margin-top" (click)="submit()">Log Payment</ion-button>
+</ion-content>

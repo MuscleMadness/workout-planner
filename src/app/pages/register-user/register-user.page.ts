@@ -1,8 +1,16 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Gym, User } from 'src/app/models/gym';
+import { Gym, Payment, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
-import { IonDatetime } from '@ionic/angular';
+import {
+  IonDatetime,
+  ActionSheetController,
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { LogPaymentModalComponent } from 'src/app/components/log-payment/log-payment.component';
 
 @Component({
   selector: 'app-register-user',
@@ -16,6 +24,8 @@ export class RegisterUserPage implements OnInit {
   error: string | null = null;
 
   userId: string | null = null;
+  accessLevel: string = 'no-access';
+  showLogPaymentButton: boolean = false;
 
   // User object to hold form data, conforming to the User interface
   user: User = {
@@ -33,11 +43,12 @@ export class RegisterUserPage implements OnInit {
 
   @ViewChild('dobPicker')
   dobPicker!: IonDatetime;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private gymManagementService: GymManagementService,
+    private toastController: ToastController,
+    private modalController: ModalController,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -61,6 +72,17 @@ export class RegisterUserPage implements OnInit {
     } else {
       // If no user object is passed, check for userId in query params
     }
+
+    this.loadSessionDetails();
+  }
+
+  loadSessionDetails() {
+    this.accessLevel = localStorage.getItem('role') ?? 'no-access';
+
+    var accessLevel = localStorage.getItem('role');
+    console.log('Access Level:', accessLevel);
+    this.showLogPaymentButton =
+      this.accessLevel === 'owner' || this.accessLevel === 'editor';
   }
 
   getGymInfo() {
@@ -144,8 +166,7 @@ export class RegisterUserPage implements OnInit {
         this.loading = false;
         console.log('User data successfully:', user);
         // Handle success, e.g., navigate to a success page
-        this.router
-          .navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         this.loading = false;
@@ -176,5 +197,46 @@ export class RegisterUserPage implements OnInit {
         // Handle error, e.g., display an error message to the user
       },
     });
+  }
+
+  async onLogPayment() {
+    await this.openPaymentModal(this.userId!);
+  }
+
+  async openPaymentModal(userId: string) {
+    const modal = await this.modalController.create({
+      component: LogPaymentModalComponent,
+      componentProps: { userId },
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.loading = true;
+      this.error = null;
+      this.gymManagementService.logPayment(this.gymId, data).subscribe({
+        next: () => {
+          this.loading = false;
+          this.toastController.create();
+          this.showToast('Payment logged successfully.', 'success');
+        },
+        error: (err) => {
+          this.loading = false;
+          this.error = err;
+          this.showToast('Error logging payment: ' + err, 'danger');
+        },
+      });
+    }
+  }
+
+  async showToast(message: string, color: 'success' | 'danger' = 'success') {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom',
+    });
+    await toast.present();
   }
 }

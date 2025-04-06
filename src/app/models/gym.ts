@@ -25,3 +25,12 @@ export interface RegisterUserRequest {
   gymId: string;
   payload: User;
 }
+
+export interface Payment {
+  userId: string;
+  amount: number;
+  days: number;
+  paymentMode: string;
+  transactionId?: string;
+  notes?: string; 
+}
