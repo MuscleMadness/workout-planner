@@ -38,6 +38,7 @@ export class MembershipPage implements OnInit {
       this.route.snapshot.queryParamMap.get('phoneNumber') ?? '';
 
     if (this.gymId) {
+      localStorage.setItem('gymId', this.gymId);
       this.getGymInfo();
     }
     this.showCurrentUrl();

@@ -23,6 +23,9 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.gymId = this.route.snapshot.queryParamMap.get('gymId');
+    if (!this.gymId) {
+      this.gymId = localStorage.getItem('gymId');
+    }
   }
 
   ionViewWillEnter() {

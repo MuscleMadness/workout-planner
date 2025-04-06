@@ -18,6 +18,8 @@ import { GymManagementService } from 'src/app/services/gym-management.service';
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage {
+  gymId: string | null = null;
+
   selectedLanguage: string;
   isLoggedIn: boolean = false;
   userInfo: User | null = null;
@@ -34,6 +36,13 @@ export class SettingsPage {
     this.selectedLanguage = this.translateService.currentLang;
 
     this.initializeApp();
+  }
+
+  ngOnInit() {
+    this.gymId = this.route.snapshot.queryParamMap.get('gymId');
+    if (!this.gymId) {
+      this.gymId = localStorage.getItem('gymId');
+    }
   }
 
   initializeApp() {

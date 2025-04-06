@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
     {
       title: 'Settings',
       url: '/settings',
-      icon: 'settings'
+      icon: 'settings',
     },
     {
       title: 'MemberShip',
