@@ -27,15 +27,16 @@ export class MembershipPage implements OnInit {
     private iab: InAppBrowser,
     private gymManagementService: GymManagementService,
     private toastCtrl: ToastController
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit() {
     // Read gymId from query params
     this.gymId = this.route.snapshot.queryParamMap.get('gymId');
     this.phoneNumber =
       this.route.snapshot.queryParamMap.get('phoneNumber') ?? '';
+    if (this.phoneNumber === '') {
+      this.phoneNumber = localStorage.getItem('lastUsedPhoneNumber') ?? '';
+    }
 
     if (this.gymId) {
       localStorage.setItem('gymId', this.gymId);
@@ -43,7 +44,6 @@ export class MembershipPage implements OnInit {
     }
     this.showCurrentUrl();
   }
-
 
   currentUrl: string = '';
   async showCurrentUrl() {
@@ -125,7 +125,8 @@ export class MembershipPage implements OnInit {
           console.log(response);
           this.loading = false;
           if (response.status === 'success') {
-            this.userInfo = response.user; // Store user data
+            this.userInfo = response.user;
+            localStorage.setItem('lastUsedPhoneNumber', this.phoneNumber);
           } else {
             this.showRegisterButton = true;
             this.userInfo = null; // User does not exist
