@@ -5,6 +5,8 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
 import { DateUtils } from 'src/app/utils/date-utils';
+import { DomSanitizer } from '@angular/platform-browser';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-membership',
@@ -21,6 +23,9 @@ export class MembershipPage implements OnInit {
   userInfo: User | null = null;
   showRegisterButton = false;
 
+  qrCodeDataUrl: string = '';
+  showQr: boolean = false;
+
   public DateUtils = DateUtils;
 
   constructor(
@@ -28,7 +33,8 @@ export class MembershipPage implements OnInit {
     private router: Router,
     private iab: InAppBrowser,
     private alertController: AlertController,
-    private gymManagementService: GymManagementService
+    private gymManagementService: GymManagementService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -61,6 +67,17 @@ export class MembershipPage implements OnInit {
       return;
     }
 
+    const cachedGymInfo = localStorage.getItem('cachedGymInfo');
+    if (cachedGymInfo) {
+      var gymInfo = JSON.parse(cachedGymInfo);
+      if (this.gymId === gymInfo.gymId) {
+        console.log('loading gym info from cache')
+        this.gymInfo = gymInfo;
+        this.getUserInfo();
+        return;
+      }
+    }
+
     this.loading = true;
     this.error = null;
 
@@ -73,11 +90,14 @@ export class MembershipPage implements OnInit {
           if (this.phoneNumber) {
             this.getUserInfo();
           }
+          localStorage.setItem('cachedGymInfo', JSON.stringify(this.gymInfo));
         } else {
+          localStorage.removeItem('cachedGymInfo');
           this.error = 'Failed to fetch gym details';
         }
       },
       error: (err) => {
+        localStorage.removeItem('cachedGymInfo');
         this.error = 'An error occurred while fetching gym details';
         console.error(err);
         this.loading = false;
@@ -85,7 +105,23 @@ export class MembershipPage implements OnInit {
     });
   }
 
+  refresh() {
+    localStorage.removeItem('cachedGymInfo')
+    localStorage.removeItem('cachedUserInfo')
+    this.gymInfo = null;
+    this.userInfo = null;
+    this.getGymInfo()
+  }
+
   getUserInfo() {
+    const cachedUser = localStorage.getItem('cachedUserInfo');
+    if (cachedUser) {
+      console.log('loading user info from cache')
+      this.userInfo = JSON.parse(cachedUser);
+      this.buildQRCode();
+      return;
+    }
+
     this.loading = true;
     this.error = '';
 
@@ -97,12 +133,19 @@ export class MembershipPage implements OnInit {
           this.loading = false;
           if (response.status === 'success') {
             this.userInfo = response.user; // Store user data
+            localStorage.setItem(
+              'cachedUserInfo',
+              JSON.stringify(this.userInfo)
+            );
+            this.buildQRCode();
           } else {
+            localStorage.removeItem('cachedUserInfo')
             this.userInfo = null; // User does not exist
             this.phoneNumber = '';
           }
         },
         (error) => {
+          localStorage.removeItem('cachedUserInfo')
           console.log(error);
           this.loading = false;
           this.phoneNumber = '';
@@ -127,7 +170,7 @@ export class MembershipPage implements OnInit {
           console.log(response);
           this.loading = false;
           if (response.status === 'success') {
-            this.userInfo = response.user;
+            this.userInfo = response.user;            
             localStorage.setItem('lastUsedPhoneNumber', this.phoneNumber);
           } else {
             this.showRegisterButton = true;
@@ -157,6 +200,28 @@ export class MembershipPage implements OnInit {
     this.phoneNumber = '';
     this.userInfo = null;
     this.showRegisterButton = false;
+  }
+
+  buildQRCode() {
+    if (this.userInfo) {
+      const qrJson = JSON.stringify({ userId: this.userInfo.userId });
+      const base64 = btoa(qrJson);
+
+      QRCode.toDataURL(base64, { width: 256 }, (err, url) => {
+        if (!err) {
+          this.qrCodeDataUrl = url;
+        } else {
+          console.log('error while creating qr code' + err);
+        }
+      });
+    }
+  }
+
+  downloadQRCode() {
+    const link = document.createElement('a');
+    link.href = this.qrCodeDataUrl;
+    link.download = `${this.userInfo?.userId}-qr.png`;
+    link.click();
   }
 
   /*

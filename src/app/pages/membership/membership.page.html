@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Membership</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refresh()">
+        <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -32,10 +37,8 @@
       <ion-card-title>{{ gymInfo.name }}</ion-card-title>
       <ion-card-subtitle>{{ gymInfo.address }}</ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>
-      <!-- <p><strong>Owner:</strong> {{ gymInfo.owner }}</p> -->
 
-      <!-- Action Buttons -->
+    <ion-card-content>
       <div class="action-buttons">
         <ion-button
           color="primary"
@@ -45,50 +48,69 @@
           <ion-icon name="call" slot="start"></ion-icon>
           Call
         </ion-button>
-        <ion-button
+
+        <!-- <ion-button
           color="secondary"
           fill="clear"
           (click)="emailGym(gymInfo.email)"
         >
           <ion-icon name="mail" slot="start"></ion-icon>
           Email
-        </ion-button>
+        </ion-button> -->
       </div>
     </ion-card-content>
   </ion-card>
 
   <!-- Membership Actions Below -->
-  <ion-item *ngIf="!userInfo">
-    <ion-item>
-      <ion-label position="floating">Enter your Phone Number</ion-label>
-      <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>
-    </ion-item>
-    <ion-button slot="end" expand="block" color="primary" (click)="checkUser()"
-      >Proceed</ion-button
-    >
-  </ion-item>
-
-  <!-- User Information Card -->
   <ion-card *ngIf="userInfo">
+    <ion-button
+      fill="clear"
+      (click)="showQr = !showQr"
+      style="position: absolute; top: 0px; right: 10px; z-index: 10"
+    >
+      <ion-icon
+        [name]="showQr ? 'person-circle-outline' : 'qr-code-outline'"
+        slot="icon-only"
+      ></ion-icon>
+    </ion-button>
+
     <ion-card-header>
-      <ion-card-title>{{ userInfo.name }}</ion-card-title>
-      <ion-card-subtitle>{{ userInfo.address }}</ion-card-subtitle>
+      <ion-card-title> {{ userInfo.name }} </ion-card-title>
+      <!-- <ion-card-subtitle> {{ userInfo.address }} </ion-card-subtitle> -->
     </ion-card-header>
+
     <ion-card-content>
-      <p><strong>Phone:</strong> {{ userInfo.phoneNumber }}</p>
-      <p><strong>Email:</strong> {{ userInfo.email }}</p>
-      <p>
-        <strong>Membership Expiry:</strong>
-        <ion-text [ngStyle]="DateUtils.getExpiryStyle(DateUtils.calculateExpiryInDays(userInfo.expiryDate))">
-          {{ DateUtils.getExpiryStatus(DateUtils.calculateExpiryInDays(userInfo.expiryDate)) }}
-        </ion-text>
-      </p>
+      <!-- Info View -->
+      <div *ngIf="!showQr">
+        <p><strong>Phone:</strong> {{ userInfo.phoneNumber }}</p>
+        <p><strong>Address:</strong> {{ userInfo.address }}</p>
+        <!-- <p><strong>Email:</strong> {{ userInfo.email }}</p> -->
+        <p>
+          <strong>Membership:</strong>
+          <ion-text
+            [ngStyle]="DateUtils.getExpiryStyle(DateUtils.calculateExpiryInDays(userInfo.expiryDate))"
+          >
+            {{
+            DateUtils.getExpiryStatus(DateUtils.calculateExpiryInDays(userInfo.expiryDate))
+            }}
+          </ion-text>
+        </p>
+
+        <!-- <ion-button expand="block" color="success">
+          Renew Membership
+        </ion-button> -->
+        <ion-button expand="block" color="danger" (click)="clearUserInfo()">
+          Log out
+        </ion-button>
+      </div>
+
+      <!-- QR Code View -->
+      <div *ngIf="showQr" class="qr-code-container" style="text-align: center">
+        <img [src]="qrCodeDataUrl" alt="QR Code" *ngIf="qrCodeDataUrl" />
+        <ion-button expand="block" (click)="downloadQRCode()">
+          Download QR
+        </ion-button>
+      </div>
     </ion-card-content>
-    <ion-button expand="block" color="success"
-      >Renew Membership</ion-button
-    >
-    <ion-button expand="block" color="danger" (click)="clearUserInfo()"
-      >Log out</ion-button
-    >
   </ion-card>
 </ion-content>
