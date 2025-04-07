@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
+import { DateUtils } from 'src/app/utils/date-utils';
 
 @Component({
   selector: 'app-membership',
@@ -19,6 +20,8 @@ export class MembershipPage implements OnInit {
   phoneNumber: string = '';
   userInfo: User | null = null;
   showRegisterButton = false;
+
+  public DateUtils = DateUtils;
 
   constructor(
     private route: ActivatedRoute,

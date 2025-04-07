@@ -77,11 +77,16 @@
     <ion-card-content>
       <p><strong>Phone:</strong> {{ userInfo.phoneNumber }}</p>
       <p><strong>Email:</strong> {{ userInfo.email }}</p>
-      <p><strong>Membership Expiry:</strong> {{ userInfo.expiryDate }}</p>
+      <p>
+        <strong>Membership Expiry:</strong>
+        <ion-text [ngStyle]="DateUtils.getExpiryStyle(DateUtils.calculateExpiryInDays(userInfo.expiryDate))">
+          {{ DateUtils.getExpiryStatus(DateUtils.calculateExpiryInDays(userInfo.expiryDate)) }}
+        </ion-text>
+      </p>
     </ion-card-content>
-    <!-- <ion-button expand="block" color="success" (click)="renewMembership()"
+    <ion-button expand="block" color="success"
       >Renew Membership</ion-button
-    > -->
+    >
     <ion-button expand="block" color="danger" (click)="clearUserInfo()"
       >Log out</ion-button
     >

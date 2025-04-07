@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
+import { DateUtils } from 'src/app/utils/date-utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardPage implements OnInit {
   loading: boolean = false;
   error: string | null = null;
   users: any[] = [];
+
+  public DateUtils = DateUtils;
 
   constructor(
     private gymManagementService: GymManagementService,
