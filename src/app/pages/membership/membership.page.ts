@@ -7,6 +7,7 @@ import { GymManagementService } from 'src/app/services/gym-management.service';
 import { DateUtils } from 'src/app/utils/date-utils';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as QRCode from 'qrcode';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-membership',
@@ -38,6 +39,10 @@ export class MembershipPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.refreshInfo();
+  }
+
+  refreshInfo() {
     // Read gymId from query params
     this.gymId = this.route.snapshot.queryParamMap.get('gymId');
     this.phoneNumber =
@@ -71,7 +76,7 @@ export class MembershipPage implements OnInit {
     if (cachedGymInfo) {
       var gymInfo = JSON.parse(cachedGymInfo);
       if (this.gymId === gymInfo.gymId) {
-        console.log('loading gym info from cache')
+        console.log('loading gym info from cache');
         this.gymInfo = gymInfo;
         this.getUserInfo();
         return;
@@ -106,17 +111,17 @@ export class MembershipPage implements OnInit {
   }
 
   refresh() {
-    localStorage.removeItem('cachedGymInfo')
-    localStorage.removeItem('cachedUserInfo')
+    localStorage.removeItem('cachedGymInfo');
+    localStorage.removeItem('cachedUserInfo');
     this.gymInfo = null;
     this.userInfo = null;
-    this.getGymInfo()
+    this.refreshInfo();
   }
 
   getUserInfo() {
     const cachedUser = localStorage.getItem('cachedUserInfo');
     if (cachedUser) {
-      console.log('loading user info from cache')
+      console.log('loading user info from cache');
       this.userInfo = JSON.parse(cachedUser);
       this.buildQRCode();
       return;
@@ -139,16 +144,14 @@ export class MembershipPage implements OnInit {
             );
             this.buildQRCode();
           } else {
-            localStorage.removeItem('cachedUserInfo')
+            localStorage.removeItem('cachedUserInfo');
             this.userInfo = null; // User does not exist
-            this.phoneNumber = '';
           }
         },
         (error) => {
-          localStorage.removeItem('cachedUserInfo')
+          localStorage.removeItem('cachedUserInfo');
           console.log(error);
           this.loading = false;
-          this.phoneNumber = '';
         }
       );
   }
@@ -170,10 +173,10 @@ export class MembershipPage implements OnInit {
           console.log(response);
           this.loading = false;
           if (response.status === 'success') {
-            this.userInfo = response.user;            
+            this.userInfo = response.user;
             localStorage.setItem('lastUsedPhoneNumber', this.phoneNumber);
           } else {
-            this.showRegisterButton = true;
+            this.showRegisterButton = true;            
             this.userInfo = null; // User does not exist
             this.error = 'User not found. Would you like to register?';
           }
