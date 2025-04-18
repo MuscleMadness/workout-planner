@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Gym, User } from 'src/app/models/gym';
 import { GymManagementService } from 'src/app/services/gym-management.service';
@@ -8,6 +8,7 @@ import { DateUtils } from 'src/app/utils/date-utils';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as QRCode from 'qrcode';
 import { debug } from 'console';
+import { LogPaymentModalComponent } from 'src/app/components/log-payment/log-payment.component';
 
 @Component({
   selector: 'app-membership',
@@ -35,6 +36,7 @@ export class MembershipPage implements OnInit {
     private iab: InAppBrowser,
     private alertController: AlertController,
     private gymManagementService: GymManagementService,
+    private modalController: ModalController,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -176,7 +178,7 @@ export class MembershipPage implements OnInit {
             this.userInfo = response.user;
             localStorage.setItem('lastUsedPhoneNumber', this.phoneNumber);
           } else {
-            this.showRegisterButton = true;            
+            this.showRegisterButton = true;
             this.userInfo = null; // User does not exist
             this.error = 'User not found. Would you like to register?';
           }
@@ -225,6 +227,19 @@ export class MembershipPage implements OnInit {
     link.href = this.qrCodeDataUrl;
     link.download = `${this.userInfo?.userId}-qr.png`;
     link.click();
+  }
+
+  async renewMembership() {
+    await this.openPaymentModal('123');
+  }
+
+  async openPaymentModal(userId: string) {
+    const modal = await this.modalController.create({
+      component: LogPaymentModalComponent,
+      componentProps: { userId },
+    });
+
+    await modal.present();
   }
 
   /*
