@@ -8,7 +8,9 @@
   </ion-header>
 
   <div class="about-info">
-    <h3 class="ion-padding-top ion-padding-start">{{ 'ABOUT.CONTACT_US' | translate }}</h3>
+    <h3 class="ion-padding-top ion-padding-start">
+      {{ 'ABOUT.CONTACT_US' | translate }}
+    </h3>
 
     <div class="social-media-icons">
       <a href="http://facebook.musclemadness.co.in" target="_blank">
@@ -32,18 +34,49 @@
       </a>
     </div>
 
-    <h3 class="ion-padding-top ion-padding-start">{{ 'ABOUT.ABOUT' | translate }}</h3>
+    <h3 class="ion-padding-top ion-padding-start">
+      {{ 'ABOUT.ABOUT' | translate }}
+    </h3>
 
-    <p class="ion-padding-start ion-padding-end" [innerHTML]="'ABOUT.WELCOME_MESSAGE' | translate"></p>
+    <p
+      class="ion-padding-start ion-padding-end"
+      [innerHTML]="'ABOUT.WELCOME_MESSAGE' | translate"
+    ></p>
 
-    <p class="ion-padding-start ion-padding-end" [innerHTML]="'ABOUT.FITNESS_JOURNEY' | translate"></p>
+    <p
+      class="ion-padding-start ion-padding-end"
+      [innerHTML]="'ABOUT.FITNESS_JOURNEY' | translate"
+    ></p>
 
-    <div class="about-header">
-      <img
-        class="about-image"
-        src="../../../assets/img/appicon.svg"
-        alt="MM Workout Planner Logo"
-      />
+       <!-- Policy Links Section -->
+    <div class="policy-links ion-padding">
+      <h3>Policies</h3>
+      <ul>
+        <li>
+          <a
+            href="https://musclemadness.co.in/cancellation-and-refund-policy.html"
+            target="_blank"
+          >
+            Cancellation and Refund Policy
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://musclemadness.co.in/privacy-policy.html"
+            target="_blank"
+          >
+            Privacy Policy
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://musclemadness.co.in/terms-and-conditions.html"
+            target="_blank"
+          >
+            Terms and Conditions
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </ion-content>
