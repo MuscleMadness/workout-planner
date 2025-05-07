@@ -325,9 +325,12 @@ class WorkoutPlanner {
     };
   }
 
-  public async fetchWorkoutPlanFromCoach(googleDriveFileId: string | null): Promise<WorkoutPlan> {
+  public async fetchWorkoutPlanFromCoach(googleDriveFileId: string | null, routine: string | null): Promise<WorkoutPlan> {
     if (googleDriveFileId) {
       return this.fetchWorkoutPlanFromGoogleDrive(googleDriveFileId);      
+    } else if (routine) {
+      const weeklyPlanUrl = environment.workoutPlanBaseUrl + "weekly-plan-" + routine + '.json';
+      return this.fetchWorkoutPlanFromUrl(weeklyPlanUrl);
     } else {
       return this.fetchThisWeeksWorkoutPlan();
     }
@@ -335,6 +338,7 @@ class WorkoutPlanner {
 
 
   private async fetchThisWeeksWorkoutPlan(): Promise<WorkoutPlan> {
+    console.log('finding week number from date');
     // There are 4 weeks of workout plans. Find the current week from the start of the year from the current date
     const currentDate: Date = new Date();
     const startOfYear: Date = new Date(currentDate.getFullYear(), 0, 1);
@@ -351,6 +355,7 @@ class WorkoutPlanner {
 
     // Calculate the week number in the range 1 to 4
     const weekNumber: number = ((weekNumberOfYear - 1) % 4) + 1;
+    console.log('week number is ' + weekNumber);
 
     // Call the fetchWorkoutPlanFromUrl function with the week number
     const weeklyPlanUrl =

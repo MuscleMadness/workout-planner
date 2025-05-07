@@ -29,6 +29,8 @@ export class WorkoutPlannerPage implements OnInit {
   workoutConfig?: WorkoutPlanConfig;
   ios: boolean = false;
   selectedSegment: string = 'from-coach';
+  selectedRoutine?: string = undefined;
+  routines: string[] = ["1", "2", "3", "4"];
 
   constructor(
     public workoutPlanner: WorkoutPlanner,
@@ -50,13 +52,10 @@ export class WorkoutPlannerPage implements OnInit {
   }
 
   reloadWorkoutPlan() {
-    // If the url path has a query parameter with a google drive file id, then load the workout plan from the google drive file
-    const urlParams = new URLSearchParams(window.location.search);
-    const googleDriveFileId = urlParams.get('googleDriveFileId');
     if (this.selectedSegment === 'custom') {
       this.loadCustomPlan();
     } else {
-      this.fetchWorkoutPlanFromCoach(googleDriveFileId);
+      this.fetchWorkoutPlanFromCoach();
     }
   }
 
@@ -68,14 +67,36 @@ export class WorkoutPlannerPage implements OnInit {
       });
   }
 
-  fetchWorkoutPlanFromCoach(googleDriveFileId: string | null) {
+  fetchWorkoutPlanFromCoach() {
+    // If the url path has a query parameter with a google drive file id, then load the workout plan from the google drive file
+    const urlParams = new URLSearchParams(window.location.search);
+    const googleDriveFileId = urlParams.get('googleDriveFileId');
+
+    if (urlParams.has('routine')) {
+      this.selectedRoutine = urlParams.get('routine') ?? undefined;
+    }
+
     this.workoutPlanner
-      .fetchWorkoutPlanFromCoach(googleDriveFileId)
+      .fetchWorkoutPlanFromCoach(
+        googleDriveFileId ?? null,
+        this.selectedRoutine ?? null
+      )
       .then((data) => {
         console.log(data);
         this.workoutPlan = data;
         this.cdr.detectChanges();
       });
+  }
+
+  changeRoutine() {
+    console.log('Selected Routine:', this.selectedRoutine);
+
+    // Update the URL query parameters
+    const url = new URL(window.location.href);
+    url.searchParams.set('routine', this.selectedRoutine || '');
+    window.history.replaceState({}, '', url.toString());
+
+    this.reloadWorkoutPlan(); // Reload the workout plan when the routine changes
   }
 
   // Method to show the info popup
@@ -114,10 +135,13 @@ export class WorkoutPlannerPage implements OnInit {
 
     // Gym details
     const gymLogoUrl =
-      this.workoutPlan?.metaData?.gymLogoUrl || "https://raw.githubusercontent.com/MuscleMadness/workout-planner/refs/heads/main/src/assets/img/tutorial/gym-logo-no-bg.svg";
+      this.workoutPlan?.metaData?.gymLogoUrl ||
+      'https://raw.githubusercontent.com/MuscleMadness/workout-planner/refs/heads/main/src/assets/img/tutorial/gym-logo-no-bg.svg';
     const gymName = this.workoutPlan?.metaData?.gymName || 'MM Gym';
-    const gymAddress = this.workoutPlan?.metaData?.gymAddress || '1234 Muscle Beach, Venice, CA';
-    const coachName = this.workoutPlan?.metaData?.coachName || 'Arnold Schwarzenegger';
+    const gymAddress =
+      this.workoutPlan?.metaData?.gymAddress || '1234 Muscle Beach, Venice, CA';
+    const coachName =
+      this.workoutPlan?.metaData?.coachName || 'Arnold Schwarzenegger';
 
     // Fetch the gym logo and generate the PDF
     this.loadImageFromUrl(gymLogoUrl).then((gymLogo) => {
@@ -201,9 +225,8 @@ export class WorkoutPlannerPage implements OnInit {
       // Add footer (centered)
       doc.setFontSize(10);
       doc.setFont('helvetica', 'italic');
-      doc.text(`Prepared by: ${coachName}`, 10, pageHeight - 20, {
-      }); // Centered coach name
-      doc.text(gymAddress, 10, pageHeight - 10, {  }); // Centered address
+      doc.text(`Prepared by: ${coachName}`, 10, pageHeight - 20, {}); // Centered coach name
+      doc.text(gymAddress, 10, pageHeight - 10, {}); // Centered address
 
       // Get the current URL
       const currentUrl = window.location.href;
@@ -212,12 +235,7 @@ export class WorkoutPlannerPage implements OnInit {
       QRCode.toDataURL(
         currentUrl,
         { width: 100 },
-        (
-          err: any,
-          qrCodeDataUrl:
-            | string
-            | HTMLImageElement
-        ) => {
+        (err: any, qrCodeDataUrl: string | HTMLImageElement) => {
           if (!err) {
             // Add QR code to the bottom-right corner
             const qrCodeSize = 50; // Fixed size for the QR code

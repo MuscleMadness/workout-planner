@@ -33,6 +33,16 @@
         <ion-label>Custom</ion-label>
       </ion-segment-button>
     </ion-segment>
+
+    <!-- Routine Selector -->
+    <ion-item *ngIf="selectedSegment != 'custom'">
+      <ion-label>Routine</ion-label>
+      <ion-select [(ngModel)]="selectedRoutine" (ionChange)="changeRoutine()">
+        <ion-select-option *ngFor="let routine of routines" [value]="routine">
+           {{ routine }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
   </div>
 
     <div>
