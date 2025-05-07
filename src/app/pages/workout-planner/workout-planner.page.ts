@@ -29,8 +29,8 @@ export class WorkoutPlannerPage implements OnInit {
   workoutConfig?: WorkoutPlanConfig;
   ios: boolean = false;
   selectedSegment: string = 'from-coach';
-  selectedRoutine?: string = undefined;
-  routines: string[] = ["1", "2", "3", "4"];
+  selectedRoutine?: string = 'auto';
+  routines: string[] = ['auto', '1', '2', '3', '4', 'new-joiner'];
 
   constructor(
     public workoutPlanner: WorkoutPlanner,
@@ -70,10 +70,14 @@ export class WorkoutPlannerPage implements OnInit {
   fetchWorkoutPlanFromCoach() {
     // If the url path has a query parameter with a google drive file id, then load the workout plan from the google drive file
     const urlParams = new URLSearchParams(window.location.search);
-    const googleDriveFileId = urlParams.get('googleDriveFileId');
+    var googleDriveFileId = urlParams.get('googleDriveFileId');
 
+    this.selectedRoutine = undefined;
     if (urlParams.has('routine')) {
-      this.selectedRoutine = urlParams.get('routine') ?? undefined;
+      const routine = urlParams.get('routine');
+      if (routine && ['1', '2', '3', '4', 'new-joiner'].includes(routine)) {
+        this.selectedRoutine = routine;
+      }
     }
 
     this.workoutPlanner
