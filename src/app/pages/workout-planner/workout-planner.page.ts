@@ -172,7 +172,7 @@ export class WorkoutPlannerPage implements OnInit {
       // Add title
       doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
-      doc.text('Workout Plan', 10, 50); // Start below the header
+      doc.text(this.workoutPlan?.metaData?.planName ?? 'Workout Plan', 10, 50); // Start below the header
 
       // Divide the days into two columns
       const leftColumnDays = this.workoutPlan?.days.slice(0, 3) || []; // First 3 days

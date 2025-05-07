@@ -8,7 +8,14 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <p><strong>Coach Name:</strong> {{ workoutPlan?.coach?.name || 'N/A' }}</p>
-  <p><strong>Gym Name:</strong> {{ workoutPlan?.coach?.gymName || 'N/A' }}</p>
+   <!-- Plan Details -->
+   <p><strong>Plan Name:</strong> {{ workoutPlan?.metaData.planName || 'N/A' }}</p>
+   <p><strong>Description:</strong> {{ workoutPlan?.metaData.planDescription || 'N/A' }}</p>
+   <p><strong>Notes:</strong></p>
+   <pre>{{ workoutPlan?.metaData.planNotes || 'N/A' }}</pre>
+ 
+  <p><strong>Coach Name:</strong> {{ workoutPlan?.metaData.coachName || 'N/A' }}</p>
+  <p><strong>Gym Name:</strong> {{ workoutPlan?.metaData.gymName || 'N/A' }}</p>
   <p><strong>Created Date:</strong> {{ workoutPlan?.createdDate || 'N/A' }}</p>
+  
 </ion-content>

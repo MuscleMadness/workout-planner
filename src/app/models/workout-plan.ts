@@ -55,6 +55,9 @@ interface MetaData {
   gymName: string;
   gymLogoUrl: string;
   gymAddress: string;
+  planName: string;
+  planDescription: string;
+  planNotes: string;
 }
 
 interface WorkoutPlanConfig {
