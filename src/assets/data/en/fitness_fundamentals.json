@@ -1,93 +1,51 @@
 [
   {
     "order": 1,
-    "category": "Fundamentals",
-    "topic": "Gym Ethics & Etiquette",
-    "description": "Gym Etiquette: The Unwritten Rules of the Gym",
-    "youtubeVideoId": "O-uPYxjSc3s"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Things to Know Before Joining a Gym",
-    "description": "10 Things You Should Know Before Joining a Gym",
-    "youtubeVideoId": "EKUNGQ4LmH8"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Understanding Gym Equipment",
-    "description": "Beginner's Guide to Gym Equipment",
-    "youtubeVideoId": "m1UF4RgGoY0"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Workout Splits",
-    "description": "Understanding Workout Splits and Periodization",
-    "youtubeVideoId": "pVeriZkz_6I"
+    "category": "Fitness Basics",
+    "topic": "Gym Equipment Walkthrough",
+    "description": "Welcome to Muscle Madness Fitness Center! In this video, we'll give you a complete introduction to our gym and a walkthrough of all the equipment we offer.",
+    "youtubeVideoId": "8S128rnGjE4"
   },
   {
     "order": 2,
-    "category": "Workout Best Practices",
-    "topic": "Warm-up & Cool-down",
-    "description": "The Importance of Warming Up and Cooling Down",
-    "youtubeVideoId": "VecbXgWY0DI"
-  },
-  {
-    "order": 2,
-    "category": "Workout Best Practices",
-    "topic": "Progressive Overload",
-    "description": "Progressive Overload Explained: How to Get Stronger Over Time",
-    "youtubeVideoId": "k0J8URJfUTg"
+    "category": "Fitness Basics",
+    "topic": "Know Your Muscles",
+    "description": "Want to train smarter and grow stronger? Start by knowing your muscles! This video explains all the major muscle groups for effective training.",
+    "youtubeVideoId": "e5pYx6MawCk"
   },
   {
     "order": 3,
-    "category": "Nutrition & Diet",
-    "topic": "Pre & Post-Workout Nutrition",
-    "description": "What to Eat Before and After a Workout",
-    "youtubeVideoId": "PM8kiHcAD7Q"
-  },
-  {
-    "order": 3,
-    "category": "Nutrition & Diet",
-    "topic": "Macronutrients vs. Micronutrients",
-    "description": "Understanding Macronutrients and Micronutrients",
-    "youtubeVideoId": "tzpHEs2m5h8"
+    "category": "Fitness Basics",
+    "topic": "Full Body Warm-up Routine",
+    "description": "Don't skip your warm-up! This 5-minute beginner-friendly warm-up gets your body ready for any workout — reducing injury risk and improving performance.",
+    "youtubeVideoId": "ogYRlGZABMY"
   },
   {
     "order": 4,
-    "category": "Motivation & Mindset",
-    "topic": "Setting Realistic Goals",
-    "description": "How to Set and Achieve Your Fitness Goals",
-    "youtubeVideoId": "thbQTBtt11c"
-  },
-  {
-    "order": 4,
-    "category": "Motivation & Mindset",
-    "topic": "Consistency Over Perfection",
-    "description": "Why Consistency Beats Perfection in Fitness",
-    "youtubeVideoId": "8ZAtxFM4Dmw"
+    "category": "Fitness Basics",
+    "topic": "Full Body Beginner Workout",
+    "description": "New to the gym and not sure where to begin? This full-body beginner workout is designed to build strength, improve confidence, and create a solid fitness foundation.",
+    "youtubeVideoId": "vdWyUjZhqdw"
   },
   {
     "order": 5,
-    "category": "Injury Prevention & Safety",
-    "topic": "Common Gym Injuries & How to Avoid Them",
-    "description": "Top 5 Common Gym Injuries and Prevention Tips",
-    "youtubeVideoId": "GE01xnzXLxQ"
-  },
-  {
-    "order": 5,
-    "category": "Injury Prevention & Safety",
-    "topic": "When to Stop vs. Push Through Pain",
-    "description": "Listening to Your Body: Pain vs. Discomfort",
-    "youtubeVideoId": "iwiKE1LMEN4"
+    "category": "Fitness Basics",
+    "topic": "Weekly Workout Split",
+    "description": "New to the gym? Don't know what to train each day? This video breaks down a simple and effective weekly workout split that targets all major muscle groups.",
+    "youtubeVideoId": "C7tfYaAEwak"
   },
   {
     "order": 6,
-    "category": "Advanced Tips",
-    "topic": "Tracking Progress",
-    "description": "How to Track Your Fitness Progress Effectively",
-    "youtubeVideoId": "5u_1hT4VYyE"
+    "category": "Nutrition",
+    "topic": "Top Protein-Rich Foods",
+    "description": "Protein is essential for muscle growth and recovery, especially for beginners starting their fitness journey. Simple & budget-friendly options without supplements.",
+    "youtubeVideoId": "XXsMdKIUIDs"
+  },
+  {
+    "order": 7,
+    "category": "Nutrition",
+    "topic": "Basic Gym Diet",
+    "description": "Just started working out and confused about what to eat? This video explains a simple, affordable, and effective diet plan for beginners — perfect for gaining strength, building muscle, or fat loss.",
+    "youtubeVideoId": "GMrZiu_eIrw"
   }
 ]
