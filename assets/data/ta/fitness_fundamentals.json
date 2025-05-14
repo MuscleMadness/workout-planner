@@ -1,93 +1,51 @@
 [
   {
     "order": 1,
-    "category": "Fundamentals",
-    "topic": "Gym Ethics & Etiquette",
-    "description": "Gym Etiquette: ஜிம்மில் பின்பற்ற வேண்டிய சில விதிகள்",
-    "youtubeVideoId": "O-uPYxjSc3s"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Things to Know Before Joining a Gym",
-    "description": "ஜிம்மில் சேரும் முன் நீங்கள் தெரிந்து கொள்ள வேண்டிய 10 விஷயங்கள்",
-    "youtubeVideoId": "EKUNGQ4LmH8"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Understanding Gym Equipment",
-    "description": "ஜிம் மிஷின்கள் பற்றிய ஒரு அறிமுகம்",
-    "youtubeVideoId": "m1UF4RgGoY0"
-  },
-  {
-    "order": 1,
-    "category": "Fundamentals",
-    "topic": "Workout Splits",
-    "description": "புதிதாக ஜிம்மில் சேர்பவர்கள் பின்பற்ற வேண்டிய workout splits",
-    "youtubeVideoId": "pVeriZkz_6I"
+    "category": "Fitness Basics",
+    "topic": "ஜிம் உபகரணங்கள் விளக்கம்",
+    "description": "Muscle Madness Fitness Center-க்கு வரவேற்கிறோம்! இந்த வீடியோவில், எங்கள் ஜிம் பற்றிய முழுமையான அறிமுகம் மற்றும் அனைத்து மிஷின்களை பற்றிய விளக்கமும் உள்ளது.",
+    "youtubeVideoId": "8S128rnGjE4"
   },
   {
     "order": 2,
-    "category": "Workout Best Practices",
-    "topic": "Warm-up & Cool-down",
-    "description": "வார்மிங் அப் மற்றும் ஸ்டிரிச்சிங் routine",
-    "youtubeVideoId": "VecbXgWY0DI"
-  },
-  {
-    "order": 2,
-    "category": "Workout Best Practices",
-    "topic": "Progressive Overload",
-    "description": "Progressive Overload - என்றால் என்ன?",
-    "youtubeVideoId": "k0J8URJfUTg"
+    "category": "Fitness Basics",
+    "topic": "உங்கள் தசைகளை அறிந்து கொள்ளுங்கள்",
+    "description": "நீங்கள் உடல் வலிமை பெறுவதற்காக ஜிம்மில் சேர்ந்துள்ளீர்களா? உங்கள் தசைகளை அறிவதில் இருந்து தொடங்குங்கள்! இந்த வீடியோ உங்கள் உடலின் அனைத்து முக்கிய தசைக் குழுக்களைப் பற்றி விளக்குகிறது.",
+    "youtubeVideoId": "e5pYx6MawCk"
   },
   {
     "order": 3,
-    "category": "Nutrition & Diet",
-    "topic": "Pre & Post-Workout Nutrition",
-    "description": "உடற்பயிற்சிக்கு முன்னும் பின்னும் என்ன சாப்பிட வேண்டும்?",
-    "youtubeVideoId": "PM8kiHcAD7Q"
-  },
-  {
-    "order": 3,
-    "category": "Nutrition & Diet",
-    "topic": "Macronutrients vs. Micronutrients",
-    "description": "மேக்ரோநியூட்ரியண்ட்ஸ் மற்றும் மைக்ரோநியூட்ரியண்ட்ஸைப் பற்றிய ஒரு அறிமுகம்",
-    "youtubeVideoId": "tzpHEs2m5h8"
+    "category": "Fitness Basics",
+    "topic": "முழு உடல் வார்ம்-அப் ரொட்டீன்",
+    "description": "வார்ம்-அப் செய்யாமல் இருக்காதீர்கள்! இந்த 5-நிமிட தொடக்கநிலை வார்ம்-அப் உங்கள் உடலை எந்த பயிற்சிக்கும் தயாராக்குகிறது - காயம் ஏற்படும் அபாயத்தைக் குறைத்து செயல்திறனை மேம்படுத்துகிறது.",
+    "youtubeVideoId": "ogYRlGZABMY"
   },
   {
     "order": 4,
-    "category": "Motivation & Mindset",
-    "topic": "Setting Realistic Goals",
-    "description": "உங்கள் இலக்குகளை எவ்வாறு அமைப்பது மற்றும் அடைவது?",
-    "youtubeVideoId": "thbQTBtt11c"
-  },
-  {
-    "order": 4,
-    "category": "Motivation & Mindset",
-    "topic": "Consistency Over Perfection",
-    "description": "தொடர்ந்து முயற்சிப்பதன் பலன்",
-    "youtubeVideoId": "8ZAtxFM4Dmw"
+    "category": "Fitness Basics",
+    "topic": "புதியவர்களுக்கான முதல் வார பயிற்சி",
+    "description": "ஜிம்மில் புதிதாக உள்ளீர்களா, எங்கிருந்து தொடங்குவது என்று தெரியவில்லையா? இந்த முழு உடல் தொடக்கநிலை பயிற்சி வலிமையை உருவாக்க, நம்பிக்கையை மேம்படுத்த, மற்றும் ஒரு திட உடற்பயிற்சி அடித்தளத்தை உருவாக்க வடிவமைக்கப்பட்டுள்ளது.",
+    "youtubeVideoId": "vdWyUjZhqdw"
   },
   {
     "order": 5,
-    "category": "Injury Prevention & Safety",
-    "topic": "Common Gym Injuries & How to Avoid Them",
-    "description": "ஜிம்மில் ஏற்பட கூடிய காயங்கள் மற்றும் அதனை தடுக்கும் முறைகள்",
-    "youtubeVideoId": "GE01xnzXLxQ"
+    "category": "Fitness Basics",
+    "topic": "வாராந்திர உடற்பயிற்சி ரொட்டீன்",
+    "description": "ஜிம்மில் புதிதாக உள்ளீர்களா? ஒவ்வொரு நாளும் எதை பயிற்சி செய்வது என்று தெரியவில்லையா? இந்த வீடியோ அனைத்து முக்கிய தசைக் குழுக்களையும் இலக்காகக் கொண்ட எளிய மற்றும் திறமையான வாராந்திர பயிற்சி திட்டத்தை விளக்குகிறது.",
+    "youtubeVideoId": "C7tfYaAEwak"
   },
   {
-    "order": 5,
-    "category": "Injury Prevention & Safety",
-    "topic": "When to Stop vs. Push Through Pain",
-    "description": "எப்போது வலியை மீறி வொர்கவுட் செய்ய வேண்டும்/எப்போது கூடாது?",
-    "youtubeVideoId": "iwiKE1LMEN4"
+    "order": 7,
+    "category": "ஊட்டச்சத்து",
+    "topic": "அடிப்படை ஜிம் உணவு திட்டம்",
+    "description": "உடற்பயிற்சியை தொடங்கி என்ன சாப்பிடுவது என்று குழப்பமா? இந்த வீடியோ தொடங்குபவர்களுக்கு ஒரு எளிய, மலிவான, மற்றும் திறமையான உணவு திட்டத்தை விளக்குகிறது — வலிமை பெறவும், தசை வளர்ச்சிக்கும் அல்லது கொழுப்பை குறைக்கவும் சிறந்தது.",
+    "youtubeVideoId": "GMrZiu_eIrw"
   },
   {
     "order": 6,
-    "category": "Advanced Tips",
-    "topic": "Tracking Progress",
-    "description": "உங்களது பிராக்கிரஸை கண்காணிப்பதின் அவசியம் ",
-    "youtubeVideoId": "5u_1hT4VYyE"
+    "category": "ஊட்டச்சத்து",
+    "topic": "புரதம் நிறைந்த உணவுகள்",
+    "description": "புரதம் தசை வளர்ச்சிக்கும் மீட்புக்கும் அவசியமானது, குறிப்பாக உடற்பயிற்சியில் புதிதாக இருப்பவர்களுக்கு. இந்த வீடியோவில் சப்ளிமென்ட்கள் இல்லாமல் எளிய மற்றும் பட்ஜெட்டுக்குள் அடங்கும் புரதம் மிக்க உணவுகள் பற்றி சொல்கிறது.",
+    "youtubeVideoId": "XXsMdKIUIDs"
   }
 ]
