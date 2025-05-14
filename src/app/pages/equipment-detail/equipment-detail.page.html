@@ -52,15 +52,10 @@
       </ion-item>
     </ion-list>
   </div>
-
-  <div *ngIf="selectedSegment === 'video'" class="equipment-video">
-    <h2>Coming Soon</h2>
-    <p>Videos for this equipment will be available soon. Stay tuned!</p>
-  </div>
-
-      <!-- <div
+  
   <div *ngIf="selectedSegment === 'video'" class="equipment-video">
     <h2>Video</h2>
+    <div
       *ngIf="equipment?.videos && equipment!.videos!.length > 0; else noVideos"
     >
       <youtube-player
@@ -74,5 +69,4 @@
       <p>No videos available</p>
     </ng-template> 
   </div>
-  -->
 </ion-content>
