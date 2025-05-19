@@ -157,4 +157,62 @@ export class GymManagementService {
       return this.http.post<any>(this.apiUrl, request, options);
     }
   }
+
+  updateUserExpiry(gymId: string | null, userId: string, expiryDate: string): Observable<any> {
+    if (!gymId) {
+      return new Observable((observer) => {
+        observer.error('gymId is required.');
+        observer.complete();
+      });
+    }
+
+    const authResultJson = localStorage.getItem('authResult');
+    if (!authResultJson) {
+      return new Observable((observer) => {
+        observer.error({ status: 401, message: 'User not logged in.' });
+        observer.complete();
+      });
+    }
+    
+    try {
+      const authResult = JSON.parse(authResultJson);
+      const token = authResult?.accessToken?.token || authResult?.idToken || '';
+      
+      if (!token) {
+        console.error('No authentication token found in stored credentials');
+        return new Observable((observer) => {
+          observer.error({ status: 401, message: 'No valid authentication token found.' });
+          observer.complete();
+        });
+      }
+      
+      const request = {
+        action: 'updateUserExpiry',
+        gymId: gymId,
+        userId: userId,
+        expiryDate: expiryDate,
+        authorization: 'Bearer ' + token
+      };
+
+      const headers = new HttpHeaders({
+        'Content-Type': 'text/plain;charset=utf-8',
+      });
+
+      const options = {
+        headers: headers,
+        responseType: 'json' as const,
+        observe: 'body' as const,
+      };
+
+      console.log('Renewing membership:', request);
+
+      return this.http.post<any>(this.apiUrl, request, options);
+    } catch (error) {
+      console.error('Error parsing authentication data:', error);
+      return new Observable((observer) => {
+        observer.error({ status: 401, message: 'Invalid authentication data.' });
+        observer.complete();
+      });
+    }
+  }
 }

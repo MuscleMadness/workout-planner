@@ -62,17 +62,22 @@
 
   <!-- User list cards -->
   <ion-card *ngFor="let user of filteredUsers" [ngClass]="getMembershipStatus(user.expiryDate)">
-    <ion-card-header>
-      <div style="display: flex; justify-content: space-between; align-items: center">
-        <ion-card-title>{{ user.name }} <small style="font-size: 0.6em; opacity: 0.7">ID: {{ user.userId }}</small></ion-card-title>
-      </div>
-    </ion-card-header>
-    
-    <ion-card-content class="compact-content">
-      <div class="contact-info">
+    <ion-card-content class="card-content">
+      <div class="user-info">
+        <div class="user-name">
+          <strong>{{ user.name }}</strong> <small class="user-id"> ID: {{ user.userId }}</small>
+        </div>
         <div>{{ user.address || 'No address' }}</div>
         <div>{{ user.phoneNumber || 'No phone' }}</div>
         <div>Expires: {{ formatDate(user.expiryDate) }}</div>
+      </div>
+      <div class="card-actions">
+        <ion-button fill="clear" color="success" (click)="renewMembership(user)" class="action-button">
+          <ion-icon name="refresh-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="success" (click)="openWhatsApp(user)" class="action-button">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </ion-button>
       </div>
     </ion-card-content>
   </ion-card>

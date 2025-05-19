@@ -10,4 +10,5 @@ export interface User {
   createdDate: string;
   expiryDate: string;
   updatedDate?: string;
+  expiresInDays?: number; // Adding this property for tracking days until membership expires
 }

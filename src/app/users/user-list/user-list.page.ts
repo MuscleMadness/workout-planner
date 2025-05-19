@@ -3,6 +3,8 @@ import { User } from '../../models/user.model';
 import { GymManagementService } from 'src/app/services/gym-management.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateUtils } from 'src/app/utils/date-utils';
+import { AlertController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-list',
@@ -26,7 +28,10 @@ export class UserListPage implements OnInit {
   constructor(
     private gymManagementService: GymManagementService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -236,5 +241,191 @@ export class UserListPage implements OnInit {
     } else {
       return 'active';
     }
+  }
+
+  /**
+   * Navigate to edit user page with the selected user
+   */
+  editUser(user: User) {
+    this.router.navigate(['/register-user'], {
+      queryParams: { userId: user.userId, edit: true }
+    });
+  }
+
+  /**
+   * Open a dialog to renew user membership
+   */
+  async renewMembership(user: User) {
+    const alert = await this.alertController.create({
+      header: 'Renew Membership',
+      subHeader: `${user.name}`,
+      message: 'Select membership renewal period:',
+      inputs: [
+        {
+          name: 'period',
+          type: 'radio',
+          label: '1 Month',
+          value: '1',
+          checked: true
+        },
+        {
+          name: 'period',
+          type: 'radio',
+          label: '3 Months',
+          value: '3'
+        },
+        {
+          name: 'period',
+          type: 'radio',
+          label: '6 Months',
+          value: '6'
+        },
+        {
+          name: 'period',
+          type: 'radio',
+          label: '1 Year',
+          value: '12'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Renew',
+          handler: (data) => {
+            this.processRenewal(user, parseInt(data.period));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  /**
+   * Process the membership renewal
+   */
+  private processRenewal(user: User, monthsToAdd: number) {
+    if (!this.gymId) {
+      this.showToast('Gym ID not found', 'danger');
+      return;
+    }
+
+    this.loading = true;
+    
+    // Calculate new expiry date based on current expiry date or today if already expired
+    let startDate = new Date();
+    const currentExpiry = new Date(this.convertToDateFormat(user.expiryDate));
+    
+    // If membership hasn't expired yet, extend from current expiry date
+    if (currentExpiry > startDate) {
+      startDate = currentExpiry;
+    }
+    
+    // Add the months to the start date
+    const newExpiryDate = new Date(startDate);
+    newExpiryDate.setMonth(newExpiryDate.getMonth() + monthsToAdd);
+    
+    // Format the date as DD/MM/YYYY for the API
+    const formattedDate = `${newExpiryDate.getDate().toString().padStart(2, '0')}/${
+      (newExpiryDate.getMonth() + 1).toString().padStart(2, '0')}/${
+      newExpiryDate.getFullYear()}`;
+    
+    // Call service to update user's expiry date
+    this.gymManagementService.updateUserExpiry(this.gymId, user.userId.toString(), formattedDate)
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          this.showToast(`Membership renewed for ${user.name}`, 'success');
+          // Update the local data
+          const index = this.users.findIndex(u => u.userId === user.userId);
+          if (index !== -1) {
+            this.users[index].expiryDate = formattedDate;
+            this.users[index].expiresInDays = this.calculateExpiryInDays(formattedDate);
+            this.filterUsers(); // Re-apply filters and sorting
+          }
+        },
+        error: (err) => {
+          this.loading = false;
+          console.error('Error renewing membership:', err);
+          this.showToast('Failed to renew membership', 'danger');
+        }
+      });
+  }
+
+  /**
+   * Open WhatsApp with the user's phone number and auto-filled message based on membership status
+   */
+  openWhatsApp(user: User) {
+    if (!user.phoneNumber) {
+      this.showToast('No phone number available', 'warning');
+      return;
+    }
+    
+    // Format the phone number (remove spaces, dashes, etc.)
+    let phoneNumber = user.phoneNumber.toString().replace(/\s+/g, '').replace(/-/g, '');
+    
+    // If the phone number doesn't start with '+', add the country code
+    // Assuming India (+91) as default country code, adjust as needed
+    if (!phoneNumber.startsWith('+')) {
+      // Remove leading zeros if any
+      phoneNumber = phoneNumber.replace(/^0+/, '');
+      
+      // If the number doesn't have country code, add it
+      if (!phoneNumber.startsWith('91')) {
+        phoneNumber = '91' + phoneNumber;
+      }
+    }
+    
+    // Get the current language from TranslateService
+    const currentLang = this.translateService.currentLang || this.translateService.defaultLang || 'en';
+    
+    // Create message based on membership status and current language
+    let message = '';
+    const membershipStatus = this.getMembershipStatus(user.expiryDate);
+    const expiryDateFormatted = this.formatDate(user.expiryDate);
+    const daysLeft = this.getRemainingDays(user.expiryDate);
+    
+    if (membershipStatus === 'expired') {
+      if (currentLang === 'ta' || currentLang === 'tamil') {
+        // Tamil message for expired membership
+        message = `வணக்கம் ${user.name}, உங்கள் உறுப்பினர் சந்தா ${expiryDateFormatted} அன்று காலாவதியானது. தயவுசெய்து உங்கள் உறுப்பினர் சந்தாவை புதுப்பிக்கவும். நன்றி!`;
+      } else {
+        // English message (default)
+        message = `Hello ${user.name}, your gym membership expired on ${expiryDateFormatted}. Please renew your membership to continue using our facilities. Thank you!`;
+      }
+    } else if (membershipStatus === 'expiring-soon') {
+      if (currentLang === 'ta' || currentLang === 'tamil') {
+        // Tamil message for expiring membership
+        message = `வணக்கம் ${user.name}, உங்கள் உறுப்பினர் சந்தா ${expiryDateFormatted} அன்று காலாவதியாகும் (${daysLeft} நாட்கள் மட்டுமே உள்ளன). உங்கள் உறுப்பினர் சந்தாவை குறிப்பிட்ட நேரத்திற்குள் புதுப்பிக்கவும். நன்றி!`;
+      } else {
+        // English message (default)
+        message = `Hello ${user.name}, your gym membership will expire on ${expiryDateFormatted} (${daysLeft} days left). Please renew your membership to avoid any interruptions. Thank you!`;
+      }
+    }
+    
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Create the WhatsApp URL with auto-filled message if applicable
+    const whatsappUrl = `https://wa.me/${phoneNumber}${message ? '?text=' + encodedMessage : ''}`;
+    
+    // Open in browser
+    window.open(whatsappUrl, '_blank');
+  }
+
+  /**
+   * Display a toast message
+   */
+  private async showToast(message: string, color: 'success' | 'danger' | 'warning' = 'success') {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      color,
+      position: 'bottom'
+    });
+    await toast.present();
   }
 }
