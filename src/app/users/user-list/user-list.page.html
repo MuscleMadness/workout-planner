@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Members List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/register-user">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <ion-toolbar>
+    <ion-searchbar 
+      [(ngModel)]="searchTerm" 
+      (ionChange)="filterUsers()" 
+      placeholder="Search by name, phone, or address..."></ion-searchbar>
+  </ion-toolbar>
+  
+  <ion-toolbar>
+    <ion-segment color="primary" [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="active">
+        <ion-label>Active</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="expiring">
+        <ion-label>Expiring</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="expired">
+        <ion-label>Expired</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Sort options -->
+  <div class="sort-controls">
+    <ion-label>Sort by:</ion-label>
+    <ion-chip [class.active]="sortOption === 'name'" (click)="changeSortOption('name')">
+      <ion-label>Name</ion-label>
+      <ion-icon *ngIf="sortOption === 'name'" [name]="sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'"></ion-icon>
+    </ion-chip>
+    <ion-chip [class.active]="sortOption === 'expiryDate'" (click)="changeSortOption('expiryDate')">
+      <ion-label>Expiry Date</ion-label>
+      <ion-icon *ngIf="sortOption === 'expiryDate'" [name]="sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'"></ion-icon>
+    </ion-chip>
+    <ion-chip [class.active]="sortOption === 'createdDate'" (click)="changeSortOption('createdDate')">
+      <ion-label>Join Date</ion-label>
+      <ion-icon *ngIf="sortOption === 'createdDate'" [name]="sortDirection === 'asc' ? 'arrow-up' : 'arrow-down'"></ion-icon>
+    </ion-chip>
+  </div>
+
+  <!-- Results count and loading state -->
+  <div class="results-count">
+    <ion-text color="medium" *ngIf="!loading">
+      Showing {{ filteredUsers.length }} members
+    </ion-text>
+    <ion-spinner *ngIf="loading"></ion-spinner>
+    <ion-text color="danger" *ngIf="error">{{ error }}</ion-text>
+  </div>
+
+  <!-- User list cards -->
+  <ion-card *ngFor="let user of filteredUsers" [ngClass]="getMembershipStatus(user.expiryDate)">
+    <ion-card-header>
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <ion-card-title>{{ user.name }} <small style="font-size: 0.6em; opacity: 0.7">ID: {{ user.userId }}</small></ion-card-title>
+      </div>
+    </ion-card-header>
+    
+    <ion-card-content class="compact-content">
+      <div class="contact-info">
+        <div>{{ user.address || 'No address' }}</div>
+        <div>{{ user.phoneNumber || 'No phone' }}</div>
+        <div>Expires: {{ formatDate(user.expiryDate) }}</div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Empty state when no users found -->
+  <div class="empty-state" *ngIf="filteredUsers.length === 0 && !loading">
+    <ion-icon name="people-outline" size="large"></ion-icon>
+    <h3>No members found</h3>
+    <p *ngIf="searchTerm">Try adjusting your search criteria</p>
+    <p *ngIf="!searchTerm">Add new members to see them listed here</p>
+    <ion-button expand="block" routerLink="/register-user">Add Member</ion-button>
+  </div>
+
+  <!-- Floating action button for adding new users -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/register-user">
+      <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

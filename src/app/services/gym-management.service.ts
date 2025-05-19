@@ -25,15 +25,34 @@ export class GymManagementService {
 
   getAllUsers(gymId: string | null): Observable<any> {
     const authResultJson = localStorage.getItem('authResult');
-    const authResult = JSON.parse(authResultJson || '{}');
-    if (!authResult) {
+    if (!authResultJson) {
       return new Observable((observer) => {
-        observer.error('User not logged in.');
+        observer.error({ status: 401, message: 'User not logged in.' });
         observer.complete();
       });
-    } else {
-      const url = `${this.apiUrl}?gymId=${gymId}&action=getAllUsers&Authorization=Bearer ${authResult.accessToken.token}`;
+    }
+    
+    try {
+      const authResult = JSON.parse(authResultJson);
+      // Check if we have the token in the expected structure or use idToken as fallback
+      const token = authResult?.accessToken?.token || authResult?.idToken || '';
+      
+      if (!token) {
+        console.error('No authentication token found in stored credentials');
+        return new Observable((observer) => {
+          observer.error({ status: 401, message: 'No valid authentication token found.' });
+          observer.complete();
+        });
+      }
+      
+      const url = `${this.apiUrl}?gymId=${gymId}&action=getAllUsers&Authorization=Bearer ${token}`;
       return this.http.get<any>(url);
+    } catch (error) {
+      console.error('Error parsing authentication data:', error);
+      return new Observable((observer) => {
+        observer.error({ status: 401, message: 'Invalid authentication data.' });
+        observer.complete();
+      });
     }
   }
 

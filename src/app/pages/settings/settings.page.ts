@@ -154,6 +154,12 @@ export class SettingsPage {
     });
   }
 
+  openUserList() {
+    this.router.navigate(['/user-list'], {
+      queryParams: { gymId: this.gymId || 'Gym20251' },
+    });
+  }
+
   openDashboard() {
     this.router.navigate(['/dashboard'], {});
   }

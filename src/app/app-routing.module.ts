@@ -123,6 +123,10 @@ const routes: Routes = [
         (m) => m.DashboardPageModule
       ),
   },
+  {
+    path: 'user-list',
+    loadChildren: () => import('./users/user-list/user-list.module').then( m => m.UserListPageModule)
+  },
 ];
 
 @NgModule({
