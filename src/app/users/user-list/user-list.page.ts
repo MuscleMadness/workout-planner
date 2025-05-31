@@ -3,8 +3,9 @@ import { User } from '../../models/user.model';
 import { GymManagementService } from 'src/app/services/gym-management.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateUtils } from 'src/app/utils/date-utils';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { LogPaymentModalComponent } from 'src/app/components/log-payment/log-payment.component';
 
 @Component({
   selector: 'app-user-list',
@@ -31,7 +32,8 @@ export class UserListPage implements OnInit {
     private route: ActivatedRoute,
     private alertController: AlertController,
     private toastController: ToastController,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -256,85 +258,70 @@ export class UserListPage implements OnInit {
    * Open a dialog to renew user membership
    */
   async renewMembership(user: User) {
-    const alert = await this.alertController.create({
-      header: 'Renew Membership',
-      subHeader: `${user.name}`,
-      message: 'Select membership renewal period:',
-      inputs: [
-        {
-          name: 'period',
-          type: 'radio',
-          label: '1 Month',
-          value: '1',
-          checked: true
-        },
-        {
-          name: 'period',
-          type: 'radio',
-          label: '3 Months',
-          value: '3'
-        },
-        {
-          name: 'period',
-          type: 'radio',
-          label: '6 Months',
-          value: '6'
-        },
-        {
-          name: 'period',
-          type: 'radio',
-          label: '1 Year',
-          value: '12'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Renew',
-          handler: (data) => {
-            this.processRenewal(user, parseInt(data.period));
-          }
-        }
-      ]
+    const modal = await this.modalController.create({
+      component: LogPaymentModalComponent,
+      componentProps: {
+        user: user,
+        gymId: this.gymId,
+      },
     });
 
-    await alert.present();
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const { paymentDate, paymentMode, amount, days } = result.data;
+        console.log('Payment Details:', result.data);
+
+        this.processRenewal(user, paymentDate, paymentMode, amount, days);
+      }
+    });
+
+    await modal.present();
   }
 
   /**
    * Process the membership renewal
    */
-  private processRenewal(user: User, monthsToAdd: number) {
+  private processRenewal(user: User, paymentDate: string, paymentMode: string, amount: number, days: number) {
+    console.log(`Renewing membership for ${user.name}`);
     if (!this.gymId) {
       this.showToast('Gym ID not found', 'danger');
       return;
     }
 
     this.loading = true;
-    
+
     // Calculate new expiry date based on current expiry date or today if already expired
     let startDate = new Date();
     const currentExpiry = new Date(this.convertToDateFormat(user.expiryDate));
-    
+
     // If membership hasn't expired yet, extend from current expiry date
     if (currentExpiry > startDate) {
       startDate = currentExpiry;
     }
-    
-    // Add the months to the start date
+
+    // Add the days to the start date
     const newExpiryDate = new Date(startDate);
-    newExpiryDate.setMonth(newExpiryDate.getMonth() + monthsToAdd);
-    
+    newExpiryDate.setDate(newExpiryDate.getDate() + days);
+
     // Format the date as DD/MM/YYYY for the API
     const formattedDate = `${newExpiryDate.getDate().toString().padStart(2, '0')}/${
       (newExpiryDate.getMonth() + 1).toString().padStart(2, '0')}/${
       newExpiryDate.getFullYear()}`;
-    
+
+    const transactionId = `TXN${Date.now()}`; // Example: Generate a unique transaction ID
+    const notes = `Renewed for ${days} days`;
+
     // Call service to update user's expiry date
-    this.gymManagementService.updateUserExpiry(this.gymId, user.userId.toString(), formattedDate)
+    this.gymManagementService.updateUserExpiry(
+      this.gymId,
+      user.userId.toString(),
+      amount,
+      days,
+      paymentMode,
+      transactionId,
+      notes,
+      paymentDate // Added paidDate argument
+    )
       .subscribe({
         next: () => {
           this.loading = false;

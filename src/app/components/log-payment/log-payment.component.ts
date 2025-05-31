@@ -12,6 +12,7 @@ export class LogPaymentModalComponent {
 
   selectedDuration = { days: 30, amount: 500 };
   paymentMode: 'Cash' | 'GPay' = 'Cash';
+  paymentDate: string = new Date().toISOString().split('T')[0]; // Default to today's date
 
   constructor(private modalCtrl: ModalController) {}
 
@@ -25,6 +26,7 @@ export class LogPaymentModalComponent {
       days: this.selectedDuration.days,
       amount: this.selectedDuration.amount,
       paymentMode: this.paymentMode,
+      paymentDate: this.paymentDate, // Include payment date
     };
     this.modalCtrl.dismiss(payment);
   }

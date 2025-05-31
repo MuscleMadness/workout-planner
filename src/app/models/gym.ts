@@ -31,6 +31,7 @@ export interface Payment {
   amount: number;
   days: number;
   paymentMode: string;
-  transactionId?: string;
-  notes?: string; 
+  paymentDate?: string; // Optional payment date
+  transactionId?: string; // Added optional transactionId field
+  notes?: string;
 }

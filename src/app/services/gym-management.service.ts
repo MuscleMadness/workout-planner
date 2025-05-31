@@ -7,8 +7,9 @@ import { Payment, RegisterUserRequest, User } from '../models/gym';
   providedIn: 'root',
 })
 export class GymManagementService {
+  private readonly deploymentId = 'AKfycbySykaTCTTIbfx_0ZEwx7kYGQxbW00ANv2IgIDK0UaUBdcCZj2UMAfA3hD1vj7fdzg3sQ';
   private apiUrl =
-    'https://script.google.com/macros/s/AKfycby90HgmIZ5H2HvQ5eHLh8ya9jJkCHRRLNnmEKYj0OGyF5d0TVFFckJeyTLk-zP2MHGyCw/exec';
+    `https://script.google.com/macros/s/${this.deploymentId}/exec`;
   // private apiUrl = '/api';
 
   constructor(private http: HttpClient) {}
@@ -158,7 +159,16 @@ export class GymManagementService {
     }
   }
 
-  updateUserExpiry(gymId: string | null, userId: string, expiryDate: string): Observable<any> {
+  updateUserExpiry(
+    gymId: string | null,
+    userId: string,
+    amount: number,
+    days: number,
+    paymentMode: string,
+    transactionId: string,
+    notes: string,
+    paidDate: string // Added paidDate parameter
+  ): Observable<any> {
     if (!gymId) {
       return new Observable((observer) => {
         observer.error('gymId is required.');
@@ -173,11 +183,11 @@ export class GymManagementService {
         observer.complete();
       });
     }
-    
+
     try {
       const authResult = JSON.parse(authResultJson);
       const token = authResult?.accessToken?.token || authResult?.idToken || '';
-      
+
       if (!token) {
         console.error('No authentication token found in stored credentials');
         return new Observable((observer) => {
@@ -185,13 +195,20 @@ export class GymManagementService {
           observer.complete();
         });
       }
-      
+
       const request = {
-        action: 'updateUserExpiry',
+        action: 'addPayment',
         gymId: gymId,
-        userId: userId,
-        expiryDate: expiryDate,
-        authorization: 'Bearer ' + token
+        authorization: 'Bearer ' + token,
+        payload: {
+          userId: userId,
+          amount: amount,
+          days: days,
+          paymentMode: paymentMode,
+          transactionId: transactionId,
+          notes: notes,
+          paidDate: paidDate, // Include paidDate in the payload
+        },
       };
 
       const headers = new HttpHeaders({
@@ -204,7 +221,7 @@ export class GymManagementService {
         observe: 'body' as const,
       };
 
-      console.log('Renewing membership:', request);
+      console.log('Updating user expiry with payload:', request);
 
       return this.http.post<any>(this.apiUrl, request, options);
     } catch (error) {
