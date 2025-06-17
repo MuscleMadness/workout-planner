@@ -46,7 +46,7 @@ export class MembershipPage implements OnInit {
 
   refreshInfo() {
     // Read gymId from query params
-    this.gymId = this.route.snapshot.queryParamMap.get('gymId');
+    this.gymId = this.route.snapshot.queryParamMap.get('gymId') ?? "Gym20251";
     this.phoneNumber =
       this.route.snapshot.queryParamMap.get('phoneNumber') ?? '';
     if (this.phoneNumber === '') {
