@@ -178,9 +178,9 @@ export class MembershipPage implements OnInit {
             this.userInfo = response.user;
             localStorage.setItem('lastUsedPhoneNumber', this.phoneNumber);
           } else {
-            this.showRegisterButton = true;
+            this.showRegisterButton = false;
             this.userInfo = null; // User does not exist
-            this.error = 'User not found. Would you like to register?';
+            this.error = 'User not found. Contact admin';
           }
         },
         (error) => {
